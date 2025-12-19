@@ -2,7 +2,7 @@
 
 This is a Lua Language Server (LuaLS) plugin that provides type annotations and IntelliSense support for the QQT Diablo API, used in Lua scripts for Diablo Immortal game automation.
 
-**Version 1.9.9** - Enhanced with improved examples, type safety, operator support, and automation tools.
+**Version 1.9.9** - Enhanced with improved examples, type safety, operator support, safer generators, and automation tools.
 
 ## Features
 
@@ -109,35 +109,25 @@ After installation:
 
 ### Lua Runtime Installation (Optional)
 
-For console-based testing and running Lua scripts outside of the game environment, you can install Lua 5.1:
+For console-based testing and running Lua scripts outside of the game environment, install Lua 5.1:
 
-**Windows (PowerShell)**:
+**Windows (PowerShell)** — prefers winget (Lua for Windows) and falls back to manual download with checksum:
 
 ```powershell
 .\scripts\install_lua.ps1
 ```
 
-**Linux/Mac (Bash)**:
+**Linux/macOS (Bash)** — installs lua5.1 via package manager when available, otherwise builds from source (adds Homebrew arm64/x64 paths):
 
 ```bash
 ./scripts/install_lua.sh
 ```
 
-This will download and install Lua 5.1 to a local directory and automatically add it to your PATH environment variable. The installation includes:
-
-- **Windows**: Uses winget if available, otherwise downloads binaries manually. Adds to both user PATH and current session.
-- **Linux**: Uses system package manager (apt, yum, pacman) or builds from source.
-- **macOS**: Uses Homebrew or builds from source.
-
-After installation, Lua will be available in all new terminals and VS Code sessions. You can also use the setup scripts with the Lua installation flag:
-
-**Windows**:
+After installation, Lua is added to PATH for new shells. You can also pass the install flag to the one-click setup:
 
 ```powershell
 .\setup.ps1 -InstallLua
 ```
-
-**Linux/Mac**:
 
 ```bash
 ./setup.sh --install-lua
@@ -163,12 +153,9 @@ To sync with the latest changes from the QQT Diablo wiki and keep the annotation
 
 2. Review the updated markdown files in `temp_wiki/` for any new API changes or additions.
 
-3. Manually update the corresponding Lua annotation files in `library/` to reflect the wiki changes:
-
-   - Add new functions, classes, or parameters
-   - Update type annotations from `any` to concrete types where possible
-   - Enhance descriptions and add code examples
-   - Verify cross-references to wiki pages
+3. Refresh annotations:
+  - Run `python update_annotations.py --dry-run` first (safe: preserves function bodies and shows intended annotation changes).
+  - Manually update the corresponding Lua files in `library/` when the wiki changes: add functions, tighten types (avoid `any`), align descriptions/examples, and verify wiki links.
 
 4. Test the updated annotations in your LuaLS environment to ensure no syntax errors and proper IntelliSense.
 
@@ -238,7 +225,7 @@ Based on the QQT Diablo wiki: https://github.com/qqtnn/qqt_diablo.wiki.git
 
 - If submodule updates fail, try: `git submodule sync && git submodule update --init --recursive`
 - Manually review changes in `temp_wiki/` after updates
-- Use `python update_annotations.py` to help identify missing functions
+- Use `python update_annotations.py --dry-run` to help identify missing functions without overwriting bodies
 - The wiki currently embeds Item Data inside `Game-Object.md`; the generator now falls back to that section when `Item-Data.md` is absent.
 
 ## Performance Tips

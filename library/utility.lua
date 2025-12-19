@@ -1,10 +1,17 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Utility
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Utility
 
 ---@class utility
 ---@description Helper functions for gameplay queries and navigation.
 local utility = {}
+
+---@class raycast_result
+---@field hit? boolean
+---@field position? vec3
+---@field distance? number
+---@field walkable? boolean
+---@description Raycast sample describing a step/hit along a traced path; engine may omit fields.
 
 ---@param spell_id number
 ---@return boolean
@@ -92,7 +99,7 @@ function utility.is_ray_cast_walkeable(origin, destination, width, steps_distanc
 ---@param destination vec3
 ---@param width number
 ---@param steps_distance number
----@return table
+---@return raycast_result[]
 ---@description Raycast results along a path.
 ---@since 1.0.0
 function utility.get_raycast_table(origin, destination, width, steps_distance) end

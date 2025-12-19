@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Target-Selector
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Target-Selector
 
 ---@class area_result
 ---@field main_target game_object

@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Vector-3
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Vector-3
 
 ---@class vec3
 ---@description 3D vector utilities for world-space calculations.

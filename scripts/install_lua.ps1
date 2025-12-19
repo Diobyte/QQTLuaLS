@@ -8,6 +8,7 @@ param(
 
 $LuaVersion = "5.1.5"
 $LuaUrl = "https://downloads.sourceforge.net/project/luabinaries/5.1.5/Windows%20Libraries/Dynamic/lua-5.1.5_Win64_dllw6_lib.zip"
+$LuaSha256 = "a5d0e3e850c4c0df0dc38ac6890afc76087abb5036bb77eb8aad66ec189c3a8c"
 $ZipPath = "$env:TEMP\lua-$LuaVersion.zip"
 
 Write-Host "QQTLuaLS Lua Installer" -ForegroundColor Cyan
@@ -20,49 +21,62 @@ if ((Get-Command lua -ErrorAction SilentlyContinue) -and -not $Force) {
     exit 0
 }
 
-# Try to install using winget first (modern Windows)
+# Try winget first (most reliable currently) and fall back to manual download if unavailable
 if (Get-Command winget -ErrorAction SilentlyContinue) {
-    Write-Host "Installing Lua using winget..." -ForegroundColor Yellow
+    Write-Host "Installing Lua $LuaVersion via winget (Lua for Windows)..." -ForegroundColor Yellow
     try {
-        winget install --id=rjpcomputing.luaforwindows --accept-source-agreements --accept-package-agreements
-        Write-Host "Lua installed successfully via winget!" -ForegroundColor Green
-        
+        winget install --id=rjpcomputing.luaforwindows --accept-source-agreements --accept-package-agreements --silent
+
         # Find the Lua installation directory
-        $luaPath = "C:\Program Files (x86)\Lua\5.1"
-        if (-not (Test-Path "$luaPath\lua.exe")) {
-            # Try alternative locations
-            $luaPath = Get-ChildItem "C:\Program Files*\Lua" -Directory | Where-Object { Test-Path "$($_.FullName)\lua.exe" } | Select-Object -First 1 -ExpandProperty FullName
+        $luaPath = "C:\\Program Files (x86)\\Lua\\5.1"
+        if (-not (Test-Path "$luaPath\\lua.exe")) {
+            $luaPath = Get-ChildItem "C:\\Program Files*\\Lua" -Directory -ErrorAction SilentlyContinue |
+                Where-Object { Test-Path "$($_.FullName)\\lua.exe" } |
+                Select-Object -First 1 -ExpandProperty FullName
         }
-        
+
         if ($luaPath) {
-            # Add to PATH for current session
             $env:PATH = "$luaPath;$env:PATH"
-            
-            # Add to user PATH permanently
             $userPath = [Environment]::GetEnvironmentVariable("PATH", "User")
             if ($userPath -notlike "*$luaPath*") {
                 [Environment]::SetEnvironmentVariable("PATH", "$userPath;$luaPath", "User")
                 Write-Host "Added Lua to your PATH. Restart your terminal for the changes to take effect." -ForegroundColor Yellow
             }
+
+            $testResult = & lua -v 2>&1
+            if ($testResult -match "Lua") {
+                Write-Host "Lua is working correctly." -ForegroundColor Green
+                exit 0
+            }
         }
-        
-        # Test installation
-        $testResult = & lua -v 2>&1
-        if ($testResult -match "Lua") {
-            Write-Host "Lua is working correctly." -ForegroundColor Green
-        }
-        exit 0
+
+        Write-Host "winget install completed but lua.exe was not located; falling back to manual download." -ForegroundColor Yellow
     } catch {
-        Write-Host "Winget installation failed, trying manual download..." -ForegroundColor Yellow
+        Write-Host "winget installation failed, falling back to manual download..." -ForegroundColor Yellow
     }
+} else {
+    Write-Host "winget not available; falling back to manual download..." -ForegroundColor Yellow
 }
 
-# Fallback: manual download
-Write-Host "Downloading Lua $LuaVersion manually..." -ForegroundColor Yellow
+# Manual download fallback (may be unavailable if SourceForge mirror is down)
+Write-Host "Downloading Lua $LuaVersion (64-bit) manually..." -ForegroundColor Yellow
 
 try {
     # Download Lua binaries
     Invoke-WebRequest -Uri $LuaUrl -OutFile $ZipPath -UseBasicParsing
+
+    # Verify checksum if Get-FileHash is available
+    if (Get-Command Get-FileHash -ErrorAction SilentlyContinue) {
+        try {
+            $hash = (Get-FileHash $ZipPath -Algorithm SHA256).Hash.ToLower()
+            if ($hash -ne $LuaSha256) {
+                Write-Host "Checksum mismatch: expected $LuaSha256, got $hash" -ForegroundColor Red
+                exit 1
+            }
+        } catch {
+            Write-Host "Checksum verification skipped (unable to hash download)." -ForegroundColor Yellow
+        }
+    }
 
     Write-Host "Extracting Lua..." -ForegroundColor Yellow
 

@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Actors-Manager
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Actors-Manager
 
 ---@class actors_manager
 local actors_manager = {}

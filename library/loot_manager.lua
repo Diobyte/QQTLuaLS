@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Loot-Manager
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Loot-Manager
 
 ---@class loot_manager
 ---@description Loot interaction and vendor utilities.

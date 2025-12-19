@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/World
+---@see https://github.com/qqtnn/qqt_diablo/wiki/World
 
 ---@class world
 ---@description Provides game-world context: retrieve the active world instance, its name, current zone, and world identifier.

@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Item-Data
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Item-Data
 
 ---@class item_data
 local item_data = {}

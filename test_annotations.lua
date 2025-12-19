@@ -214,8 +214,10 @@ end
 -- Get all .lua files in the library directory
 local library_files = {}
 
--- Use dir command to get accurate filenames
-local handle = io.popen('dir /b library')
+-- Cross-platform directory listing
+local path_sep = package.config:sub(1,1)
+local list_cmd = path_sep == '\\' and 'dir /b "library"' or 'ls -1 "library"'
+local handle = io.popen(list_cmd)
 if handle then
     for line in handle:lines() do
         if line:match('%.lua$') then
@@ -256,17 +258,7 @@ if #library_files == 0 then
 end
 
 local skip_files = {
-    ["library/auto_play.lua"] = false,
-    ["library/loot_manager.lua"] = false,
-    ["library/orbwalker.lua"] = false,
-    ["library/pathfinder.lua"] = false,
-    ["library/utility.lua"] = false,
-    ["library/vec2.lua"] = false,
-    ["library/vec3.lua"] = false,
-    ["library/callbacks.lua"] = false,
-    ["library/item_data.lua"] = false,
-    ["library/menu_elements.lua"] = false,
-    ["library/prediction.lua"] = false
+    ["library/vec2_temp.lua"] = true -- explicit opt-out list
 }
 
 local all_passed = true

@@ -1,17 +1,33 @@
 {
-    "Lua.workspace.library":  [
-                                  "./library",
-                                  "C:\\Users\\Diobit27\\Documents\\GitHub\\Helltide\\QQTLuaLS\\library"
-                              ],
-    "Lua.runtime.version":  "Lua 5.1",
-    "Lua.diagnostics.globals":  [
-                                    "get_local_player",
-                                    "get_player_position",
-                                    "actors_manager",
-                                    "vec3",
-                                    "color_white",
-                                    "graphics",
-                                    "cast_spell",
-                                    "pathfinder"
-                                ]
+    "Lua.runtime.version": "Lua 5.1",
+    "Lua.workspace.library": [
+        "${workspaceFolder}/library"
+    ],
+    "Lua.diagnostics.globals": [
+        "actors_manager",
+        "auto_play",
+        "callbacks",
+        "cast_spell",
+        "color",
+        "color_white",
+        "console",
+        "enums",
+        "evade",
+        "game_object",
+        "get_local_player",
+        "get_player_position",
+        "graphics",
+        "home",
+        "loot_manager",
+        "menu_elements",
+        "orbwalker",
+        "pathfinder",
+        "prediction",
+        "spell_data",
+        "target_selector",
+        "utility",
+        "vec2",
+        "vec3",
+        "world"
+    ]
 }

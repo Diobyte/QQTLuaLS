@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Color
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Color
 
 ---@class color
 ---@overload fun(r: number, g: number, b: number): color

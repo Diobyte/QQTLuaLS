@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Evade
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Evade
 
 ---@class evade
 ---@class evade.danger_levels

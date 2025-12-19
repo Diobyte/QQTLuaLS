@@ -1,6 +1,9 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Global-Functions
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Global-Functions
+
+---@class quest
+---@description Quest entry returned by get_quests; fields are engine-defined and may vary.
 
 ---@return game_object
 ---@description Accesses the game object representing the local player.
@@ -11,11 +14,13 @@ function get_local_player() end
 ---@return string
 ---@description Retrieves the character name of the local player.
 ---@since 1.0.0
+---@example local name = get_local_player_name()
 function get_local_player_name() end
 
 ---@return vec3
 ---@description Retrieves the current position of the local player in world space.
 ---@since 1.0.0
+---@example local pos = get_player_position()
 function get_player_position() end
 
 ---@return game_object[]
@@ -37,11 +42,13 @@ function get_hash(str) end
 ---@return vec3
 ---@description Obtains the current cursor position in world space.
 ---@since 1.0.0
+---@example local cursor = get_cursor_position()
 function get_cursor_position() end
 
 ---@return number
 ---@description Provides the current in-game time.
 ---@since 1.0.0
+---@example local now = get_gametime()
 function get_gametime() end
 
 ---@return number
@@ -58,6 +65,7 @@ function get_equipped_spell_ids() end
 ---@return string
 ---@description Returns the name of the spell for the given spell id.
 ---@since 1.0.0
+---@example local spell_name = get_name_for_spell(123456)
 function get_name_for_spell(spell_id) end
 
 ---@return boolean
@@ -76,9 +84,10 @@ function get_open_inventory_bag() end
 ---@since 1.0.0
 function get_key_state(key) end
 
----@return table
+---@return quest[]
 ---@description Retrieves a table of all active quests.
 ---@since 1.0.0
+---@example for _, q in ipairs(get_quests()) do console.print(q) end
 function get_quests() end
 
 ---@return game_object
@@ -90,6 +99,7 @@ function get_hovered_item() end
 ---@return boolean
 ---@description Initiates an interaction with the specified game object.
 ---@since 1.0.0
+---@example local ok = interact_object(get_hovered_item())
 function interact_object(object) end
 
 ---@param object game_object
@@ -121,6 +131,7 @@ function get_helltide_coin_hearts() end
 ---@return boolean
 ---@description Exits the current dungeon.
 ---@since 1.0.0
+---@example local exited = leave_dungeon()
 function leave_dungeon() end
 
 ---@return nil
@@ -141,6 +152,7 @@ function leave_game() end
 ---@return nil
 ---@description Uses a health potion to restore player health.
 ---@since 1.0.0
+---@example use_health_potion()
 function use_health_potion() end
 
 ---@return nil
@@ -152,9 +164,10 @@ function reset_all_dungeons() end
 ---@return nil
 ---@description Teleports to the waypoint identified by id.
 ---@since 1.0.0
+---@example teleport_to_waypoint(0x6CC71)
 function teleport_to_waypoint(id) end
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Color
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Color
 
 ---@param alpha number
 ---@return color

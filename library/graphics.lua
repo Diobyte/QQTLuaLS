@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Graphics
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Graphics
 
 ---@class graphics
 ---@description Rendering helpers for shapes, text, and images in 2D/3D.

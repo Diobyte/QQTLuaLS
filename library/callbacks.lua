@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Callbacks
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Callbacks
 
 ---@alias OnRenderCallback fun(delta_time: number)
 ---@alias OnUpdateCallback fun()

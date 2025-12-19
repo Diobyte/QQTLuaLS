@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Menu-Elements
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Menu-Elements
 
 ---@class button
 ---@class checkbox

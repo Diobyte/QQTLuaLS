@@ -266,70 +266,55 @@ def infer_param_type(param_name, func_name):
         return 'any'
 
 def generate_updated_lua(existing_content, functions, lua_file):
-    """Generate updated Lua content with new annotations."""
-    class_name = lua_file.split('.')[0] if '.' in lua_file else lua_file
-    
+    """Generate updated Lua content with refreshed annotations only (no body rewriting)."""
+
+    # Build a lookup of wiki functions by their declared name for exact matching
+    wiki_lookup = {name: (params, return_type, desc) for name, params, return_type, desc in functions}
+
     lines = existing_content.split('\n')
     new_lines = []
     i = 0
-    
+
     while i < len(lines):
         line = lines[i]
-        
-        # Check if this is a function definition
+
         if line.startswith('function ') and '(' in line:
             func_name_match = re.search(r'function\s+([^\(\s]+)', line)
             if func_name_match:
                 current_func_name = func_name_match.group(1)
-                
-                # Find the corresponding function from wiki
-                wiki_func = None
-                for func_name, params, return_type, desc in functions:
-                    # Match by method name only (after last dot or colon)
-                    current_method = current_func_name.split('.')[-1] if '.' in current_func_name else current_func_name
-                    wiki_method = func_name
-                    if wiki_method == current_method:
-                        wiki_func = (func_name, params, return_type, desc)
-                        break
-                
-                if wiki_func:
-                    func_name, params, return_type, desc = wiki_func
-                    
-                    # Look backwards for existing annotations
+
+                # Match only on the full function name to avoid cross-module collisions
+                wiki_entry = wiki_lookup.get(current_func_name)
+
+                if not wiki_entry:
+                    # Some files use method-colon syntax while the wiki uses bare names; try suffix match
+                    short_name = current_func_name.split(':')[-1]
+                    wiki_entry = wiki_lookup.get(short_name)
+
+                if wiki_entry:
+                    params, return_type, desc = wiki_entry
+
+                    # Find start of existing annotations
                     annotations_start = i
                     j = i - 1
-                    existing_annotations = []
                     while j >= 0 and (lines[j].startswith('---@') or lines[j].strip() == ''):
-                        if lines[j].startswith('---@'):
-                            existing_annotations.insert(0, lines[j])
+                        annotations_start = j
                         j -= 1
-                    annotations_start = j + 1
-                    
-                    # Generate complete annotation block
+
+                    # Generate new annotations and keep the original function line and body intact
                     annotation_lines = generate_lua_annotation(current_func_name, params, return_type, desc).split('\n')
-                    
-                    # Replace existing annotations with complete ones
-                    new_lines = new_lines[:annotations_start] + annotation_lines + [line]
-                    
-                    # Skip the original function line and any existing annotations we already processed
-                    while i < len(lines) and not (lines[i].startswith('function ') and '(' in lines[i]):
-                        i += 1
-                    i += 1  # Skip the function line we just processed
+                    new_lines = new_lines[:annotations_start]
+                    new_lines.extend(annotation_lines)
+                    # append the function line itself
+                    new_lines.append(line)
+
+                    i += 1
                     continue
-        
+
         new_lines.append(line)
         i += 1
-    
-    # Add any new functions that don't exist yet
-    for func_name, params, return_type, desc in functions:
-        full_func_name = f"{class_name}:{func_name}" if class_name != "global" else func_name
-        func_pattern = f"function {full_func_name}("
-        if not any(func_pattern in line for line in new_lines):
-            # Add the function
-            annotation = generate_lua_annotation(full_func_name, params, return_type, desc)
-            new_lines.append("")
-            new_lines.extend(annotation.split('\n'))
-    
+
+    # Intentionally do NOT add new functions automatically to avoid generating wrong separators or clobbering manual code.
     return '\n'.join(new_lines)
 
 def get_wiki_file_mapping():

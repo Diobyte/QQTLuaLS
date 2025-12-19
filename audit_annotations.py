@@ -4,6 +4,7 @@
 
 import os
 import re
+import argparse
 from pathlib import Path
 
 def check_function_annotations(file_path):
@@ -201,16 +202,27 @@ if __name__ == "__main__":
     print("QQTLuaLS Annotation Consistency Audit")
     print("=" * 50)
 
+    parser = argparse.ArgumentParser(description="Audit annotation completeness without rewriting sources.")
+    parser.add_argument("--fix", action="store_true", help="Attempt to fix issues after creating .bak backups.")
+    args = parser.parse_args()
+
     if audit_all_files():
         print("\nAll files pass consistency check!")
     else:
-        print("\nRunning auto-fix for missing annotations...")
+        if not args.fix:
+            print("\nIssues detected. Auto-fix is disabled by default to avoid clobbering sources.")
+            print("Run `python audit_annotations.py --fix` to attempt non-destructive fixes (writes backups).")
+            exit(1)
+
+        print("\nRunning auto-fix (backups with .bak suffix)...")
         library_dir = Path('library')
 
         for lua_file in library_dir.glob('*.lua'):
             if lua_file.name == 'vec2_temp.lua':
                 continue
-            print(f"Fixing {lua_file.name}...")
+            backup_path = lua_file.with_suffix(lua_file.suffix + '.bak')
+            backup_path.write_text(lua_file.read_text(encoding='utf-8'), encoding='utf-8')
+            print(f"Fixing {lua_file.name} (backup: {backup_path.name})...")
             fix_missing_annotations(lua_file)
 
         print("\nRe-auditing after fixes...")

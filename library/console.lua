@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Console
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Console
 
 ---@class console
 

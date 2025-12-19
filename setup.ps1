@@ -6,45 +6,64 @@ param(
     [switch]$InstallLua
 )
 
+$ErrorActionPreference = "Stop"
+
 $REPO_URL = "https://github.com/Diobit27/QQTLuaLS.git"
 $INSTALL_DIR = "$env:USERPROFILE\.vscode\extensions\qqtluals"
+
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+    Write-Host "Error: git is required but not found in PATH." -ForegroundColor Red
+    exit 1
+}
 
 Write-Host "QQTLuaLS One-Click Setup" -ForegroundColor Cyan
 Write-Host "=========================" -ForegroundColor Cyan
 
-# Install Lua if requested
-if ($InstallLua) {
-    Write-Host "Installing Lua..." -ForegroundColor Yellow
-    & ".\scripts\install_lua.ps1"
-    Write-Host "Lua installed and added to PATH." -ForegroundColor Green
+try {
+    Push-Location -Path (Split-Path -Parent $MyInvocation.MyCommand.Path)
+
+    # Install Lua if requested
+    if ($InstallLua) {
+        Write-Host "Installing Lua..." -ForegroundColor Yellow
+        & ".\scripts\install_lua.ps1"
+        Write-Host "Lua installed and added to PATH." -ForegroundColor Green
+        Write-Host ""
+    }
+
+    # Clone or update repository
+    if (Test-Path $INSTALL_DIR) {
+        Write-Host "Updating existing installation..."
+        Push-Location $INSTALL_DIR
+        git pull --rebase
+    } else {
+        Write-Host "Cloning QQTLuaLS repository..."
+        git clone $REPO_URL $INSTALL_DIR
+        Push-Location $INSTALL_DIR
+    }
+
+    # Initialize submodules
+    Write-Host "Initializing submodules..."
+    git submodule update --init --recursive
+
+    # Run installation
+    Write-Host "Installing to VS Code..."
+    if ($Global) {
+        .\scripts\install_for_vscode.ps1 -Global
+    } else {
+        .\scripts\install_for_vscode.ps1
+    }
+
     Write-Host ""
+    Write-Host "✅ Installation complete!" -ForegroundColor Green
+    Write-Host "Restart VS Code to start using QQTLuaLS." -ForegroundColor Green
+    Write-Host ""
+    Write-Host "Test it by creating a Lua file and typing: get_local_player()" -ForegroundColor Yellow
 }
-
-# Clone or update repository
-if (Test-Path $INSTALL_DIR) {
-    Write-Host "Updating existing installation..."
-    Set-Location $INSTALL_DIR
-    git pull
-} else {
-    Write-Host "Cloning QQTLuaLS repository..."
-    git clone $REPO_URL $INSTALL_DIR
-    Set-Location $INSTALL_DIR
+catch {
+    Write-Host "Setup failed: $($_.Exception.Message)" -ForegroundColor Red
+    exit 1
 }
-
-# Initialize submodules
-Write-Host "Initializing submodules..."
-git submodule update --init --recursive
-
-# Run installation
-Write-Host "Installing to VS Code..."
-if ($Global) {
-    .\scripts\install_for_vscode.ps1 -Global
-} else {
-    .\scripts\install_for_vscode.ps1
+finally {
+    Pop-Location -ErrorAction SilentlyContinue
+    Pop-Location -ErrorAction SilentlyContinue
 }
-
-Write-Host ""
-Write-Host "✅ Installation complete!" -ForegroundColor Green
-Write-Host "Restart VS Code to start using QQTLuaLS." -ForegroundColor Green
-Write-Host ""
-Write-Host "Test it by creating a Lua file and typing: get_local_player()" -ForegroundColor Yellow

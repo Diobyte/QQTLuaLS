@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Pathfinder
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Pathfinder
 
 ---@class pathfinder
 ---@description Pathfinding helpers for movement.

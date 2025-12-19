@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Auto-Play
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Auto%E2%80%90Play
 
 ---@class auto_play
 ---@description Automation helpers for objectives and paths.

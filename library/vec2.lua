@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Vector-2
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Vector-2
 
 ---@class vec2
 ---@description 2D vector utilities for screen/UI calculations.

@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Orbwalker
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Orbwalker
 
 ---@class orbwalker
 ---@description Combat movement controller.

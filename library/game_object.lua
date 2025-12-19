@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Game-Object
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Game-Object
 
 ---@class game_object
 ---@enum CharacterClass

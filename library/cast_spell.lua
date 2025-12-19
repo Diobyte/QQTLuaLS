@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Cast-Spell
+---@see https://github.com/qqtnn/qqt_diablo/wiki/Cast-Spell
 
 ---@class cast_spell
 

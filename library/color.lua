@@ -1,21 +1,11 @@
 ---@meta
 
+---@see https://github.com/qqtnn/qqt_diablo.wiki.git/wiki/Color
+
 ---@class color
----@field r number
----@field g number
----@field b number
----@field a number
-local color_class = {}
+---@overload fun(r: number, g: number, b: number): color
+---@overload fun(r: number, g: number, b: number, a: number): color
+local color = {}
 
----@param r number
----@param g number
----@param b number
 ---@return color
-function color(r, g, b) end
-
----@param r number
----@param g number
----@param b number
----@param a number
----@return color
-function color(r, g, b, a) end
+function color.new(r, g, b) end

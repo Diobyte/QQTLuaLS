@@ -243,7 +243,7 @@ function color_gray_clear(alpha) end
 ---@description Creates an orange red color with specified alpha transparency.
 function color_orange_red(alpha) end
 
----@class waypoints_enum
+---@enum waypoints_enum
 local waypoints_enum = {
     GEA_KUL = 0xB66AB,
     IRON_WOLVES_ENCAMPMENT = 0xDEAFC,

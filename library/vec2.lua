@@ -5,12 +5,28 @@
 ---@class vec2
 ---@description The `vec2` class provides 2D vector operations essential for screen coordinates, UI positioning, and 2D calculations in the Diablo Lua API.
 
+---@operator add(vec2):vec2
+---@operator sub(vec2):vec2
+---@operator mul(number):vec2
+---@operator div(number):vec2
+---@operator unm:vec2
+
 ---@overload fun(x: number, y: number): vec2
 local vec2 = {}
 ---@return vec2
 ---@description Creates a new vec2 instance with the specified x and y coordinates.
 ---@example local pos = vec2.new(100, 200)
 function vec2.new(x, y) end
+
+---@return number
+---@description Returns the x-coordinate of the vector.
+---@example local x = vec2.new(100, 200):x() -- Returns 100
+function vec2:x() end
+
+---@return number
+---@description Returns the y-coordinate of the vector.
+---@example local y = vec2.new(100, 200):y() -- Returns 200
+function vec2:y() end
 
 ---@return boolean
 ---@description Checks if this vec2 represents the zero vector (0, 0).
@@ -35,6 +51,7 @@ function vec2:distance(other) end
 function vec2:distance_squared(other) end
 
 ---@return boolean
+---@description Evaluates if this vector intersects with another object or vector.
 function vec2:intersects() end
 
 ---@return number

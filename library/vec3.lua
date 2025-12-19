@@ -4,6 +4,12 @@
 
 ---@class vec3
 
+---@operator add(vec3):vec3
+---@operator sub(vec3):vec3
+---@operator mul(number):vec3
+---@operator div(number):vec3
+---@operator unm:vec3
+
 ---@overload fun(x: number, y: number, z: number): vec3
 ---@overload fun(other: vec3): vec3
 local vec3 = {}

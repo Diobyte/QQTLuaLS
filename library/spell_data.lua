@@ -2,6 +2,8 @@
 
 ---@see https://github.com/qqtnn/qqt_diablo/wiki/Spell-Data
 
+---@alias spell_id number
+
 ---@class spell_data
 ---@field radius number
 ---@field range number
@@ -30,4 +32,4 @@ function spell_data:new(radius, range, cast_delay, projectile_speed, has_wall_co
     return {}
 end
 
-local spell_data = {}
+return spell_data

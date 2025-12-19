@@ -1,9 +1,22 @@
 -- Sample script demonstrating QQTLuaLS API usage
 -- This file shows how to use the annotated API with proper IntelliSense
 
+-- Minimal stubs for standalone linting; runtime methods are defined in library/game_object.lua and vec3.lua
+---@class game_object
+---@field is_spell_ready fun(self:game_object, spell_id:number):boolean
+---@field get_current_health fun(self:game_object):number
+---@field get_max_health fun(self:game_object):number
+
+---@class vec3
+---@field get_extended fun(self:vec3, target:vec3, units:number):vec3
+
 -- Get player information
+---@type game_object
 local player = get_local_player()
+---@cast player game_object
+---@type vec3
 local player_pos = get_player_position()
+---@cast player_pos vec3
 local player_name = get_local_player_name()
 
 -- Find nearby enemies
@@ -26,6 +39,7 @@ for _, enemy in ipairs(enemies) do
 end
 
 -- Example spell usage
+---@type spell_data
 local spell = spell_data:new(5.0, 10.0, 0.5, 500, true, 123, spell_geometry.circular, targeting_type.skillshot)
 if player:is_spell_ready(spell.spell_id) then
     -- Cast spell logic
@@ -58,6 +72,7 @@ end
 -- Advanced spell casting with validation
 local function cast_spell_safe(spell_id, target_pos)
     local player = get_local_player()
+    ---@cast player game_object
     if not player then
         print("Error: Player not found")
         return false

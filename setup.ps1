@@ -2,7 +2,8 @@
 # Usage: Invoke-WebRequest -Uri "https://raw.githubusercontent.com/yourusername/QQTLuaLS/main/setup.ps1" -OutFile "setup.ps1"; .\setup.ps1
 
 param(
-    [switch]$Global = $true
+    [switch]$Global = $true,
+    [switch]$InstallLua
 )
 
 $REPO_URL = "https://github.com/yourusername/QQTLuaLS.git"
@@ -10,6 +11,13 @@ $INSTALL_DIR = "$env:USERPROFILE\.vscode\extensions\qqtluals"
 
 Write-Host "QQTLuaLS One-Click Setup" -ForegroundColor Cyan
 Write-Host "=========================" -ForegroundColor Cyan
+
+# Install Lua if requested
+if ($InstallLua) {
+    Write-Host "Installing Lua..." -ForegroundColor Yellow
+    & ".\scripts\install_lua.ps1"
+    Write-Host ""
+}
 
 # Clone or update repository
 if (Test-Path $INSTALL_DIR) {

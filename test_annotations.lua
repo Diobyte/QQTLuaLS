@@ -17,32 +17,49 @@ local function test_file(filepath)
     return true
 end
 
-local library_files = {
-    "library/actors_manager.lua",
-    "library/auto_play.lua",
-    "library/buff.lua",
-    "library/callbacks.lua",
-    "library/cast_spell.lua",
-    "library/color.lua",
-    "library/console.lua",
-    "library/enums.lua",
-    "library/evade.lua",
-    "library/game_object.lua",
-    "library/global.lua",
-    "library/graphics.lua",
-    "library/item_data.lua",
-    "library/loot_manager.lua",
-    "library/menu_elements.lua",
-    "library/orbwalker.lua",
-    "library/pathfinder.lua",
-    "library/prediction.lua",
-    "library/spell_data.lua",
-    "library/target_selector.lua",
-    "library/utility.lua",
-    "library/vec2.lua",
-    "library/vec3.lua",
-    "library/world.lua"
-}
+-- Get all .lua files in the library directory
+local library_files = {}
+
+-- Use dir command to get accurate filenames
+local handle = io.popen('dir /b library')
+if handle then
+    for line in handle:lines() do
+        if line:match('%.lua$') then
+            table.insert(library_files, 'library/' .. line)
+        end
+    end
+    handle:close()
+end
+
+if #library_files == 0 then
+    -- Fallback: manually list files (update this when new files are added)
+    library_files = {
+        "library/actors_manager.lua",
+        "library/auto" .. string.char(0xE2, 0x80, 0x93) .. "play.lua",
+        "library/buff.lua",
+        "library/callbacks.lua",
+        "library/cast_spell.lua",
+        "library/color.lua",
+        "library/console.lua",
+        "library/enums.lua",
+        "library/evade.lua",
+        "library/game_object.lua",
+        "library/global.lua",
+        "library/graphics.lua",
+        "library/item_data.lua",
+        "library/loot_manager.lua",
+        "library/menu_elements.lua",
+        "library/orbwalker.lua",
+        "library/pathfinder.lua",
+        "library/prediction.lua",
+        "library/spell_data.lua",
+        "library/target_selector.lua",
+        "library/utility.lua",
+        "library/vec2.lua",
+        "library/vec3.lua",
+        "library/world.lua"
+    }
+end
 
 local all_passed = true
 for _, file in ipairs(library_files) do

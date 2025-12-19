@@ -10,6 +10,13 @@ INSTALL_DIR="$HOME/.vscode/extensions/qqtluals"
 echo "QQTLuaLS One-Click Setup"
 echo "========================="
 
+# Install Lua if requested
+if [[ "$1" == "--install-lua" ]]; then
+    echo "Installing Lua..."
+    ./scripts/install_lua.sh
+    echo ""
+fi
+
 # Check if git is installed
 if ! command -v git &> /dev/null; then
     echo "Error: Git is required but not installed."

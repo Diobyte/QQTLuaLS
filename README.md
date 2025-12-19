@@ -107,6 +107,36 @@ After installation:
 - VS Code with [Lua Language Server extension](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) installed
 - Git for cloning the repository
 
+### Lua Runtime Installation (Optional)
+
+For console-based testing and running Lua scripts outside of the game environment, you can install Lua 5.1:
+
+**Windows (PowerShell)**:
+
+```powershell
+.\scripts\install_lua.ps1
+```
+
+**Linux/Mac (Bash)**:
+
+```bash
+./scripts/install_lua.sh
+```
+
+This will download and install Lua 5.1 to a local directory and update your PATH. You can also use the setup scripts with the Lua installation flag:
+
+**Windows**:
+
+```powershell
+.\setup.ps1 -InstallLua
+```
+
+**Linux/Mac**:
+
+```bash
+./setup.sh --install-lua
+```
+
 ### Example Configuration
 
 See `.vscode/settings.json` in this repository for an example configuration that includes:

@@ -3,6 +3,12 @@
     "Lua.workspace.library": [
         "${workspaceFolder}/library"
     ],
+    "Lua.workspace.checkThirdParty": false,
+    "Lua.workspace.ignoreDir": [
+        "temp_wiki",
+        ".git",
+        "__pycache__"
+    ],
     "Lua.diagnostics.globals": [
         "actors_manager",
         "auto_play",

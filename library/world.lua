@@ -6,23 +6,46 @@
 ---@description The `world` class provides access to global game world information, including zone and world identifiers, essential for location-aware scripting in Diablo Immortal.
 
 local world = {}
-
----@return string
----@description Returns the name of the current world.
----@example local name = world:get_name()
----@since 1.0.0
-
+---@description TODO: Add description for get_name()
 ---@return any
+---@example local result = get_name()
+---@since 1.0.0
+function get_name()
+---@since 1.0.0
+---@example local result = get_name()
+---@description TODO: Add description for get_name()
+---@description TODO: Add description for get_current_zone_name()
+---@return any
+end
+---@since 1.0.0
+---@example local result = get_name()
+---@description TODO: Add description for get_name()
+---@return any
+
 function get_name()
 end
+---@description TODO: Add description for get_world_id()
 
-
+---@return any
+---@example local result = get_current_zone_name()
+---@since 1.0.0
+---@since 1.0.0
+---@example local result = get_world_id()
+---@description TODO: Add description for get_world_id()
+---@description TODO: Add description for get_world_id()
 ---@return any
 function get_current_zone_name()
 end
-
-
+---@since 1.0.0
+---@example local result = get_world_id()
+---@description TODO: Add description for get_world_id()
 ---@return any
+---@return any
+---@example local result = get_world_id()
+---@since 1.0.0
+function get_world_id()
+end
+
 function get_world_id()
 end
 

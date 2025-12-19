@@ -9,6 +9,7 @@
 ---@field high any
 local danger_levels = {}
 local evade = {}
+---@since 1.0.0
 
 ---@param internal_names string[]
 ---@param menu_name string
@@ -24,7 +25,9 @@ local evade = {}
 ---@example evade.register_circular_spell({"fireball"}, "Fire Ball", 5.0, color_red(255), evade.danger_levels.high, 1.0, true, false, 0.5)
 function evade.register_circular_spell(internal_names, menu_name, radius, color, danger_lvl, explosion_delay, is_moving,
                                        set_to_player_pos, set_to_player_pos_delay)
+---@since 1.0.0
 end
+---@since 1.0.0
 
 ---@param identifier string
 ---@param names_v string[]

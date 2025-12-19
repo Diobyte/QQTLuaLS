@@ -5,6 +5,7 @@
 import os
 import re
 import json
+import argparse
 import subprocess
 from pathlib import Path
 
@@ -34,7 +35,42 @@ TYPE_MAP = {
     'targeting_type': 'targeting_type',
     'orb_mode': 'orb_mode',
     'item_rarity': 'item_rarity',
+    'any': 'any',
+    'object': 'game_object',
+    'position': 'vec3',
+    'location': 'vec3',
 }
+
+def map_wiki_type_to_lua(wiki_type):
+    """Map wiki type to Lua type with support for arrays and unions."""
+    if not wiki_type:
+        return 'any'
+    
+    wiki_type = wiki_type.strip().lower()
+    
+    # Handle array types (Table of X)
+    if 'table of' in wiki_type:
+        base_type = wiki_type.replace('table of', '').strip()
+        lua_base = TYPE_MAP.get(base_type, base_type)
+        return f"{lua_base}[]"
+    
+    # Handle union types (X or Y)
+    if ' or ' in wiki_type:
+        parts = [part.strip() for part in wiki_type.split(' or ')]
+        lua_parts = []
+        for part in parts:
+            lua_part = TYPE_MAP.get(part, part)
+            lua_parts.append(lua_part)
+        return '|'.join(lua_parts)
+    
+    # Handle optional types (X?)
+    if wiki_type.endswith('?'):
+        base_type = wiki_type[:-1].strip()
+        lua_base = TYPE_MAP.get(base_type, base_type)
+        return f"{lua_base}|nil"
+    
+    # Direct mapping
+    return TYPE_MAP.get(wiki_type, wiki_type)
 
 def run_command(cmd):
     """Run a shell command and return output."""
@@ -43,8 +79,12 @@ def run_command(cmd):
 
 def update_submodule():
     """Update the temp_wiki submodule."""
-    print("Skipping submodule update for testing...")
-    return True
+    ok, out, err = run_command("git submodule update --init --remote temp_wiki")
+    if not ok:
+        print("Failed to update submodule temp_wiki")
+        if err:
+            print(err)
+    return ok
 
 def get_version():
     """Get current version from config.json."""
@@ -83,34 +123,6 @@ def update_version_files(new_version):
     except Exception as e:
         print(f"Error updating plugin.json: {e}")
 
-# Type mapping for wiki to Lua types
-TYPE_MAP = {
-    'vec3': 'vec3',
-    'vec2': 'vec2',
-    'game_object': 'game_object',
-    'gameobject': 'game_object',
-    'number': 'number',
-    'boolean': 'boolean',
-    'bool': 'boolean',
-    'string': 'string',
-    'table': 'table',
-    'void': 'nil',
-    'nil': 'nil',
-    'integer': 'number',
-    'int': 'number',
-    'float': 'number',
-    'color': 'color',
-    'spell_data': 'spell_data',
-    'item_data': 'item_data',
-    'buff': 'buff',
-    'characterclass': 'CharacterClass',
-    'button_click': 'button_click',
-    'spell_geometry': 'spell_geometry',
-    'targeting_type': 'targeting_type',
-    'orb_mode': 'orb_mode',
-    'item_rarity': 'item_rarity',
-}
-
 def parse_markdown_function(line):
     """Parse a function signature from markdown."""
     # Support multiple patterns
@@ -137,44 +149,142 @@ def generate_lua_annotation(func_name, params, return_type, description=""):
     # params is now a list of param names
     params_str = ', '.join(params) if params else ''
     
-    lua_return = TYPE_MAP.get(return_type, return_type)
+    lua_return = map_wiki_type_to_lua(return_type)
 
     annotation = ""
-    # Add @param for each parameter
+    # Add @param for each parameter with better type inference
     for param in params:
-        # Try to infer type from param name or use any
-        param_type = 'any'  # Default
-        if 'id' in param.lower():
-            param_type = 'number'
-        elif 'name' in param.lower():
-            param_type = 'string'
-        elif 'pos' in param.lower() or 'position' in param.lower():
-            param_type = 'vec3'
-        elif 'count' in param.lower() or 'index' in param.lower():
-            param_type = 'number'
+        param_type = infer_param_type(param, func_name)
         annotation += f"---@param {param} {param_type}\n"
     
     annotation += f"---@return {lua_return}\n"
     if description:
         annotation += f"---@description {description}\n"
-    annotation += f"---@example local result = {func_name}({params_str})\n"
+    
+    # Generate proper example
+    if '.' in func_name:
+        class_name = func_name.split('.')[0]
+        method_name = func_name.split('.')[1]
+        if params:
+            param_vars = []
+            for i, param in enumerate(params):
+                param_vars.append(f"param{i+1}")
+            param_str = ', '.join(param_vars)
+            annotation += f"---@example local result = {class_name}.{method_name}({param_str})\n"
+        else:
+            annotation += f"---@example local result = {class_name}.{method_name}()\n"
+    else:
+        if params:
+            param_vars = []
+            for i, param in enumerate(params):
+                param_vars.append(f"param{i+1}")
+            param_str = ', '.join(param_vars)
+            annotation += f"---@example local result = {func_name}({param_str})\n"
+        else:
+            annotation += f"---@example local result = {func_name}()\n"
+    
     annotation += f"---@since 1.0.0\n"
     annotation += f"function {func_name}({params_str})\nend\n"
 
     return annotation
 
+def infer_param_type(param_name, func_name):
+    """Infer parameter type based on name and context."""
+    param_lower = param_name.lower()
+    
+    # Common type mappings
+    if 'id' in param_lower and ('item' in param_lower or 'object' in param_lower):
+        return 'number'
+    elif 'id' in param_lower:
+        return 'number'
+    elif 'name' in param_lower:
+        return 'string'
+    elif 'pos' in param_lower or 'position' in param_lower or 'location' in param_lower:
+        return 'vec3'
+    elif 'count' in param_lower or 'index' in param_lower or 'amount' in param_lower:
+        return 'number'
+    elif 'obj' in param_lower or 'object' in param_lower or 'target' in param_lower:
+        return 'game_object'
+    elif 'enabled' in param_lower or 'active' in param_lower or 'visible' in param_lower:
+        return 'boolean'
+    elif 'color' in param_lower:
+        return 'color'
+    elif 'spell' in param_lower:
+        return 'spell_data'
+    elif 'exclude' in param_lower:
+        return 'boolean'
+    elif 'range' in param_lower or 'radius' in param_lower or 'distance' in param_lower:
+        return 'number'
+    else:
+        # Default to any for unknown parameters
+        return 'any'
+
 def generate_updated_lua(existing_content, functions, lua_file):
     """Generate updated Lua content with new annotations."""
     class_name = lua_file.split('.')[0] if '.' in lua_file else lua_file
     
+    lines = existing_content.split('\n')
+    new_lines = []
+    i = 0
+    
+    while i < len(lines):
+        line = lines[i]
+        
+        # Check if this is a function definition
+        if line.startswith('function ') and '(' in line:
+            func_name_match = re.search(r'function\s+([^\(\s]+)', line)
+            if func_name_match:
+                current_func_name = func_name_match.group(1)
+                
+                # Find the corresponding function from wiki
+                wiki_func = None
+                for func_name, params, return_type, desc in functions:
+                    # Match by method name only (after last dot or colon)
+                    current_method = current_func_name.split('.')[-1] if '.' in current_func_name else current_func_name
+                    wiki_method = func_name
+                    if wiki_method == current_method:
+                        wiki_func = (func_name, params, return_type, desc)
+                        break
+                
+                if wiki_func:
+                    func_name, params, return_type, desc = wiki_func
+                    
+                    # Look backwards for existing annotations
+                    annotations_start = i
+                    j = i - 1
+                    existing_annotations = []
+                    while j >= 0 and (lines[j].startswith('---@') or lines[j].strip() == ''):
+                        if lines[j].startswith('---@'):
+                            existing_annotations.insert(0, lines[j])
+                        j -= 1
+                    annotations_start = j + 1
+                    
+                    # Generate complete annotation block
+                    annotation_lines = generate_lua_annotation(current_func_name, params, return_type, desc).split('\n')
+                    
+                    # Replace existing annotations with complete ones
+                    new_lines = new_lines[:annotations_start] + annotation_lines + [line]
+                    
+                    # Skip the original function line and any existing annotations we already processed
+                    while i < len(lines) and not (lines[i].startswith('function ') and '(' in lines[i]):
+                        i += 1
+                    i += 1  # Skip the function line we just processed
+                    continue
+        
+        new_lines.append(line)
+        i += 1
+    
+    # Add any new functions that don't exist yet
     for func_name, params, return_type, desc in functions:
         full_func_name = f"{class_name}:{func_name}" if class_name != "global" else func_name
-        if f"function {full_func_name}(" not in existing_content:
+        func_pattern = f"function {full_func_name}("
+        if not any(func_pattern in line for line in new_lines):
             # Add the function
             annotation = generate_lua_annotation(full_func_name, params, return_type, desc)
-            existing_content += "\n" + annotation
+            new_lines.append("")
+            new_lines.extend(annotation.split('\n'))
     
-    return existing_content
+    return '\n'.join(new_lines)
 
 def get_wiki_file_mapping():
     """Map wiki files to library files."""
@@ -205,8 +315,11 @@ def get_wiki_file_mapping():
         "Item-Data.md": "item_data.lua",
     }
 
-def update_library_file(wiki_file, lua_file):
-    """Update a single library file from its wiki file."""
+def update_library_file(wiki_file, lua_file, dry_run=False):
+    """Update a single library file from its wiki file.
+
+    When dry_run is True, report intended changes without writing files.
+    """
     wiki_path = f"temp_wiki/{wiki_file}"
     lua_path = f"library/{lua_file}"
 
@@ -247,7 +360,7 @@ def update_library_file(wiki_file, lua_file):
                 return_type = "any"
                 # Look for description and return type in next lines
                 j = i + 1
-                while j < len(lines) and not (lines[j].startswith('`') and '()' in lines[j]):
+                while j < len(lines) and not (lines[j].startswith('`') and '()' in lines[j]) and j < i + 20:  # Safety limit
                     if "> [!NOTE]" in lines[j]:
                         desc = lines[j].replace("> [!NOTE]", "").strip()
                     elif lines[j].strip().startswith("- Returns:"):
@@ -276,6 +389,7 @@ def update_library_file(wiki_file, lua_file):
                 func_name, return_type = match.groups()
                 desc = line.split('-', 1)[1].strip() if '-' in line else ""
                 functions.append((func_name, "", return_type, desc))
+        i += 1
 
     if not functions:
         print(f"No functions found in {wiki_file}")
@@ -290,6 +404,9 @@ def update_library_file(wiki_file, lua_file):
     
     # Write back if changed
     if updated_content != existing_content:
+        if dry_run:
+            print(f"DRY RUN: {lua_file} would be updated ({len(functions)} functions)")
+            return True
         with open(lua_path, 'w', encoding='utf-8') as f:
             f.write(updated_content)
         print(f"Updated {lua_file} with {len(functions)} functions")
@@ -298,14 +415,14 @@ def update_library_file(wiki_file, lua_file):
         print(f"No changes needed for {lua_file}")
         return True
 
-def update_all_annotations():
+def update_all_annotations(dry_run=False):
     """Update all library files from wiki files."""
     try:
         mapping = get_wiki_file_mapping()
         updated_count = 0
 
         for wiki_file, lua_file in mapping.items():
-            if update_library_file(wiki_file, lua_file):
+            if update_library_file(wiki_file, lua_file, dry_run=dry_run):
                 updated_count += 1
 
         print(f"Updated {updated_count} library files")
@@ -327,7 +444,7 @@ def check_missing_functions():
             continue
 
         # Extract functions from wiki
-        with open(wiki_path, 'r') as f:
+        with open(wiki_path, 'r', encoding='utf-8') as f:
             content = f.read()
 
         wiki_functions = set()
@@ -359,29 +476,47 @@ def check_missing_functions():
     else:
         print(f"Total potentially missing functions: {total_missing}")
 
-if __name__ == "__main__":
+def parse_args():
+    parser = argparse.ArgumentParser(description="Update Lua annotations from wiki pages.")
+    parser.add_argument("--dry-run", action="store_true", help="Compute updates without writing files or bumping version.")
+    parser.add_argument("--skip-submodule", action="store_true", help="Do not update the temp_wiki submodule.")
+    parser.add_argument("--skip-version-bump", action="store_true", help="Do not bump version after updates.")
+    return parser.parse_args()
+
+
+def main():
     print("QQTLuaLS Annotation Update Tool")
     print("=" * 40)
 
+    args = parse_args()
     current_version = get_version()
     print(f"Current version: {current_version}")
 
-    if update_submodule():
-        if update_all_annotations():
-            # Bump version on successful update
-            new_version = bump_version(current_version)
-            update_version_files(new_version)
-            print(f"Version bumped to {new_version}")
-
-        check_missing_functions()
-        print("Update process completed. Please review and test changes.")
+    submodule_ok = True
+    if args.skip_submodule:
+        print("Skipping submodule update (--skip-submodule)")
     else:
-        print("Failed to update submodule. Running update anyway for testing...")
-        if update_all_annotations():
-            # Bump version on successful update
-            new_version = bump_version(current_version)
-            update_version_files(new_version)
-            print(f"Version bumped to {new_version}")
+        submodule_ok = update_submodule()
 
-        check_missing_functions()
-        print("Update process completed. Please review and test changes.")
+    if not submodule_ok:
+        print("Submodule update failed; continuing with existing wiki content.")
+
+    updated = update_all_annotations(dry_run=args.dry_run)
+
+    if updated and not args.dry_run and not args.skip_version_bump:
+        new_version = bump_version(current_version)
+        update_version_files(new_version)
+        print(f"Version bumped to {new_version}")
+    elif args.dry_run:
+        print("Dry run completed; no files were written and version was not bumped.")
+    elif args.skip_version_bump:
+        print("Updates applied; version bump skipped by flag.")
+    else:
+        print("No annotation updates detected; version unchanged.")
+
+    check_missing_functions()
+    print("Update process completed. Please review and test changes.")
+
+
+if __name__ == "__main__":
+    main()

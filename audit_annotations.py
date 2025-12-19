@@ -19,19 +19,36 @@ def check_function_annotations(file_path):
     i = 0
     while i < len(lines):
         line = lines[i]
-        if line.startswith('function ') and line.endswith(' end'):
-            # Found a function, look backwards for annotations
+        if line.startswith('function ') and '(' in line:
+            # Found a function definition, look for the corresponding end
             func_start = i
+            func_name = line.replace('function ', '').strip()
+            
+            # Look for the end of this function
+            j = i + 1
+            brace_count = 0
+            while j < len(lines):
+                if 'function ' in lines[j] and '(' in lines[j]:
+                    brace_count += 1
+                elif lines[j].strip() == 'end':
+                    if brace_count == 0:
+                        # This end matches our function
+                        func_end = j
+                        break
+                    else:
+                        brace_count -= 1
+                j += 1
+            
+            # Look backwards from function start for annotations
             annotations = []
-            j = i - 1
-            while j >= 0 and (lines[j].startswith('---@') or lines[j].strip() == ''):
-                if lines[j].startswith('---@'):
-                    annotations.insert(0, lines[j])
-                j -= 1
-
-            func_name = line.replace('function ', '').replace(' end', '').strip()
+            k = func_start - 1
+            while k >= 0 and (lines[k].startswith('---@') or lines[k].strip() == ''):
+                if lines[k].startswith('---@'):
+                    annotations.insert(0, lines[k])
+                k -= 1
+            
             functions.append((func_name, annotations, func_start))
-
+            i = j  # Skip to after this function
         i += 1
 
     # Check each function for required annotations
@@ -40,6 +57,7 @@ def check_function_annotations(file_path):
         has_description = any('@description' in ann for ann in annotations)
         has_example = any('@example' in ann for ann in annotations)
         has_since = any('@since' in ann for ann in annotations)
+        has_todo = any('TODO' in ann for ann in annotations)
 
         if not has_return:
             issues.append(f"Line {line_num + 1}: {func_name} missing @return")
@@ -49,6 +67,8 @@ def check_function_annotations(file_path):
             issues.append(f"Line {line_num + 1}: {func_name} missing @example")
         if not has_since:
             issues.append(f"Line {line_num + 1}: {func_name} missing @since")
+        if has_todo:
+            issues.append(f"Line {line_num + 1}: {func_name} annotation contains TODO placeholder")
 
     return issues
 
@@ -87,9 +107,20 @@ def fix_missing_annotations(file_path):
         line = lines[i]
 
         # If this is a function definition
-        if line.startswith('function ') and line.endswith(' end'):
-            func_name = line.replace('function ', '').replace(' end', '').strip()
-
+        if line.startswith('function ') and '(' in line:
+            func_name = line.replace('function ', '').strip()
+            
+            # Find the end of this function
+            func_end = i + 1
+            while func_end < len(lines) and not (lines[func_end].strip() == 'end'):
+                func_end += 1
+            
+            if func_end >= len(lines):
+                # Function doesn't have a proper end, skip it
+                new_lines.append(line)
+                i += 1
+                continue
+            
             # Look backwards for existing annotations
             annotations_start = i
             j = i - 1
@@ -111,21 +142,37 @@ def fix_missing_annotations(file_path):
             if not has_since:
                 insert_lines.append(f"---@since 1.0.0")
             if not has_example:
-                # Generate a basic example
-                if ':' in func_name:
+                # Generate a proper example based on function signature
+                if '.' in func_name:
                     # Method call
-                    class_name = func_name.split(':')[0]
-                    method_name = func_name.split(':')[1]
+                    class_name = func_name.split('.')[0]
+                    method_name = func_name.split('.')[1]
                     if '(' in method_name:
+                        # Extract parameters from function name
+                        param_part = method_name.split('(')[1].split(')')[0]
                         method_name = method_name.split('(')[0]
-                    insert_lines.append(f"---@example local result = {class_name}:{method_name}()")
+                        if param_part.strip():
+                            params = [p.strip() for p in param_part.split(',')]
+                            param_str = ', '.join([f"param{i+1}" for i in range(len(params))])
+                            insert_lines.append(f"---@example local result = {class_name}.{method_name}({param_str})")
+                        else:
+                            insert_lines.append(f"---@example local result = {class_name}.{method_name}()")
+                    else:
+                        insert_lines.append(f"---@example local result = {class_name}.{method_name}()")
                 else:
                     # Global function
                     if '(' in func_name:
+                        # Extract parameters from function name
+                        param_part = func_name.split('(')[1].split(')')[0]
                         func_base = func_name.split('(')[0]
+                        if param_part.strip():
+                            params = [p.strip() for p in param_part.split(',')]
+                            param_str = ', '.join([f"param{i+1}" for i in range(len(params))])
+                            insert_lines.append(f"---@example local result = {func_base}({param_str})")
+                        else:
+                            insert_lines.append(f"---@example local result = {func_base}()")
                     else:
-                        func_base = func_name
-                    insert_lines.append(f"---@example local result = {func_base}()")
+                        insert_lines.append(f"---@example local result = {func_name}()")
             if not has_description:
                 insert_lines.append(f"---@description TODO: Add description for {func_name}")
             if not has_return:
@@ -135,8 +182,11 @@ def fix_missing_annotations(file_path):
             for insert_line in reversed(insert_lines):
                 new_lines.insert(annotations_start, insert_line)
 
-            # Add the function line
-            new_lines.append(line)
+            # Add the function line and everything until end
+            for k in range(i, func_end + 1):
+                new_lines.append(lines[k])
+            i = func_end + 1
+            continue
         else:
             new_lines.append(line)
 

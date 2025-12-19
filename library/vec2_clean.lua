@@ -2,125 +2,113 @@
 
 ---@see https://github.com/Diobit27/QQTLuaLS/wiki/Vector-2
 
----@class vec2
----@description The `vec2` class provides 2D vector operations essential for screen coordinates, UI positioning, and 2D calculations in the Diablo Lua API.
+---@class vec2_clean
+---@description Lightweight 2D vector helper.
+---@operator add(vec2_clean):vec2_clean
+---@operator sub(vec2_clean):vec2_clean
+---@operator mul(number):vec2_clean
+---@operator div(number):vec2_clean
+---@operator unm:vec2_clean
 
----@operator add(vec2):vec2
----@operator sub(vec2):vec2
----@operator mul(number):vec2
----@operator div(number):vec2
----@operator unm:vec2
+---@overload fun(x: number, y: number): vec2_clean
+local vec2_clean = {}
 
----@overload fun(x: number, y: number): vec2
-local vec2 = {}
----@return vec2
----@description Creates a new vec2 instance with the specified x and y coordinates.
----@example local pos = vec2.new(100, 200)
+---@param x number
+---@param y number
+---@return vec2_clean
+---@description Creates a new vec2_clean with the given coordinates.
 ---@since 1.0.0
-function vec2.new(x, y) end
+function vec2_clean.new(x, y) end
 
 ---@return number
----@description Returns the x-coordinate of the vector.
----@example local x = vec2.new(100, 200):x()
+---@description Returns the x-coordinate.
 ---@since 1.0.0
-function vec2:x() end
+function vec2_clean:x() end
 
 ---@return number
----@description Returns the y-coordinate of the vector.
----@example local y = vec2.new(100, 200):y()
+---@description Returns the y-coordinate.
 ---@since 1.0.0
-function vec2:y() end
+function vec2_clean:y() end
 
 ---@return boolean
----@description Checks if this vec2 represents the zero vector (0, 0).
----@example local zero = vec2.new(0, 0):is_zero()
+---@description Checks if this vector is (0,0).
 ---@since 1.0.0
-function vec2:is_zero() end
+function vec2_clean:is_zero() end
 
 ---@return vec3
----@description Projects this vec2 onto a 3D plane, typically by adding a Z coordinate of 0, and returns a vec3.
----@example local pos3d = vec2.new(100, 200):project_3d()
+---@description Projects this vec2_clean into 3D space with z=0.
 ---@since 1.0.0
-function vec2:project_3d() end
+function vec2_clean:project_3d() end
 
----@param other vec2
+---@param other vec2_clean
 ---@return number
----@description Calculates the Euclidean distance between this vec2 and another vec2.
----@example local dist = vec2.new(0, 0):distance(vec2.new(3, 4))
+---@description Euclidean distance to another vec2_clean.
 ---@since 1.0.0
-function vec2:distance(other) end
+function vec2_clean:distance(other) end
 
----@param other vec2
+---@param other vec2_clean
 ---@return number
----@description Returns the squared distance to another vec2, useful for performance-sensitive calculations.
----@example local dist_sq = vec2.new(0, 0):distance_squared(vec2.new(3, 4))
+---@description Squared distance to another vec2_clean.
 ---@since 1.0.0
-function vec2:distance_squared(other) end
+function vec2_clean:distance_squared(other) end
 
 ---@return boolean
----@description Evaluates if this vector intersects with another object or vector.
----@example local intersects = vec2.new(100, 200):intersects()
+---@description Tests intersection against another object/vector.
 ---@since 1.0.0
-function vec2:intersects() end
+function vec2_clean:intersects() end
 
 ---@return number
----@description Computes the length (magnitude) of the vector.
----@example local len = vec2.new(3, 4):length()
+---@description Length (magnitude) of this vector.
 ---@since 1.0.0
-function vec2:length() end
+function vec2_clean:length() end
 
----@param other vec2
+---@param other vec2_clean
 ---@return number
----@description Calculates the dot product with another vec2.
----@example local dot = vec2.new(1, 0):dot_product(vec2.new(0, 1))
+---@description Dot product with another vec2_clean.
 ---@since 1.0.0
-function vec2:dot_product(other) end
+function vec2_clean:dot_product(other) end
 
----@return vec2
----@description Returns the normalized unit vector of this vector.
----@example local unit = vec2.new(3, 4):get_unit_vector()
+---@return vec2_clean
+---@description Normalized unit vector.
 ---@since 1.0.0
-function vec2:get_unit_vector() end
+function vec2_clean:get_unit_vector() end
 
----@param point vec2
----@param origin vec2
+---@param point vec2_clean
+---@param origin vec2_clean
 ---@return number
----@description Determines the angle to a point from an origin.
----@example local angle = vec2.new(1, 0):get_angle(vec2.new(0, 1), vec2.new(0, 0))
+---@description Angle from origin to point relative to this vector.
 ---@since 1.0.0
-function vec2:get_angle(point, origin) end
+function vec2_clean:get_angle(point, origin) end
 
----@param target vec2
+---@param target vec2_clean
 ---@param dist number
----@return vec2
----@description Extends the vector towards a target by the specified distance.
----@example local extended = vec2.new(0, 0):get_extended(vec2.new(3, 4), 5)
+---@return vec2_clean
+---@description Extends this vector toward target by dist.
 ---@since 1.0.0
-function vec2:get_extended(target, dist) end
+function vec2_clean:get_extended(target, dist) end
 
----@return vec2
----@description Converts screen coordinates to corresponding game coordinates.
----@example local world_pos = vec2.new(1920, 1080):screen_to_coordinate()
+---@return vec2_clean
+---@description Converts screen coords to world coords.
 ---@since 1.0.0
-function vec2:screen_to_coordinate() end
+function vec2_clean:screen_to_coordinate() end
 
----@return vec2
----@description Translates game coordinates to screen coordinates.
----@example local screen_pos = vec2.new(100, 200):coordinate_to_screen()
+---@return vec2_clean
+---@description Converts world coords to screen coords.
 ---@since 1.0.0
-function vec2:coordinate_to_screen() end
+function vec2_clean:coordinate_to_screen() end
 
----@param origin vec2
+---@param origin vec2_clean
 ---@param degree number
----@return vec2
----@description Rotates this vector around a specified origin by a given degree.
----@example local rotated = vec2.new(1, 0):rotate_around(vec2.new(0, 0), 90)
+---@return vec2_clean
+---@description Rotates this vector around origin by degree.
 ---@since 1.0.0
-function vec2:rotate_around(origin, degree) end
+function vec2_clean:rotate_around(origin, degree) end
 
----@param other vec2
+---@param other vec2_clean
 ---@return boolean
----@description Evaluates if this vector is equal to another vec2.
----@example local equal = vec2.new(1, 2):equals(vec2.new(1, 2))
+---@description Checks equality with another vec2_clean.
 ---@since 1.0.0
-function vec2:equals(other) end
+function vec2_clean:equals(other) end
+
+return vec2_clean
+

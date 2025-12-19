@@ -2,397 +2,288 @@
 
 ---@see https://github.com/Diobit27/QQTLuaLS/wiki/Global-Functions
 
----@alias spell_id number
----@alias waypoint_id number
-
 ---@return game_object
----@description Accesses the game object representing the local player, essential for many player-centric operations. See also: get_player_position() for positioning.
----@example local player = get_local_player()
+---@description Accesses the game object representing the local player.
 ---@since 1.0.0
 function get_local_player() end
 
 ---@return string
----@description Retrieves Character Name of Local Player.
----@example local name = get_local_player_name()
+---@description Retrieves the character name of the local player.
 ---@since 1.0.0
 function get_local_player_name() end
 
 ---@return vec3
----@description Retrieves the current geographical position of the local player in the game world, useful for navigation and positioning strategies. See also: get_local_player() for player object.
----@example local pos = get_player_position()
+---@description Retrieves the current position of the local player in world space.
 ---@since 1.0.0
 function get_player_position() end
 
 ---@return game_object[]
----@description Gathers a comprehensive list of all active game actors, providing a broad overview of the entities present in the current game environment.
----@example local actors = get_actors_list()
+---@description Gathers a list of all active game actors in the current game environment.
 ---@since 1.0.0
 function get_actors_list() end
 
 ---@return game_object[]
----@description Fetches a list of all game objects that are currently attached, offering insights into various game entities and their interactions.
----@return game_object[]
----@description Fetches a list of all game objects that are currently attached, offering insights into various game entities and their interactions.
----@example local attachments = get_attachments_list()
+---@description Fetches a list of all game objects that are currently attached.
 ---@since 1.0.0
 function get_attachments_list() end
 
 ---@param str string
 ---@return number
----@description Converts a given string into a hash integer, facilitating efficient data storage and retrieval operations.
----@example local hash = get_hash("example")
+---@description Converts a string into a hash integer.
 ---@since 1.0.0
 function get_hash(str) end
 
 ---@return vec3
----@description Obtains the precise position of the cursor in the game world, useful for UI interactions and in-game targeting.
----@example local cursor_pos = get_cursor_position()
+---@description Obtains the current cursor position in world space.
 ---@since 1.0.0
 function get_cursor_position() end
 
 ---@return number
----@description Provides the current in-game time, essential for time-based events and game dynamics.
----@example local time = get_gametime()
+---@description Provides the current in-game time.
 ---@since 1.0.0
 function get_gametime() end
 
 ---@return number
----@description Measures the duration since the last code injection, offering a timing benchmark for scripts and operations.
----@example local time_elapsed = get_time_since_inject()
+---@description Measures the duration since the last code injection.
 ---@since 1.0.0
 function get_time_since_inject() end
 
 ---@return number[]
----@description Retrieves the IDs of all currently equipped spells, providing access to the player's active spell configuration.
----@example local spell_ids = get_equipped_spell_ids()
+---@description Returns the list of equipped spell ids.
 ---@since 1.0.0
 function get_equipped_spell_ids() end
 
 ---@param spell_id number
 ---@return string
----@description Returns the name of the spell for the given spell ID.
----@example local result = get_name_for_spell(spell_id)
+---@description Returns the name of the spell for the given spell id.
 ---@since 1.0.0
 function get_name_for_spell(spell_id) end
 
 ---@return boolean
----@description Return boolean of inventory open state.
----@example local result = is_inventory_open()
+---@description Indicates whether the inventory UI is open.
 ---@since 1.0.0
 function is_inventory_open() end
 
 ---@return number
----@description Returns a number indicating which inventory is open.
----@example local result = get_open_inventory_bag()
+---@description Returns which inventory bag is open (-1 none, 0 items, 1 consumables).
 ---@since 1.0.0
 function get_open_inventory_bag() end
 
 ---@param key number
 ---@return boolean
----@description Checks if the specified key is currently pressed down.
----@example local result = get_key_state(key)
+---@description Checks if the specified key is currently pressed.
 ---@since 1.0.0
 function get_key_state(key) end
 
 ---@return table
----@description Retrieves a table of all active quests in the game.
----@example local quests = get_quests()
+---@description Retrieves a table of all active quests.
 ---@since 1.0.0
 function get_quests() end
 
 ---@return game_object
----@description Fetches the game object that is currently being hovered by the cursor.
----@return any
----@description TODO: Add description for get_hovered_item()
----@example local result = get_hovered_item()()
+---@description Fetches the game object currently hovered by the cursor.
 ---@since 1.0.0
 function get_hovered_item() end
 
 ---@param object game_object
 ---@return boolean
 ---@description Initiates an interaction with the specified game object.
----@return any
----@description TODO: Add description for interact_object(object)
----@example local result = interact_object(object)()
 ---@since 1.0.0
 function interact_object(object) end
 
 ---@param object game_object
 ---@return nil
 ---@description Initiates an interaction with the specified vendor object.
----@example interact_vendor(vendor_obj)
 ---@since 1.0.0
 function interact_vendor(object) end
 
 ---@return number
 ---@description Retrieves the current width of the game screen in pixels.
----@example local result = get_screen_width()()
 ---@since 1.0.0
 function get_screen_width() end
 
 ---@return number
 ---@description Retrieves the current height of the game screen in pixels.
----@example local height = get_screen_height()
 ---@since 1.0.0
 function get_screen_height() end
 
 ---@return number
 ---@description Retrieves the current count of Helltide coin cinders.
----@description TODO: Add description for get_helltide_coin_cinders()
----@example local result = get_helltide_coin_cinders()()
 ---@since 1.0.0
 function get_helltide_coin_cinders() end
 
 ---@return number
 ---@description Retrieves the current count of Helltide coin hearts.
----@example local hearts = get_helltide_coin_hearts()
 ---@since 1.0.0
 function get_helltide_coin_hearts() end
 
 ---@return boolean
----@description Initiates the action to exit the current dungeon, useful for automating transitions or escaping unfavorable situations.
----@description TODO: Add description for leave_dungeon()
----@example local result = leave_dungeon()()
+---@description Exits the current dungeon.
 ---@since 1.0.0
 function leave_dungeon() end
 
 ---@return nil
 ---@description Revives the player at the nearest checkpoint.
----@return any
----@description TODO: Add description for revive_at_checkpoint()
----@example local result = revive_at_checkpoint()()
 ---@since 1.0.0
 function revive_at_checkpoint() end
 
 ---@return nil
 ---@description Starts the game session.
----@example start_game()
 ---@since 1.0.0
 function start_game() end
 
 ---@return nil
 ---@description Leaves the current game session.
----@example leave_game()
 ---@since 1.0.0
 function leave_game() end
 
 ---@return nil
----@description Uses a health potion to restore the player's health.
----@description TODO: Add description for use_health_potion()
----@example local result = use_health_potion()()
+---@description Uses a health potion to restore player health.
 ---@since 1.0.0
 function use_health_potion() end
 
 ---@return nil
----@description Initiates the action to reset dungeons which also kicks you for any dungeon you are into
----@return any
----@description TODO: Add description for reset_all_dungeons()
----@example local result = reset_all_dungeons()()
+---@description Resets all dungeons, removing the player from any active dungeon.
 ---@since 1.0.0
 function reset_all_dungeons() end
 
 ---@param id number
 ---@return nil
----@description Initiates the action to teleport to an specific waypoint
----@example local result = teleport_to_waypoint(id)()
+---@description Teleports to the waypoint identified by id.
 ---@since 1.0.0
 function teleport_to_waypoint(id) end
 
+---@see https://github.com/Diobit27/QQTLuaLS/wiki/Color
+
 ---@param alpha number
 ---@return color
----@description Creates a white color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_white(alpha)
----@example local result = color_white(alpha)()
+---@description Creates a white color with specified alpha.
 ---@since 1.0.0
 function color_white(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a black color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_black(alpha)
----@example local result = color_black(alpha)()
+---@description Creates a black color with specified alpha.
 ---@since 1.0.0
 function color_black(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a yellow color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_yellow(alpha)
----@example local result = color_yellow(alpha)()
+---@description Creates a yellow color with specified alpha.
 ---@since 1.0.0
 function color_yellow(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a red color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_red(alpha)
----@example local result = color_red(alpha)()
+---@description Creates a red color with specified alpha.
 ---@since 1.0.0
 function color_red(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a green color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_green(alpha)
----@example local result = color_green(alpha)()
+---@description Creates a green color with specified alpha.
 ---@since 1.0.0
 function color_green(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a blue color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_blue(alpha)
----@example local result = color_blue(alpha)()
+---@description Creates a blue color with specified alpha.
 ---@since 1.0.0
 function color_blue(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a pink color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_pink(alpha)
----@example local result = color_pink(alpha)()
+---@description Creates a pink color with specified alpha.
 ---@since 1.0.0
 function color_pink(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a purple color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_purple(alpha)
----@example local result = color_purple(alpha)()
+---@description Creates a purple color with specified alpha.
 ---@since 1.0.0
 function color_purple(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a grey color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_grey(alpha)
----@example local result = color_grey(alpha)()
+---@description Creates a grey color with specified alpha.
 ---@since 1.0.0
 function color_grey(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a brown color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_brown(alpha)
----@example local result = color_brown(alpha)()
+---@description Creates a brown color with specified alpha.
 ---@since 1.0.0
 function color_brown(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a gold color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_gold(alpha)
----@example local result = color_gold(alpha)()
+---@description Creates a gold color with specified alpha.
 ---@since 1.0.0
 function color_gold(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a silver color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_silver(alpha)
----@example local result = color_silver(alpha)()
+---@description Creates a silver color with specified alpha.
 ---@since 1.0.0
 function color_silver(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates an orange color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_orange(alpha)
----@example local result = color_orange(alpha)()
+---@description Creates an orange color with specified alpha.
 ---@since 1.0.0
 function color_orange(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a cyan color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_cyan(alpha)
----@example local result = color_cyan(alpha)()
+---@description Creates a cyan color with specified alpha.
 ---@since 1.0.0
 function color_cyan(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a green pastel color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_green_pastel(alpha)
----@example local result = color_green_pastel(alpha)()
+---@description Creates a green pastel color with specified alpha.
 ---@since 1.0.0
 function color_green_pastel(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a red pale color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_red_pale(alpha)
----@example local result = color_red_pale(alpha)()
+---@description Creates a red pale color with specified alpha.
 ---@since 1.0.0
 function color_red_pale(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a green pale color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_green_pale(alpha)
----@example local result = color_green_pale(alpha)()
+---@description Creates a green pale color with specified alpha.
 ---@since 1.0.0
 function color_green_pale(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a blue pale color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_blue_pale(alpha)
----@example local result = color_blue_pale(alpha)()
+---@description Creates a blue pale color with specified alpha.
 ---@since 1.0.0
 function color_blue_pale(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a cyan pale color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_cyan_pale(alpha)
----@example local result = color_cyan_pale(alpha)()
+---@description Creates a cyan pale color with specified alpha.
 ---@since 1.0.0
 function color_cyan_pale(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a gray pale color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_gray_pale(alpha)
----@example local result = color_gray_pale(alpha)()
+---@description Creates a gray pale color with specified alpha.
 ---@since 1.0.0
 function color_gray_pale(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates a gray clear color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_gray_clear(alpha)
----@example local result = color_gray_clear(alpha)()
+---@description Creates a gray clear color with specified alpha.
 ---@since 1.0.0
 function color_gray_clear(alpha) end
 
 ---@param alpha number
 ---@return color
----@description Creates an orange red color with specified alpha transparency.
----@return any
----@description TODO: Add description for color_orange_red(alpha)
----@example local result = color_orange_red(alpha)()
+---@description Creates an orange red color with specified alpha.
 ---@since 1.0.0
 function color_orange_red(alpha) end
 

@@ -3,78 +3,51 @@
 ---@see https://github.com/Diobit27/QQTLuaLS/wiki/Menu-Elements
 
 ---@class button
+---@class checkbox
+---@class combo_box
+---@class input_text
+---@class slider_int
+---@class slider_float
+---@class tree_node
+---@class colorpicker
 
-local button = {}
+---@class menu_elements
+local menu_elements = {}
 
 ---@param id number
 ---@return button
----@description Creates a new button menu element with the specified unique identifier.
----@example local my_button = button:new(get_hash("my_button"))
+---@description Creates a button element identified by a unique hash/id.
 ---@since 1.0.0
-function button:new(id) end
-
----@class checkbox
-
-local checkbox = {}
+function menu_elements.button_new(id) end
 
 ---@param default_state boolean
 ---@param id number
 ---@return checkbox
----@description Creates a new checkbox menu element with default state and unique identifier.
----@example local my_checkbox = checkbox:new(true, get_hash("my_checkbox"))
----@return any
----@description TODO: Add description for checkbox:new(default_state, id)
----@example local result = checkbox:new(default_state, id)
+---@description Creates a checkbox with a default state and unique id.
 ---@since 1.0.0
-function checkbox:new(default_state, id) end
-
----@class combo_box
-
-local combo_box = {}
+function menu_elements.checkbox_new(default_state, id) end
 
 ---@param default_state number
 ---@param id number
 ---@return combo_box
----@description Creates a new combo box menu element with the specified default state and ID.
----@example local combo = combo_box:new(0, get_hash("my_combo"))
----@return any
----@description TODO: Add description for combo_box:new(default_state, id)
----@example local result = combo_box:new(default_state, id)
+---@description Creates a combo box with a default selection and unique id.
 ---@since 1.0.0
-function combo_box:new(default_state, id) end
-
----@class input_text
-
-local input_text = {}
+function menu_elements.combo_box_new(default_state, id) end
 
 ---@param id number
 ---@return input_text
----@description Creates a new input text menu element with the specified ID.
----@example local input = input_text:new(get_hash("my_input"))
----@return any
----@description TODO: Add description for input_text:new(id)
----@example local result = input_text:new(id)
+---@description Creates an input text field.
 ---@since 1.0.0
-function input_text:new(id) end
-
----@class slider_int
-
-local slider_int = {}
+function menu_elements.input_text_new(id) end
 
 ---@param min_value number
 ---@param max_value number
 ---@param default_value number
 ---@param id number
 ---@return slider_int
----@description Creates a new integer slider menu element with specified range and default value.
----@example local slider = slider_int:new(0, 100, 50, get_hash("my_slider"))
----@example local result = slider_int:new(min_value, max_value, default_value, id)
+---@description Creates an integer slider element.
 ---@since 1.0.0
-function slider_int:new(min_value, max_value, default_value, id) end
-
----@class slider_float
-
-local slider_float = {}
+function menu_elements.slider_int_new(min_value, max_value, default_value, id) end
 
 ---@param min_value number
 ---@param max_value number
@@ -82,141 +55,80 @@ local slider_float = {}
 ---@param id number
 ---@param rounding number
 ---@return slider_float
----@description Creates a new float slider menu element with specified range, default value, and rounding precision.
----@example local slider = slider_float:new(0.0, 1.0, 0.5, get_hash("my_slider"), 2)
----@return any
----@description TODO: Add description for slider_float:new(min_value, max_value, default_value, id, rounding)
----@example local result = slider_float:new(min_value, max_value, default_value, id, rounding)
+---@description Creates a float slider element.
 ---@since 1.0.0
-function slider_float:new(min_value, max_value, default_value, id, rounding) end
-
----@class tree_node
-
-local tree_node = {}
+function menu_elements.slider_float_new(min_value, max_value, default_value, id, rounding) end
 
 ---@param node_depth number
 ---@return tree_node
----@description Creates a new tree node menu element with the specified depth level.
----@example local node = tree_node:new(1)
----@return any
----@description TODO: Add description for tree_node:new(node_depth)
----@example local result = tree_node:new(node_depth)
+---@description Creates a tree node for hierarchical menus.
 ---@since 1.0.0
-function tree_node:new(node_depth) end
-
----@class colorpicker
-
-local colorpicker = {}
+function menu_elements.tree_node_new(node_depth) end
 
 ---@param id number
 ---@param default_color color
 ---@return colorpicker
----@description Creates a new color picker menu element with the specified ID and default color.
----@example local picker = colorpicker:new(get_hash("my_color"), color_red(255))
----@return any
----@description TODO: Add description for colorpicker:new(id, default_color)
----@example local result = colorpicker:new(id, default_color)
+---@description Creates a color picker element.
 ---@since 1.0.0
-function colorpicker:new(id, default_color) end
+function menu_elements.colorpicker_new(id, default_color) end
 
----@overload fun(button_name: string, tooltip: string, activation_delay: number, click_type: button_click): any
----@overload fun(label: string, tooltip: string): any
----@overload fun(label: string, items: table, tooltip: string): any
----@overload fun(label: string, tooltip: string, require_button: boolean, button_label: string, button_tooltip: string): any
----@overload fun(label: string, tooltip: string, rounding: number): any
----@overload fun(label: string, tooltip: string): any
----@overload fun(label: string, tooltip: string, show_on_button_press: boolean, button_label: string, button_tooltip: string): any
----@param button_name string
+---@param label string
 ---@param tooltip string
----@param activation_delay number
----@param click_type button_click
+---@param activation_delay number|nil
+---@param click_type button_click|nil
 ---@return any
----@description Buttons are fundamental for triggering actions and navigating menus. The unique ID is crucial for distinguishing different buttons.
----@description TODO: Add description for render(button_name, tooltip, activation_delay, click_type)
----@example local result = render(button_name, tooltip, activation_delay, click_type)()
+---@description Renders a button or menu control; overload behavior depends on supplied parameters.
 ---@since 1.0.0
-function render(button_name, tooltip, activation_delay, click_type) end
-
----@overload fun(): any
----@overload fun(): any
----@overload fun(): any
----@overload fun(): any
----@overload fun(): any
----@overload fun(): any
----@return any
----@description Buttons are fundamental for triggering actions and navigating menus. The unique ID is crucial for distinguishing different buttons.
----@return any
----@description TODO: Add description for get()
----@example local result = get()()
----@since 1.0.0
-function get() end
-
----@param number number
----@return any
----@description Buttons are fundamental for triggering actions and navigating menus. The unique ID is crucial for distinguishing different buttons.
----@return any
----@description TODO: Add description for set_id(number)
----@example local result = set_id(number)()
----@since 1.0.0
-function set_id(number) end
+function menu_elements.render(label, tooltip, activation_delay, click_type) end
 
 ---@return any
----@description Buttons are fundamental for triggering actions and navigating menus. The unique ID is crucial for distinguishing different buttons.
----@return any
----@description TODO: Add description for get_full()
----@example local result = get_full()()
+---@description Retrieves the current menu value for the last element context.
 ---@since 1.0.0
-function get_full() end
+function menu_elements.get() end
 
----@overload fun(value: boolean): any
----@overload fun(value: boolean): any
----@overload fun(key: number, toggle: boolean, mode: number): any
----@overload fun(color: any): any
----@param value boolean
----@return any
----@description Checkboxes are ideal for enabling or disabling features and settings within the menu.
----@return any
----@description TODO: Add description for set(value)
----@example local result = set(value)()
+---@param id number
+---@return nil
+---@description Sets the current element id context.
 ---@since 1.0.0
-function set(value) end
+function menu_elements.set_id(id) end
 
 ---@return any
----@description Input Text fields are versatile for user inputs, from simple text entries to coordinates and numerical values.
----@return any
----@description TODO: Add description for get_in_vec3()
----@example local result = get_in_vec3()()
+---@description Retrieves the full value/structure for the current element.
 ---@since 1.0.0
-function get_in_vec3() end
+function menu_elements.get_full() end
+
+---@param value any
+---@return nil
+---@description Sets the value for the current element.
+---@since 1.0.0
+function menu_elements.set(value) end
+
+---@return vec3
+---@description Reads a vec3 value from an input element.
+---@since 1.0.0
+function menu_elements.get_in_vec3() end
 
 ---@return boolean
----@description Input Text fields are versatile for user inputs, from simple text entries to coordinates and numerical values.
----@return any
----@description TODO: Add description for is_open()
----@example local result = is_open()()
+---@description Indicates if the current element/menu is open.
 ---@since 1.0.0
-function is_open() end
+function menu_elements.is_open() end
 
----@param int any
----@param bool any
----@param uint32_t any
+---@param key number
+---@param toggle boolean
+---@param mode number
 ---@return any
----@return any
----@description TODO: Add description for keybind(int, bool, uint32_t)
----@example local result = keybind(int, bool, uint32_t)()
+---@description Declares a keybind element and returns its state.
 ---@since 1.0.0
-function keybind(int, bool, uint32_t) end
+function menu_elements.keybind(key, toggle, mode) end
 
 ---@return any
----@return any
----@description TODO: Add description for get_state()
----@example local result = get_state()()
+---@description Returns the current state of the active menu element.
 ---@since 1.0.0
-function get_state() end
+function menu_elements.get_state() end
 
 ---@return any
----@return any
----@description TODO: Add description for get_key()
----@example local result = get_key()()
+---@description Returns the key assigned to the current keybind element.
 ---@since 1.0.0
-function get_key() end
+function menu_elements.get_key() end
+
+return menu_elements

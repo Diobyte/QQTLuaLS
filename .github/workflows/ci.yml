@@ -1,0 +1,22 @@
+name: Validate Library
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install requirements
+        run: python -m pip install --upgrade pip
+      - name: Run generator and validate
+        run: |
+          python scripts/generate_library.py
+          python scripts/validate_library.py
+          python scripts/verify_against_wiki.py

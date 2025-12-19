@@ -4,7 +4,7 @@
 
 set -e
 
-REPO_URL="https://github.com/yourusername/QQTLuaLS.git"
+REPO_URL="https://github.com/Diobit27/QQTLuaLS.git"
 INSTALL_DIR="$HOME/.vscode/extensions/qqtluals"
 
 echo "QQTLuaLS One-Click Setup"

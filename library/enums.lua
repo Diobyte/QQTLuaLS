@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/qqtnn/qqt_diablo.wiki.git/wiki/Enums
+---@see https://github.com/Diobit27/QQTLuaLS/wiki/Enums
 
 ---@class button_click
 ---@field lmb "lmb"

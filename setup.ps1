@@ -6,7 +6,7 @@ param(
     [switch]$InstallLua
 )
 
-$REPO_URL = "https://github.com/yourusername/QQTLuaLS.git"
+$REPO_URL = "https://github.com/Diobit27/QQTLuaLS.git"
 $INSTALL_DIR = "$env:USERPROFILE\.vscode\extensions\qqtluals"
 
 Write-Host "QQTLuaLS One-Click Setup" -ForegroundColor Cyan

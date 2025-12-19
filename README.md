@@ -2,7 +2,7 @@
 
 This is a Lua Language Server (LuaLS) plugin that provides type annotations and IntelliSense support for the QQT Diablo API, used in Lua scripts for Diablo Immortal game automation.
 
-**Version 1.9.1** - Enhanced with improved examples, type safety, operator support, and automation tools.
+**Version --current** - Enhanced with improved examples, type safety, operator support, and automation tools.
 
 ## Features
 
@@ -18,13 +18,13 @@ This is a Lua Language Server (LuaLS) plugin that provides type annotations and 
 **Windows (PowerShell)**:
 
 ```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/yourusername/QQTLuaLS/main/setup.ps1" -OutFile "setup.ps1"; .\setup.ps1
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Diobit27/QQTLuaLS/main/setup.ps1" -OutFile "setup.ps1"; .\setup.ps1
 ```
 
 **Linux/Mac (Bash)**:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/yourusername/QQTLuaLS/main/setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Diobit27/QQTLuaLS/main/setup.sh | bash
 ```
 
 ### Manual Setup
@@ -34,7 +34,7 @@ curl -fsSL https://raw.githubusercontent.com/yourusername/QQTLuaLS/main/setup.sh
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/QQTLuaLS.git
+   git clone https://github.com/Diobit27/QQTLuaLS.git
    cd QQTLuaLS
    ```
 
@@ -175,6 +175,17 @@ To sync with the latest changes from the QQT Diablo wiki and keep the annotation
 5. Commit the changes and create a pull request if contributing back.
 
 This process ensures the type annotations remain accurate and comprehensive as the QQT Diablo API evolves.
+
+## Examples
+
+The `examples/` directory contains comprehensive sample scripts demonstrating various QQTLuaLS features:
+
+- `sample_script.lua` - Basic API usage with player controls, enemy detection, and vector operations
+- `combat_script.lua` - Advanced combat logic with target selection and spell casting
+- `ui_menu_example.lua` - Menu creation and UI element usage
+- `vector_geometry_example.lua` - Advanced vector mathematics and geometric operations
+
+Each example includes detailed comments explaining the QQTLuaLS API usage patterns.
 
 ## API Coverage
 

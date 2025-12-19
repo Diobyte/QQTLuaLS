@@ -1,6 +1,6 @@
 {
-    "name": "qqt_diablo",
-    "description": "QQT Diablo API support",
-    "author": "Copilot",
+  "name": "qqt_diablo",
+  "description": "QQT Diablo API support",
+  "author": "Copilot",
   "version": "1.9.1"
 }

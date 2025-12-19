@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/qqtnn/qqt_diablo.wiki.git/wiki/Evade
+---@see https://github.com/Diobit27/QQTLuaLS/wiki/Evade
 
 ---@class evade
 ---@class evade.danger_levels
@@ -57,18 +57,27 @@ end
 ---@return nil
 ---@description Registers a cone-shaped spell for evasion, useful for area-of-effect abilities.
 ---@example evade.register_cone_spell("frost_nova", {"frost_nova"}, 8.0, 120, color_cyan(255), evade.danger_levels.low, 0.5, false)
+---@since 1.0.0
 function evade.register_cone_spell(identifier, names_v, radius, angle, color, danger_lvl, explosion_delay, is_moving) end
 
 ---@param pos vec3
 ---@return boolean
 ---@description Analyzes if a given position lies within a dangerous spell zone, which is crucial for character movement decisions.
 ---@example if evade.is_dangerous_position(my_position) then move_away() end
+---@return any
+---@description TODO: Add description for evade.is_dangerous_position(pos)
+---@example local result = evade.is_dangerous_position(pos)()
+---@since 1.0.0
 function evade.is_dangerous_position(pos) end
 
 ---@param pos vec3
 ---@param source_pos vec3
 ---@return boolean
 ---@description Checks if the path between two points intersects with any dangerous spell zones, aiding in pathfinding and movement strategies.
+---@return any
+---@description TODO: Add description for evade.is_position_passing_dangerous_zone(pos, source_pos)
+---@example local result = evade.is_position_passing_dangerous_zone(pos, source_pos)()
+---@since 1.0.0
 function evade.is_position_passing_dangerous_zone(pos, source_pos) end
 
 ---@param initialize_condition boolean

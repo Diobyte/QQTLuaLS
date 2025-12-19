@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/qqtnn/qqt_diablo.wiki.git/wiki/Spell-Data
+---@see https://github.com/Diobit27/QQTLuaLS/wiki/Spell-Data
 
 ---@class spell_data
 ---@field radius number

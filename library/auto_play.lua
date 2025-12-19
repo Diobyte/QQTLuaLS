@@ -4,10 +4,23 @@
 
 ---@class auto_play
 
+---@enum objective
+local objective = {
+    unknown = 0,
+    revive = 1,
+    fight = 2,
+    quest = 3,
+    travel = 4,
+    loot = 5,
+    sell = 6,
+    reset = 7
+}
+
 local auto_play = {}
 
----@return boolean indicating whether auto play is active.
+---@return boolean
 ---@description Checks if the auto play is fully active.
+---@example local active = auto_play.is_active()
 function auto_play.is_active() end
 
 ---@param state boolean
@@ -58,6 +71,8 @@ function auto_play.set_world_waypoints(waypoints_table) end
 ---@example local dungeon_waypoints = {vec3.new(5,0,5), vec3.new(15,0,15)}; auto_play.set_dungeon_waypoints(dungeon_waypoints)
 function auto_play.set_dungeon_waypoints(waypoints_table) end
 
----@return number
----@description Gets the current objective as an integer identifier.
+---@return objective
+---@description Gets the current objective as an objective enum value.
+---@example local obj = auto_play.get_objective()
+---@example if obj == objective.fight then print("Fighting") end
 function auto_play.get_objective() end

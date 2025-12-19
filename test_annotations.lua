@@ -35,7 +35,7 @@ if #library_files == 0 then
     -- Fallback: manually list files (update this when new files are added)
     library_files = {
         "library/actors_manager.lua",
-        "library/auto" .. string.char(0xE2, 0x80, 0x93) .. "play.lua",
+        "library/auto_play.lua",
         "library/buff.lua",
         "library/callbacks.lua",
         "library/cast_spell.lua",

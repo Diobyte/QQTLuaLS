@@ -179,6 +179,7 @@ The plugin includes annotations for:
 - Vectors (`vec2.lua`, `vec3.lua`)
 - Colors (`color.lua`)
 - Actors manager (`actors_manager.lua`)
+- Auto play (`auto_play.lua`)
 - Graphics (`graphics.lua`)
 - And many more modules
 

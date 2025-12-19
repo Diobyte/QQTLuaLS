@@ -1,39 +1,52 @@
-# Contributing
+# Contributing to QQTLuaLS
 
-Workflow (developer)
+Thank you for your interest in contributing to the QQT Diablo Lua Language Server plugin! This guide outlines how to contribute effectively.
 
-1. Update or pull the `qqt_diablo.wiki` (either update the `temp_wiki/` folder or update submodule if you are tracking it as a submodule).
-2. Run the generator to refresh `library/`:
+## Getting Started
 
-   ```bash
-   python scripts/generate_library.py
-   ```
+1. Fork the repository and clone it locally.
+2. Initialize submodules: `git submodule update --init --recursive`
+3. Install the plugin in your development environment using the installation script.
 
-3. Run validator & verifier:
+## Updating from Wiki Changes
 
-   ```bash
-   python scripts/validate_library.py
-   python scripts/verify_against_wiki.py
-   ```
+When the upstream wiki (https://github.com/qqtnn/qqt_diablo.wiki.git) is updated:
 
-4. Fix any reported issues and commit.
+1. Update the submodule: `git submodule update --remote temp_wiki`
+2. Review changed markdown files in `temp_wiki/` for new API additions/modifications.
+3. Update corresponding Lua files in `library/`:
+   - Add new functions/classes with proper EmmyLua annotations.
+   - Update parameter types and return values.
+   - Add examples and cross-references.
+   - Include @since tags for new features.
+   - Mark obsolete methods with @deprecated.
+4. Run tests: `lua test_annotations.lua`
+5. Update version in `plugin.json` based on wiki commit hash.
+6. Commit changes with descriptive messages.
 
-5. Update README or add better types if you improve any `library/*.lua` files.
+## Annotation Guidelines
 
-Local testing
+- Use concrete types where possible (e.g., `number` instead of `any`).
+- Add @alias for common types like `---@alias spell_id number`.
+- Include @example for complex methods.
+- Add cross-references: "See also: related_function()".
+- Handle optional parameters: `---@param[opt] param type`.
+- For variable returns, use unions: `---@return string|nil`.
 
-- Use the included `scripts/install_for_vscode.ps1` to add `library` path to your workspace settings or copy `.vscode/settings.json.sample` into your workspace.
+## Testing
 
-CI
+- Ensure all annotations parse without errors in Lua LS.
+- Test IntelliSense in sample scripts.
+- Run the validation script to check against upstream wiki.
 
-- Add a GitHub Actions workflow that runs the validation and verification scripts on PRs (I can add an example workflow in `.github/workflows/ci.yml`).
+## Pull Request Process
 
-Coding style
+1. Create a feature branch from `main`.
+2. Make your changes following the guidelines above.
+3. Test thoroughly.
+4. Submit a PR with a clear description of changes.
+5. Wait for review and address feedback.
 
-- Use EmmyLua-style annotations: `---@class`, `---@param name type`, `---@return type`.
-- Prefer `boolean` over `bool` for return types.
-- Avoid inline `Number (float)` phrasing — use `number`.
+## Code of Conduct
 
-Notes
-
-- Keep `temp_wiki/` updated from the canonical wiki upstream. Consider switching to a submodule to avoid embedding repositories in git.
+Be respectful and constructive in all interactions. Focus on improving the plugin for the community.

@@ -1,0 +1,14 @@
+﻿{
+    "Lua.workspace.library":  [
+                                  "./library",
+                                  "C:\\Users\\Diobit27\\Documents\\GitHub\\Helltide\\QQTLuaLS\\library"
+                              ],
+    "Lua.runtime.version":  "Lua 5.1",
+    "Lua.diagnostics.globals":  [
+                                    "get_local_player",
+                                    "get_player_position",
+                                    "actors_manager",
+                                    "vec3",
+                                    "color_white"
+                                ]
+}

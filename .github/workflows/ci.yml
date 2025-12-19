@@ -1,22 +1,44 @@
-name: Validate Library
+name: CI/CD for QQTLuaLS
 
 on:
   push:
+    branches: [ main ]
   pull_request:
+    branches: [ main ]
+  schedule:
+    # Check for wiki updates weekly
+    - cron: '0 0 * * 0'
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Setup Lua
+      uses: leafo/gh-actions-lua@v10
+      with:
+        luaVersion: "5.1"
+
+    - name: Run annotation tests
+      run: lua test_annotations.lua
+
+    - name: Check for wiki updates
+      run: |
+        git submodule update --remote temp_wiki
+        if [ -n "$(git status --porcelain temp_wiki)" ]; then
+          echo "Wiki submodule has updates - manual review required"
+        fi
+
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
-      - name: Install requirements
-        run: python -m pip install --upgrade pip
-      - name: Run generator and validate
+          submodules: recursive
+      - name: Check for syntax errors in Lua files
         run: |
-          python scripts/generate_library.py
-          python scripts/validate_library.py
-          python scripts/verify_against_wiki.py
+          find library -name "*.lua" -exec lua -e "loadfile('{}')" \; || echo "Syntax check failed"

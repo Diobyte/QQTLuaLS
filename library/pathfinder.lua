@@ -11,6 +11,7 @@ local pathfinder = {}
 ---@return vec3[]
 ---@description Generate path via game engine.
 ---@since 1.0.0
+---@example local path = pathfinder.create_path_game_engine(get_player_position())
 function pathfinder.create_path_game_engine(pos) end
 
 ---@param pos vec3

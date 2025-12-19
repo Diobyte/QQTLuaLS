@@ -13,6 +13,7 @@ local callbacks = {}
 ---@return nil
 ---@description Registers a render callback fired every frame with delta_time.
 ---@since 1.0.0
+---@example callbacks.on_render(function(dt) console.print(dt) end)
 function callbacks.on_render(callback) end
 
 ---@param callback OnUpdateCallback

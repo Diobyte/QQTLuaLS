@@ -7,6 +7,8 @@ local actors_manager = {}
 
 ---@return game_object[]
 ---@description Returns a table with all actors in game memory.
+---@example local all = actors_manager.get_all_actors()
+---@since 1.0.0
 function actors_manager.get_all_actors() end
 
 ---@return game_object[]

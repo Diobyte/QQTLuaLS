@@ -19,8 +19,7 @@ function console.print(...) end
 ---@return nil
 ---@description `console.print_full` offers controlled printing capabilities with specified delay and interval parameters. It is particularly useful for tracking values over time, without cluttering the console with rapid outputs.
 ---@example console.print_full(1.0, 0.5, "value:", my_var)
----@return any
----@description TODO: Add description for console.print_full(delay, interval, ...)
----@example local result = console.print_full(delay, interval, ...)()
 ---@since 1.0.0
 function console.print_full(delay, interval, ...) end
+
+return console

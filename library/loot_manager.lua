@@ -11,6 +11,7 @@ local loot_manager = {}
 ---@return number
 ---@description Unique identifier for an item object.
 ---@since 1.0.0
+---@example local id = loot_manager.get_item_identifier(item)
 function loot_manager.get_item_identifier(obj) end
 
 ---@param obj game_object

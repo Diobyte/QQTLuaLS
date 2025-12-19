@@ -10,6 +10,7 @@ local utility = {}
 ---@return boolean
 ---@description True if the spell is off cooldown.
 ---@since 1.0.0
+---@example if utility.is_spell_ready(123) then cast_spell_id(123) end
 function utility.is_spell_ready(spell_id) end
 
 ---@param spell_id number

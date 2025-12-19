@@ -6,24 +6,24 @@
 ---@field lmb "lmb"
 ---@field rmb "rmb"
 ---@field none "none"
-local button_click = {}
+button_click = {}
 
 ---@class spell_geometry
 ---@field rectangular "rectangular"
 ---@field circular "circular"
-local spell_geometry = {}
+spell_geometry = {}
 
 ---@class targeting_type
 ---@field skillshot "skillshot"
 ---@field targeted "targeted"
-local targeting_type = {}
+targeting_type = {}
 
 ---@class orb_mode
 ---@field none "none"
 ---@field pvp "pvp"
 ---@field clear "clear"
 ---@field flee "flee"
-local orb_mode = {}
+orb_mode = {}
 
 ---@class item_rarity
 ---@field normal "normal"
@@ -34,4 +34,4 @@ local orb_mode = {}
 ---@field legendary "legendary"
 ---@field unique "unique"
 ---@field set "set"
-local item_rarity = {}
+item_rarity = {}

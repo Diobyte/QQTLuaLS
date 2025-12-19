@@ -2,7 +2,7 @@
 
 This is a Lua Language Server (LuaLS) plugin that provides type annotations and IntelliSense support for the QQT Diablo API, used in Lua scripts for Diablo Immortal game automation.
 
-**Version --current** - Enhanced with improved examples, type safety, operator support, and automation tools.
+**Version 1.9.9** - Enhanced with improved examples, type safety, operator support, and automation tools.
 
 ## Features
 
@@ -239,10 +239,7 @@ Based on the QQT Diablo wiki: https://github.com/qqtnn/qqt_diablo.wiki.git
 - If submodule updates fail, try: `git submodule sync && git submodule update --init --recursive`
 - Manually review changes in `temp_wiki/` after updates
 - Use `python update_annotations.py` to help identify missing functions
-
-### Wiki Sync Issues
-
-- If submodule updates fail, try: `git submodule sync && git submodule update --init --recursive`
+- The wiki currently embeds Item Data inside `Game-Object.md`; the generator now falls back to that section when `Item-Data.md` is absent.
 
 ## Performance Tips
 

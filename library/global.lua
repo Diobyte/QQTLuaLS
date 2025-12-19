@@ -5,6 +5,7 @@
 ---@return game_object
 ---@description Accesses the game object representing the local player.
 ---@since 1.0.0
+---@example local player = get_local_player()
 function get_local_player() end
 
 ---@return string
@@ -288,7 +289,7 @@ function color_gray_clear(alpha) end
 function color_orange_red(alpha) end
 
 ---@enum waypoints_enum
-local waypoints_enum = {
+waypoints_enum = {
     GEA_KUL = 0xB66AB,
     IRON_WOLVES_ENCAMPMENT = 0xDEAFC,
     IMPERIAL_LIBRARY = 0x10D63D,

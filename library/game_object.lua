@@ -4,7 +4,7 @@
 
 ---@class game_object
 ---@enum CharacterClass
-local CharacterClass = {
+CharacterClass = {
     Sorcerer = 0,
     Barbarian = 1,
     Unknown2 = 2,
@@ -18,6 +18,8 @@ local game_object = {}
 
 ---@return number
 ---@description Returns the unique identifier of the game object.
+---@example local id = obj:get_id()
+---@since 1.0.0
 function game_object:get_id() end
 
 ---@return number
@@ -304,7 +306,7 @@ function game_object:get_dungeon_key_items() end
 ---@description Returns item data for socketable items.
 function game_object:get_socketable_items() end
 
----@param item_id number
+---@param item_id? number
 ---@return item_data
 ---@description Provides item data for the given item id.
 function game_object:get_item_info(item_id) end

@@ -266,8 +266,7 @@ local skip_files = {
     ["library/callbacks.lua"] = false,
     ["library/item_data.lua"] = false,
     ["library/menu_elements.lua"] = false,
-    ["library/prediction.lua"] = false,
-    ["library/vec2_clean.lua"] = false
+    ["library/prediction.lua"] = false
 }
 
 local all_passed = true

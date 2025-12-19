@@ -10,6 +10,7 @@ local orbwalker = {}
 ---@return number
 ---@description Current orbwalker mode id.
 ---@since 1.0.0
+---@example local mode = orbwalker.get_orb_mode()
 function orbwalker.get_orb_mode() end
 
 ---@param mode number

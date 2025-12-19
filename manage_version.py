@@ -50,10 +50,15 @@ def update_readme_version(new_version):
         with open('README.md', 'r', encoding='utf-8') as f:
             content = f.read()
 
-        # Update the version line
-        pattern = r'(\*\*Version )\d+\.\d+\.\d+(\** - Enhanced.*)'
+        # Update the version line (accepts numeric or placeholder tokens such as --current)
+        pattern = r'(\*\*Version )(?:[\w\.\-]+)(\** - Enhanced.*)'
         replacement = r'\g<1>' + new_version + r'\g<2>'
-        new_content = re.sub(pattern, replacement, content)
+        new_content, count = re.subn(pattern, replacement, content)
+
+        # If no replacement happened, append a note for visibility
+        if count == 0:
+            print("Warning: README version header not updated; pattern not found.")
+            new_content = content
 
         with open('README.md', 'w', encoding='utf-8') as f:
             f.write(new_content)

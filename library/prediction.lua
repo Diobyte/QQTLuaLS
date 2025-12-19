@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Prediction
+---@see https://github.com/qqtnn/qqt_diablo.wiki/blob/main/Prediction.md
 
 ---@class prediction
 local prediction = {}
@@ -12,6 +12,7 @@ local prediction = {}
 ---@return prediction_result
 ---@description Computes a prediction result for casting a spell on a target.
 ---@since 1.0.0
+---@example local pr = prediction.get_prediction_result(target, params, spell, false)
 function prediction.get_prediction_result(target, params, spell, debug_call) end
 
 ---@param unit game_object
@@ -52,16 +53,16 @@ function prediction.get_hit_time(source, point, speed, delay, extra_network_time
 
 ---@param radius number
 ---@param center vec3
----@return game_object[]
----@description Retrieves collision objects within a circle.
+---@return vec3[]
+---@description Retrieves collision points within a circle.
 ---@since 1.0.0
 function prediction.get_collisions_circular(radius, center) end
 
 ---@param from vec3
 ---@param to vec3
 ---@param width number
----@return game_object[]
----@description Retrieves collision objects along a rectangle between two points.
+---@return vec3[]
+---@description Retrieves collision points along a rectangle between two points.
 ---@since 1.0.0
 function prediction.get_collisions_rectangular(from, to, width) end
 
@@ -82,10 +83,12 @@ local prediction_parameters = {}
 
 ---@param position vec3
 ---@param speed number
+---@param cast_origin vec3|nil
+---@param intersection number|nil
 ---@return prediction_parameters
----@description Creates prediction parameters for a spell/target pair.
+---@description Creates prediction parameters for a spell/target pair. Optional `cast_origin` and `intersection` mirror wiki fields when provided.
 ---@since 1.0.0
-function prediction.prediction_parameters_new(position, speed) end
+function prediction.prediction_parameters_new(position, speed, cast_origin, intersection) end
 
 ---@class prediction_result_candidates
 ---@field center_position vec3
@@ -103,9 +106,9 @@ function prediction.prediction_result_candidates_new() end
 ---@field cast_position vec3
 ---@field time_to_hit number
 ---@field candidates prediction_result_candidates
----@field center_position vec3
----@field intersection_position vec3
----@field max_intersection_position vec3
+---@field center_position? vec3 # Convenience alias for candidates.center_position
+---@field intersection_position? vec3 # Convenience alias for candidates.intersection_position
+---@field max_intersection_position? vec3 # Convenience alias for candidates.max_intersection_position
 local prediction_result = {}
 
 ---@return prediction_result

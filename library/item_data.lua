@@ -1,6 +1,6 @@
 ---@meta
 
----@see https://github.com/Diobit27/QQTLuaLS/wiki/Game-Object
+---@see https://github.com/Diobit27/QQTLuaLS/wiki/Item-Data
 
 ---@class item_data
 local item_data = {}
@@ -8,7 +8,13 @@ local item_data = {}
 ---@return string
 ---@description Retrieves the skin name of the item.
 ---@since 1.0.0
+---@example local skin = item:get_skin_name()
 function item_data:get_skin_name() end
+
+---@return boolean
+---@description Indicates whether the item data handle is valid.
+---@since 1.0.0
+function item_data:is_valid() end
 
 ---@return string
 ---@description Provides the name of the item.
@@ -91,6 +97,8 @@ function item_data:get_price() end
 function item_data:get_stack_count() end
 
 ---@class item_data_affix
+---@field affix_name_hash number
+---@field balance_offset number
 local item_data_affix = {}
 
 ---@return number

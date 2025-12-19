@@ -19,6 +19,8 @@ local target_selector = {}
 ---@param obj game_object
 ---@return boolean
 ---@description Determines if the provided game object is a valid enemy target.
+---@example local ok = target_selector.is_valid_enemy(obj)
+---@since 1.0.0
 function target_selector.is_valid_enemy(obj) end
 
 ---@param source vec3

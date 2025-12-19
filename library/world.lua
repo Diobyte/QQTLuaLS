@@ -3,78 +3,29 @@
 ---@see https://github.com/Diobit27/QQTLuaLS/wiki/World
 
 ---@class world
----@description The `world` class provides access to global game world information, including zone and world identifiers, essential for location-aware scripting in Diablo Immortal.
-
+---@description Provides game-world context: retrieve the active world instance, its name, current zone, and world identifier.
 local world = {}
----@description TODO: Add description for get_name()
----@return any
----@example local result = get_name()
----@since 1.0.0
-function get_name()
----@since 1.0.0
----@example local result = get_name()
----@description TODO: Add description for get_name()
----@description TODO: Add description for get_current_zone_name()
----@return any
-end
----@since 1.0.0
----@example local result = get_name()
----@description TODO: Add description for get_name()
----@return any
 
-function get_name()
-end
----@description TODO: Add description for get_world_id()
-
----@return any
----@example local result = get_current_zone_name()
+---@return world
+---@description Returns the active world instance so you can call world-scoped helpers.
+---@example local w = world.get_current_world()
 ---@since 1.0.0
----@since 1.0.0
----@example local result = get_world_id()
----@description TODO: Add description for get_world_id()
----@description TODO: Add description for get_world_id()
----@return any
-function get_current_zone_name()
-end
----@since 1.0.0
----@example local result = get_world_id()
----@description TODO: Add description for get_world_id()
----@return any
----@return any
----@example local result = get_world_id()
----@since 1.0.0
-function get_world_id()
-end
-
-function get_world_id()
-end
+function world.get_current_world() end
 
 ---@return string
----@description Returns the name of the world.
+---@description Gets the name of the current world shard (e.g., server name).
 ---@example local name = world:get_name()
 ---@since 1.0.0
 function world:get_name() end
 
 ---@return string
----@description Returns the name of the current zone.
+---@description Gets the human-readable name of the zone the player is in.
 ---@example local zone = world:get_current_zone_name()
----@return any
----@description TODO: Add description for world:get_current_zone_name()
----@example local result = world:get_current_zone_name()
----@since 1.0.0
----@example local result = world:get_current_zone_name()
 ---@since 1.0.0
 function world:get_current_zone_name() end
 
----@return string
----@description Returns the ID of the current world.
+---@return integer
+---@description Returns the numeric identifier of the current world instance.
 ---@example local id = world:get_world_id()
----@return any
----@description TODO: Add description for world:get_world_id()
----@example local result = world:get_world_id()
----@since 1.0.0
----@return any
----@description TODO: Add description for world:get_world_id()
----@example local result = world:get_world_id()
 ---@since 1.0.0
 function world:get_world_id() end

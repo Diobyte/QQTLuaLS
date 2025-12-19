@@ -22,6 +22,7 @@ local auto_play = {}
 ---@return boolean
 ---@description True when auto-play is fully active.
 ---@since 1.0.0
+---@example if auto_play.is_active() then console.print("Auto-play running") end
 function auto_play.is_active() end
 
 ---@param state boolean

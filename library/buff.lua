@@ -18,12 +18,14 @@ local buff = {}
 ---@since 1.0.0
 function buff:get_name() end
 
+---@return string
+---@description Alias for get_name to match wiki examples.
+---@since 1.0.0
+function buff:name() end
+
 ---@return number
----@description Retrieves the end time of the buff.
+---@description Retrieves the absolute end time tick for this buff.
 ---@example local end_time = buff:get_end_time()
----@return any
----@description TODO: Add description for buff:get_end_time()
----@example local result = buff:get_end_time()
 ---@since 1.0.0
 function buff:get_end_time() end
 
@@ -34,18 +36,15 @@ function buff:get_end_time() end
 function buff:get_remaining_time() end
 
 ---@return number
----@description Retrieves the duration of the buff.
+---@description Retrieves the full duration of the buff in ticks.
 ---@example local duration = buff:get_duration()
----@return any
----@description TODO: Add description for buff:get_duration()
----@example local result = buff:get_duration()
 ---@since 1.0.0
 function buff:get_duration() end
 
 ---@return boolean
----@description Checks if the buff is active.
----@return any
----@description TODO: Add description for buff:is_active_buff()
----@example local result = buff:is_active_buff()
+---@description Checks if the buff is currently flagged as active.
+---@example local active = buff:is_active_buff()
 ---@since 1.0.0
 function buff:is_active_buff() end
+
+return buff

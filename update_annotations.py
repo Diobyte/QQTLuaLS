@@ -39,6 +39,15 @@ TYPE_MAP = {
     'object': 'game_object',
     'position': 'vec3',
     'location': 'vec3',
+    'byte': 'number',
+    'key': 'number',
+    'keycode': 'number',
+    'quest': 'table',
+    'quest_id': 'number',
+    'item_id': 'number',
+    'gameobjects': 'game_object[]',
+    'userdata': 'userdata',
+    'int64': 'number',
 }
 
 def map_wiki_type_to_lua(wiki_type):
@@ -47,6 +56,13 @@ def map_wiki_type_to_lua(wiki_type):
         return 'any'
     
     wiki_type = wiki_type.strip().lower()
+
+    # Handle table of [Type] patterns
+    table_bracket_match = re.match(r'table of \[([^\]]+)\]', wiki_type)
+    if table_bracket_match:
+        base_type = table_bracket_match.group(1).strip()
+        lua_base = TYPE_MAP.get(base_type, base_type)
+        return f"{lua_base}[]"
     
     # Handle array types (Table of X)
     if 'table of' in wiki_type:
@@ -143,6 +159,36 @@ def parse_markdown_function(line):
                 params = []
             return func_name, params, return_type
     return None, None, None
+
+
+def extract_item_data_sections(content):
+    """Extract only the Item Data section from Game-Object.md when a dedicated Item-Data.md is absent."""
+    sections = []
+    markers = ["## Item Data Structure", "## Item Data and Affixes Documentation", "## Item Data"]
+    start_idx = -1
+    for marker in markers:
+        start_idx = content.find(marker)
+        if start_idx != -1:
+            break
+    if start_idx == -1:
+        return content
+
+    end_idx = content.find("\n## ", start_idx + 4)
+    if end_idx == -1:
+        end_idx = len(content)
+
+    sections.append(content[start_idx:end_idx])
+    return "\n".join(sections)
+
+
+def trim_game_object_section(content):
+    """Drop embedded item_data/affix sections when processing Game-Object.md for game_object annotations."""
+    markers = [content.find("### Buff"), content.find("## Item Data")]
+    markers = [m for m in markers if m != -1]
+    if not markers:
+        return content
+    stop_idx = min(markers)
+    return content[:stop_idx]
 
 def generate_lua_annotation(func_name, params, return_type, description=""):
     """Generate Lua Emmy annotation."""
@@ -312,6 +358,7 @@ def get_wiki_file_mapping():
         "Loot-Manager.md": "loot_manager.lua",
         "Auto‐Play.md": "auto_play.lua",
         "Buff.md": "buff.lua",
+        # Item data currently lives inside Game-Object.md; keep a mapping entry for automation.
         "Item-Data.md": "item_data.lua",
     }
 
@@ -321,6 +368,12 @@ def update_library_file(wiki_file, lua_file, dry_run=False):
     When dry_run is True, report intended changes without writing files.
     """
     wiki_path = f"temp_wiki/{wiki_file}"
+    use_item_section = False
+    if not os.path.exists(wiki_path) and wiki_file == "Item-Data.md":
+        fallback_path = "temp_wiki/Game-Object.md"
+        if os.path.exists(fallback_path):
+            wiki_path = fallback_path
+            use_item_section = True
     lua_path = f"library/{lua_file}"
 
     if not os.path.exists(wiki_path):
@@ -333,6 +386,11 @@ def update_library_file(wiki_file, lua_file, dry_run=False):
 
     with open(wiki_path, 'r', encoding='utf-8') as f:
         content = f.read()
+
+    if use_item_section:
+        content = extract_item_data_sections(content)
+    elif wiki_file == "Game-Object.md":
+        content = trim_game_object_section(content)
 
     # Extract functions (simplified parsing)
     functions = []
@@ -420,12 +478,20 @@ def update_all_annotations(dry_run=False):
     try:
         mapping = get_wiki_file_mapping()
         updated_count = 0
+        missing_wiki = []
 
         for wiki_file, lua_file in mapping.items():
+            wiki_path = f"temp_wiki/{wiki_file}"
+            if not os.path.exists(wiki_path) and wiki_file != "Item-Data.md":
+                print(f"SKIP: Missing wiki source {wiki_path}")
+                missing_wiki.append(wiki_file)
+                continue
             if update_library_file(wiki_file, lua_file, dry_run=dry_run):
                 updated_count += 1
 
         print(f"Updated {updated_count} library files")
+        if missing_wiki:
+            print("Missing wiki pages (not updated): " + ", ".join(missing_wiki))
         return updated_count > 0
     except Exception as e:
         print(f"Error in update_all_annotations: {e}")
@@ -440,12 +506,20 @@ def check_missing_functions():
         wiki_path = f"temp_wiki/{wiki_file}"
         lua_path = f"library/{lua_file}"
 
+        if wiki_file == "Item-Data.md" and not os.path.exists(wiki_path):
+            wiki_path = "temp_wiki/Game-Object.md" if os.path.exists("temp_wiki/Game-Object.md") else wiki_path
+
         if not os.path.exists(wiki_path) or not os.path.exists(lua_path):
             continue
 
         # Extract functions from wiki
         with open(wiki_path, 'r', encoding='utf-8') as f:
             content = f.read()
+
+        if wiki_file == "Item-Data.md" and "Game-Object.md" in wiki_path:
+            content = extract_item_data_sections(content)
+        elif wiki_file == "Game-Object.md":
+            content = trim_game_object_section(content)
 
         wiki_functions = set()
         for line in content.split('\n'):

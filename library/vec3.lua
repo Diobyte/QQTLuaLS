@@ -20,6 +20,7 @@ local vec3 = {}
 ---@return vec3
 ---@description Creates a new vec3 with the given coordinates.
 ---@since 1.0.0
+---@example local pos = vec3.new(0, 0, 0)
 function vec3.new(x, y, z) end
 
 ---@return vec3

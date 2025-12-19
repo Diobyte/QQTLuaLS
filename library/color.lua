@@ -14,6 +14,7 @@ local color = {}
 ---@return color
 ---@description Creates a color using RGB or RGBA components (0-255 per channel).
 ---@since 1.0.0
+---@example local red = color.new(255,0,0,255)
 function color.new(r, g, b, a) end
 
 return color

@@ -18,6 +18,7 @@ local menu_elements = {}
 ---@return button
 ---@description Creates a button element identified by a unique hash/id.
 ---@since 1.0.0
+---@example local btn = menu_elements.button_new(get_hash("start"))
 function menu_elements.button_new(id) end
 
 ---@param default_state boolean

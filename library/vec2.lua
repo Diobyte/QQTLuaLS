@@ -18,6 +18,7 @@ local vec2 = {}
 ---@return vec2
 ---@description Creates a new vec2 with the given coordinates.
 ---@since 1.0.0
+---@example local p = vec2.new(100, 200)
 function vec2.new(x, y) end
 
 ---@return number

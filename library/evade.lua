@@ -67,19 +67,14 @@ function evade.register_cone_spell(identifier, names_v, radius, angle, color, da
 ---@return boolean
 ---@description Analyzes if a given position lies within a dangerous spell zone, which is crucial for character movement decisions.
 ---@example if evade.is_dangerous_position(my_position) then move_away() end
----@return any
----@description TODO: Add description for evade.is_dangerous_position(pos)
----@example local result = evade.is_dangerous_position(pos)()
 ---@since 1.0.0
 function evade.is_dangerous_position(pos) end
 
 ---@param pos vec3
 ---@param source_pos vec3
 ---@return boolean
----@description Checks if the path between two points intersects with any dangerous spell zones, aiding in pathfinding and movement strategies.
----@return any
----@description TODO: Add description for evade.is_position_passing_dangerous_zone(pos, source_pos)
----@example local result = evade.is_position_passing_dangerous_zone(pos, source_pos)()
+---@description Checks if the path between two points crosses any dangerous zones (helps pick safe paths).
+---@example if evade.is_position_passing_dangerous_zone(target_pos, my_pos) then choose_alternate_route() end
 ---@since 1.0.0
 function evade.is_position_passing_dangerous_zone(pos, source_pos) end
 

@@ -1,41 +1,41 @@
 ---@meta
 
 ---@class vec3
-local vec3_class = {}
+local vec3 = {}
 
 ---@overload fun(other: vec3): vec3
 ---@param x number
 ---@param y number
 ---@param z number
 ---@return vec3
-function vec3(x, y, z) end
+function vec3.new(x, y, z) end
 
 ---@return vec3
-function vec3_class:get_rotation() end
+function vec3:get_rotation() end
 
 ---@return vec3
-function vec3_class:normalize_rotation() end
+function vec3:normalize_rotation() end
 
 ---@return vec3
-function vec3_class:normalize() end
+function vec3:normalize() end
 
 ---@return number
-function vec3_class:x() end
+function vec3:x() end
 
 ---@return number
-function vec3_class:y() end
+function vec3:y() end
 
 ---@return number
-function vec3_class:z() end
+function vec3:z() end
 
 ---@param other vec3
 ---@return boolean
-function vec3_class:equals_ignore_z(other) end
+function vec3:equals_ignore_z(other) end
 
 ---@param other vec3
 ---@param threshold number
 ---@return boolean
-function vec3_class:equals_ignore_z_threshold(other, threshold) end
+function vec3:equals_ignore_z_threshold(other, threshold) end
 
 ---@param segment_end vec3
 ---@param point vec3
@@ -43,97 +43,97 @@ function vec3_class:equals_ignore_z_threshold(other, threshold) end
 ---@param radius number
 ---@param denominator number
 ---@return boolean
-function vec3_class:intersects(segment_end, point, margin, radius, denominator) end
+function vec3:intersects(segment_end, point, margin, radius, denominator) end
 
 ---@param other vec3
 ---@return boolean
-function vec3_class:is_facing(other) end
+function vec3:is_facing(other) end
 
 ---@return string
-function vec3_class:to_string() end
+function vec3:to_string() end
 
 ---@param margin number
-function vec3_class:randomize_xz(margin) end
+function vec3:randomize_xz(margin) end
 
 ---@return number
-function vec3_class:length_2d() end
+function vec3:length_2d() end
 
 ---@return number
-function vec3_class:length_3d() end
+function vec3:length_3d() end
 
 ---@return number
-function vec3_class:length_3d_ignore_z() end
+function vec3:length_3d_ignore_z() end
 
 ---@return number
-function vec3_class:length_3d_squared() end
-
----@param other vec3
----@return number
-function vec3_class:dist_to(other) end
+function vec3:length_3d_squared() end
 
 ---@param other vec3
 ---@return number
-function vec3_class:dist_to_ignore_z(other) end
+function vec3:dist_to(other) end
 
 ---@param other vec3
 ---@return number
-function vec3_class:squared_dist_to(other) end
+function vec3:dist_to_ignore_z(other) end
 
 ---@param other vec3
 ---@return number
-function vec3_class:squared_dist_to_ignore_z(other) end
+function vec3:squared_dist_to(other) end
+
+---@param other vec3
+---@return number
+function vec3:squared_dist_to_ignore_z(other) end
 
 ---@param origin vec3
 ---@param degree number
 ---@return vec3
-function vec3_class:rotate_around(origin, degree) end
+function vec3:rotate_around(origin, degree) end
 
 ---@return vec2
-function vec3_class:project_2d() end
+function vec3:project_2d() end
 
 ---@param other vec3
 ---@return vec3
-function vec3_class:cross(other) end
+function vec3:cross(other) end
 
 ---@return vec3
-function vec3_class:get_unit_vector() end
+function vec3:get_unit_vector() end
 
 ---@param target vec3
 ---@param units number
 ---@return vec3
-function vec3_class:get_extended(target, units) end
+function vec3:get_extended(target, units) end
 
 ---@param origin vec3
 ---@param factor number
 ---@return vec3
-function vec3_class:get_perp_left(origin, factor) end
+function vec3:get_perp_left(origin, factor) end
 
 ---@param origin vec3
 ---@param factor number
 ---@return vec3
-function vec3_class:get_perp_right(origin, factor) end
+function vec3:get_perp_right(origin, factor) end
 
 ---@param target vec3
 ---@param coefficient number
 ---@return vec3
-function vec3_class:lerp(target, coefficient) end
+function vec3:lerp(target, coefficient) end
 
 ---@param other vec3
 ---@return number
-function vec3_class:get_relative_angle(other) end
+function vec3:get_relative_angle(other) end
 
 ---@return boolean
-function vec3_class:is_nan() end
+function vec3:is_nan() end
 
 ---@return boolean
-function vec3_class:is_zero() end
+function vec3:is_zero() end
 
 ---@param target vec3
 ---@param origin vec3
 ---@return number
-function vec3_class:get_angle(target, origin) end
+function vec3:get_angle(target, origin) end
 
 ---@param target vec3
 ---@param origin vec3
 ---@return number
-function vec3_class:get_angle_side(target, origin) end
+function vec3:get_angle_side(target, origin) end

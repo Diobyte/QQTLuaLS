@@ -1,5 +1,24 @@
 ---@meta
 
+---@class area_result
+---@field main_target game_object
+---@field victim_list game_object[]
+---@field n_hits number
+---@field score number
+local area_result_class = {}
+
+---@return area_result
+function area_result() end
+
+---@class area_result_light
+---@field main_target game_object
+---@field n_hits number
+---@field score number
+local area_result_light_class = {}
+
+---@return area_result_light
+function area_result_light() end
+
 ---@class target_selector
 target_selector = {}
 

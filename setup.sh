@@ -10,12 +10,10 @@ INSTALL_DIR="$HOME/.vscode/extensions/qqtluals"
 echo "QQTLuaLS One-Click Setup"
 echo "========================="
 
-# Install Lua if requested
+# Track install flags
+INSTALL_LUA=false
 if [[ "$1" == "--install-lua" ]]; then
-    echo "Installing Lua..."
-    ./scripts/install_lua.sh
-    echo "Lua installed and added to PATH."
-    echo ""
+    INSTALL_LUA=true
 fi
 
 # Check if git is installed
@@ -42,10 +40,18 @@ git submodule update --init --recursive
 # Run installation
 echo "Installing to VS Code..."
 if [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "win32" ]]; then
-    # Windows
-    powershell.exe -ExecutionPolicy Bypass -File "scripts/install_for_vscode.ps1" -Global
+    # Windows: defer to PowerShell scripts with ExecutionPolicy Bypass
+    if [[ "$INSTALL_LUA" == "true" ]]; then
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -File "scripts/install_lua.ps1"
+    fi
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File "scripts/install_for_vscode.ps1" -Global
 else
     # Unix-like
+    if [[ "$INSTALL_LUA" == "true" ]]; then
+        ./scripts/install_lua.sh
+        echo "Lua installed and added to PATH."
+        echo ""
+    fi
     ./scripts/install.sh --global
 fi
 

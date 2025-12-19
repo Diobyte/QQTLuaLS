@@ -50,18 +50,18 @@ function pathfinder.move_to_cpathfinder_custom_a1(pos, batch_length, circle_rad,
 ---@param anti_stuck_time] any
 function pathfinder.move_to_cpathfinder_custom_a2(pos, circular_precision, max_algo_steps, [anti_stuck_rad, anti_stuck_time]) end
 
----@return void
+---@return nil
 function pathfinder.clear_stored_path() end
 
 ---@param pos any
----@return void
+---@return nil
 function pathfinder.force_move_raw(pos) end
 
 ---@param waypoint_list any
 ---@param point any
----@return bool
+---@return boolean
 function pathfinder.sort_waypoints(waypoint_list, point) end
 
 ---@param value any
----@return bool
+---@return boolean
 function pathfinder.set_last_waypoint_index(value) end

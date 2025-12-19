@@ -29,4 +29,9 @@ Notes:
 - The generator is conservative and produces `any` return/param types where the wiki does not specify concrete types. You can manually improve types in `library/*.lua` files.
 - To re-generate after pulling wiki updates, run `python scripts/generate_library.py`.
 
+Validation
+
+- Run `python scripts/validate_library.py` to scan the `library/` files for common issues (bad `---@param` syntax, `bool` vs `boolean`, numeric parenthesis like `(int)` or `(float)`, constructor conflicts, etc.).
+- Fix any flagged files and re-run the validator.
+
 License: add one if needed.

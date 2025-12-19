@@ -11,19 +11,19 @@ function cast_spell.self(spell_id, animation_time) end
 ---@param spell_id any
 ---@param animation_time any
 ---@param is_debug_mode any
----@return bool
+---@return boolean
 function cast_spell.target(target, spell_id, animation_time, is_debug_mode) end
 
 ---@param target any
 ---@param spell_data any
 ---@param is_debug_mode any
----@return bool
+---@return boolean
 function cast_spell.target(target, spell_data, is_debug_mode) end
 
 ---@param spell_id any
 ---@param position any
 ---@param animation_time any
----@return bool
+---@return boolean
 function cast_spell.position(spell_id, position, animation_time) end
 
 ---@param spell_id any
@@ -33,8 +33,10 @@ function cast_spell.position(spell_id, position, animation_time) end
 ---@param cast_position any
 ---@param animation_time any
 ---@param interval any
----@return bool
-function cast_spell.add_channel_spell(spell_id, start_time, finish_time, cast_target, cast_position, animation_time, interval) end
+---@return boolean
+function cast_spell.add_channel_spell(spell_id, start_time, finish_time, cast_target, cast_position, animation_time,
+                                      interval)
+end
 
 ---@param pause_duration any
 function cast_spell.pause_all_channel_spells(pause_duration) end
@@ -48,7 +50,7 @@ function cast_spell.is_channel_spell_active(spell_id) end
 
 ---@param spell_id any
 ---@param new_target any
----@return bool
+---@return boolean
 function cast_spell.update_channel_spell_target(spell_id, new_target) end
 
 ---@param spell_id any

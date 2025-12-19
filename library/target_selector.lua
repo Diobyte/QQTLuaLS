@@ -8,7 +8,7 @@ function target_selector.is_valid_enemy(obj) end
 
 ---@param source any
 ---@param dist any
----@return bool
+---@return boolean
 function target_selector.get_pvp_target(source, dist) end
 
 ---@param source any
@@ -71,7 +71,7 @@ function target_selector.is_wall_collision(source, target, width) end
 ---@param source any
 ---@param target any
 ---@param width any
----@return bool
+---@return boolean
 function target_selector.is_unit_collision(source, target, width) end
 
 function area_result() end

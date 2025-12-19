@@ -110,10 +110,10 @@ function render(label, tooltip, rounding) end
 
 function get() end
 
----@param int any
----@param bool any
----@param uint32_t any
-function keybind(int, bool, uint32_t) end
+---@param key number
+---@param pressed boolean
+---@param flags number
+function keybind(key, pressed, flags) end
 
 ---@param label any
 ---@param tooltip any

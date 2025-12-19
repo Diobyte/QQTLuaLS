@@ -47,9 +47,9 @@ function prediction.get_collisions_rectangular(from, to, width) end
 ---@param width any
 function prediction.is_wall_collision(from, to, width) end
 
----@param vec3 any
----@param float any
-function prediction_parameters(vec3, float) end
+---@param v vec3
+---@param t number
+function prediction_parameters(v, t) end
 
 function prediction_result_candidates() end
 

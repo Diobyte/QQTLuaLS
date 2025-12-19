@@ -1,43 +1,63 @@
 ---@meta
 
----@param x any
----@param y any
+---@class vec2
+---@field x number
+---@field y number
+local vec2_class = {}
+
+---@param x number
+---@param y number
+---@return vec2
 function vec2(x, y) end
 
-function is_zero() end
+---@return boolean
+function vec2_class:is_zero() end
 
-function project_3d() end
+---@return vec3
+function vec2_class:project_3d() end
 
----@param other any
-function distance(other) end
+---@param other vec2
+---@return number
+function vec2_class:distance(other) end
 
----@param other any
-function distance_squared(other) end
+---@param other vec2
+---@return number
+function vec2_class:distance_squared(other) end
 
-function intersects() end
+---@return boolean
+function vec2_class:intersects() end
 
-function length() end
+---@return number
+function vec2_class:length() end
 
----@param other any
-function dot_product(other) end
+---@param other vec2
+---@return number
+function vec2_class:dot_product(other) end
 
-function get_unit_vector() end
+---@return vec2
+function vec2_class:get_unit_vector() end
 
----@param point any
----@param origin any
-function get_angle(point, origin) end
+---@param point vec2
+---@param origin vec2
+---@return number
+function vec2_class:get_angle(point, origin) end
 
----@param target any
----@param dist any
-function get_extended(target, dist) end
+---@param target vec2
+---@param dist number
+---@return vec2
+function vec2_class:get_extended(target, dist) end
 
-function screen_to_coordinate() end
+---@return vec2
+function vec2_class:screen_to_coordinate() end
 
-function coordinate_to_screen() end
+---@return vec2
+function vec2_class:coordinate_to_screen() end
 
----@param origin any
----@param degree any
-function rotate_around(origin, degree) end
+---@param origin vec2
+---@param degree number
+---@return vec2
+function vec2_class:rotate_around(origin, degree) end
 
----@param other any
-function equals(other) end
+---@param other vec2
+---@return boolean
+function vec2_class:equals(other) end

@@ -17,11 +17,72 @@ local vec3 = {}
 ---@description TODO: Add description for vec3.new(x, y, z)
 ---@example local result = vec3.new(x, y, z)()
 ---@since 1.0.0
+
+---@return vec3
+function get_rotation()
+end
+
+
+---@return vec3
+function normalize_rotation()
+end
+
+
+---@return vec3
+function normalize()
+end
+
+
+---@return Boolean
+function equals_ignore_z(other)
+end
+
+
+---@return Boolean
+function equals_ignore_z_threshold(other, threshold)
+end
+
+
+---@return Boolean
+function intersects(segment_end, point, margin, radius, denominator)
+end
+
+
+---@return Boolean
+function is_facing(other)
+end
+
+
+---@return String
+function to_string()
+end
+
+
+---@return vec3
+function rotate_around(origin, degree)
+end
+
+
+---@return [
+function project_2d()
+end
+
+
+---@return vec3
+function cross(other)
+end
+
+---@return any
+---@description TODO: Add description for vec3.new(x, y, z)
+---@example local result = vec3.new(x, y, z)()
+---@since 1.0.0
 function vec3.new(x, y, z) end
 
 ---@return vec3
 ---@description Calculates and returns the rotation vector corresponding to the direction this vec3 is pointing.
 ---@description TODO: Add description for vec3:get_rotation()
+---@example local result = vec3:get_rotation()
+---@since 1.0.0
 ---@example local result = vec3:get_rotation()
 ---@since 1.0.0
 function vec3:get_rotation() end
@@ -32,6 +93,7 @@ function vec3:get_rotation() end
 ---@description TODO: Add description for vec3:normalize_rotation()
 ---@example local result = vec3:normalize_rotation()
 ---@since 1.0.0
+---@since 1.0.0
 function vec3:normalize_rotation() end
 
 ---@return vec3
@@ -40,6 +102,7 @@ function vec3:normalize_rotation() end
 ---@return any
 ---@description TODO: Add description for vec3:normalize()
 ---@example local result = vec3:normalize()
+---@since 1.0.0
 ---@since 1.0.0
 function vec3:normalize() end
 
@@ -65,6 +128,7 @@ function vec3:y() end
 ---@description TODO: Add description for vec3:z()
 ---@example local result = vec3:z()
 ---@since 1.0.0
+---@since 1.0.0
 function vec3:z() end
 
 ---@param other vec3
@@ -73,6 +137,7 @@ function vec3:z() end
 ---@return any
 ---@description TODO: Add description for vec3:equals_ignore_z(other)
 ---@example local result = vec3:equals_ignore_z(other)
+---@since 1.0.0
 ---@since 1.0.0
 function vec3:equals_ignore_z(other) end
 
@@ -83,6 +148,7 @@ function vec3:equals_ignore_z(other) end
 ---@return any
 ---@description TODO: Add description for vec3:equals_ignore_z_threshold(other, threshold)
 ---@example local result = vec3:equals_ignore_z_threshold(other, threshold)
+---@since 1.0.0
 ---@since 1.0.0
 function vec3:equals_ignore_z_threshold(other, threshold) end
 
@@ -95,6 +161,8 @@ function vec3:equals_ignore_z_threshold(other, threshold) end
 ---@description Determines if a line segment from this vec3 to segment_end intersects a point within given margins.
 ---@example local intersects = vec3.new(0, 0, 0):intersects(vec3.new(10, 0, 0), vec3.new(5, 1, 0), 1.0, 2.0, 1.0)
 ---@description TODO: Add description for vec3:intersects(segment_end, point, margin, radius, denominator)
+---@example local result = vec3:intersects(segment_end, point, margin, radius, denominator)
+---@since 1.0.0
 ---@example local result = vec3:intersects(segment_end, point, margin, radius, denominator)
 ---@since 1.0.0
 function vec3:intersects(segment_end, point, margin, radius, denominator) end
@@ -117,16 +185,22 @@ function vec3:to_string() end
 ---@description Randomizes the X and Z coordinates within the specified margin, altering the vector's position.
 ---@example local randomized = vec3.new(0, 0, 0):randomize_xz(1.0)
 ---@since 1.0.0
+---@since 1.0.0
 function vec3:randomize_xz(margin) end
 
 ---@return number
 ---@description Calculates the 2D length (ignoring Z coordinate).
 ---@example local len = vec3.new(3, 4, 5):length_2d() -- Returns 5.0
 ---@since 1.0.0
+---@since 1.0.0
 function vec3:length_2d() end
 
 ---@return number
 ---@description Computes the full 3D length of the vector.
+---@return any
+---@description TODO: Add description for vec3:length_3d()
+---@example local result = vec3:length_3d()
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for vec3:length_3d()
 ---@example local result = vec3:length_3d()
@@ -138,11 +212,17 @@ function vec3:length_3d() end
 ---@description TODO: Add description for vec3:length_3d_ignore_z()
 ---@example local result = vec3:length_3d_ignore_z()
 ---@since 1.0.0
+---@return any
+---@description TODO: Add description for vec3:length_3d_ignore_z()
+---@example local result = vec3:length_3d_ignore_z()
+---@since 1.0.0
 function vec3:length_3d_ignore_z() end
 
 ---@return number
 ---@description Calculates the squared 3D length for performance efficiency.
 ---@example local sq_len = vec3.new(3, 4, 5):length_3d_squared() -- Returns 50.0
+---@since 1.0.0
+---@example local result = vec3:length_3d_squared()
 ---@since 1.0.0
 function vec3:length_3d_squared() end
 
@@ -154,6 +234,7 @@ function vec3:length_3d_squared() end
 ---@description TODO: Add description for vec3:dist_to(other)
 ---@example local result = vec3:dist_to(other)
 ---@since 1.0.0
+---@since 1.0.0
 function vec3:dist_to(other) end
 
 ---@param other vec3
@@ -162,12 +243,20 @@ function vec3:dist_to(other) end
 ---@example local dist = vec3.new(0, 0, 0):dist_to_ignore_z(vec3.new(3, 4, 5)) -- Returns 5.0
 ---@example local result = vec3:dist_to_ignore_z(other)
 ---@since 1.0.0
+---@return any
+---@description TODO: Add description for vec3:dist_to_ignore_z(other)
+---@example local result = vec3:dist_to_ignore_z(other)
+---@since 1.0.0
 function vec3:dist_to_ignore_z(other) end
 
 ---@param other vec3
 ---@return number
 ---@description Calculates the squared distance for efficiency.
 ---@example local sq_dist = vec3.new(0, 0, 0):squared_dist_to(vec3.new(3, 4, 0)) -- Returns 25.0
+---@since 1.0.0
+---@return any
+---@description TODO: Add description for vec3:squared_dist_to(other)
+---@example local result = vec3:squared_dist_to(other)
 ---@since 1.0.0
 function vec3:squared_dist_to(other) end
 
@@ -187,6 +276,7 @@ function vec3:squared_dist_to(other) end
 ---@description TODO: Add description for vec3:squared_dist_to_ignore_z(other)
 ---@example local result = vec3:squared_dist_to_ignore_z(other)
 ---@since 1.0.0
+---@since 1.0.0
 function vec3:squared_dist_to_ignore_z(other) end
 
 ---@param origin vec3
@@ -197,12 +287,14 @@ function vec3:squared_dist_to_ignore_z(other) end
 ---@description TODO: Add description for vec3:rotate_around(origin, degree)
 ---@example local result = vec3:rotate_around(origin, degree)
 ---@since 1.0.0
+---@since 1.0.0
 function vec3:rotate_around(origin, degree) end
 
 ---@return vec2
 ---@description Projects the vec3 onto a 2D plane, typically by ignoring the Y coordinate, and returns a vec2.
 ---@description TODO: Add description for vec3:project_2d()
 ---@example local result = vec3:project_2d()
+---@since 1.0.0
 ---@since 1.0.0
 function vec3:project_2d() end
 
@@ -214,11 +306,15 @@ function vec3:project_2d() end
 ---@description TODO: Add description for vec3:cross(other)
 ---@example local result = vec3:cross(other)
 ---@since 1.0.0
+---@since 1.0.0
 function vec3:cross(other) end
 
 ---@return vec3
 ---@description The `vec3` class offers a comprehensive set of methods for 3D vector manipulation, pivotal for spatial calculations, movement, and graphical positioning in the Diablo Lua API.
 ---@return any
+---@description TODO: Add description for vec3:get_unit_vector()
+---@example local result = vec3:get_unit_vector()
+---@since 1.0.0
 ---@description TODO: Add description for vec3:get_unit_vector()
 ---@example local result = vec3:get_unit_vector()
 ---@since 1.0.0
@@ -233,6 +329,7 @@ function vec3:get_unit_vector() end
 ---@description TODO: Add description for vec3:get_extended(target, units)
 ---@example local result = vec3:get_extended(target, units)
 ---@since 1.0.0
+---@since 1.0.0
 function vec3:get_extended(target, units) end
 
 ---@param origin vec3
@@ -240,6 +337,10 @@ function vec3:get_extended(target, units) end
 ---@return vec3
 ---@description Calculates the perpendicular left vector relative to the origin, scaled by the factor.
 ---@example local left = vec3.new(0, 0, 0):get_perp_left(vec3.new(1, 0, 0), 1.0)
+---@return any
+---@description TODO: Add description for vec3:get_perp_left(origin, factor)
+---@example local result = vec3:get_perp_left(origin, factor)
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for vec3:get_perp_left(origin, factor)
 ---@example local result = vec3:get_perp_left(origin, factor)
@@ -255,6 +356,7 @@ function vec3:get_perp_left(origin, factor) end
 ---@description TODO: Add description for vec3:get_perp_right(origin, factor)
 ---@example local result = vec3:get_perp_right(origin, factor)
 ---@since 1.0.0
+---@since 1.0.0
 function vec3:get_perp_right(origin, factor) end
 
 ---@param target vec3
@@ -266,12 +368,17 @@ function vec3:get_perp_right(origin, factor) end
 ---@description TODO: Add description for vec3:lerp(target, coefficient)
 ---@example local result = vec3:lerp(target, coefficient)
 ---@since 1.0.0
+---@since 1.0.0
 function vec3:lerp(target, coefficient) end
 
 ---@param other vec3
 ---@return number
 ---@description Calculates the relative angle between this vec3 and another vec3.
 ---@example local angle = vec3.new(1, 0, 0):get_relative_angle(vec3.new(0, 1, 0))
+---@return any
+---@description TODO: Add description for vec3:get_relative_angle(other)
+---@example local result = vec3:get_relative_angle(other)
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for vec3:get_relative_angle(other)
 ---@example local result = vec3:get_relative_angle(other)
@@ -284,10 +391,18 @@ function vec3:get_relative_angle(other) end
 ---@description TODO: Add description for vec3:is_nan()
 ---@example local result = vec3:is_nan()
 ---@since 1.0.0
+---@return any
+---@description TODO: Add description for vec3:is_nan()
+---@example local result = vec3:is_nan()
+---@since 1.0.0
 function vec3:is_nan() end
 
 ---@return boolean
 ---@description The `vec3` class offers a comprehensive set of methods for 3D vector manipulation, pivotal for spatial calculations, movement, and graphical positioning in the Diablo Lua API.
+---@return any
+---@description TODO: Add description for vec3:is_zero()
+---@example local result = vec3:is_zero()
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for vec3:is_zero()
 ---@example local result = vec3:is_zero()
@@ -303,6 +418,10 @@ function vec3:is_zero() end
 ---@description TODO: Add description for vec3:get_angle(target, origin)
 ---@example local result = vec3:get_angle(target, origin)
 ---@since 1.0.0
+---@return any
+---@description TODO: Add description for vec3:get_angle(target, origin)
+---@example local result = vec3:get_angle(target, origin)
+---@since 1.0.0
 function vec3:get_angle(target, origin) end
 
 ---@param target vec3
@@ -310,6 +429,10 @@ function vec3:get_angle(target, origin) end
 ---@return number
 ---@description Calculates the side of the angle between this vec3, the target vec3, and the origin vec3.
 ---@example local side = vec3.new(0, 0, 0):get_angle_side(vec3.new(1, 0, 0), vec3.new(0, 1, 0))
+---@return any
+---@description TODO: Add description for vec3:get_angle_side(target, origin)
+---@example local result = vec3:get_angle_side(target, origin)
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for vec3:get_angle_side(target, origin)
 ---@example local result = vec3:get_angle_side(target, origin)

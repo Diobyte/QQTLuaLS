@@ -11,6 +11,25 @@ local world = {}
 ---@description Returns the name of the current world.
 ---@example local name = world:get_name()
 ---@since 1.0.0
+
+---@return any
+function get_name()
+end
+
+
+---@return any
+function get_current_zone_name()
+end
+
+
+---@return any
+function get_world_id()
+end
+
+---@return any
+---@description TODO: Add description for world:get_name()
+---@example local result = world:get_name()
+---@since 1.0.0
 function world:get_name() end
 
 ---@return string
@@ -20,11 +39,17 @@ function world:get_name() end
 ---@description TODO: Add description for world:get_current_zone_name()
 ---@example local result = world:get_current_zone_name()
 ---@since 1.0.0
+---@example local result = world:get_current_zone_name()
+---@since 1.0.0
 function world:get_current_zone_name() end
 
 ---@return string
 ---@description Returns the ID of the current world.
 ---@example local id = world:get_world_id()
+---@return any
+---@description TODO: Add description for world:get_world_id()
+---@example local result = world:get_world_id()
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for world:get_world_id()
 ---@example local result = world:get_world_id()

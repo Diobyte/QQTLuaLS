@@ -108,3 +108,55 @@ function actors_manager.get_enemy_npcs() end
 ---@example local result = actors_manager.get_all_items()()
 ---@since 1.0.0
 function actors_manager.get_all_items() end
+
+---@return any
+function actors_manager:actors_manager.get_all_actors()
+end
+
+---@return any
+function actors_manager:actors_manager.get_enemy_actors()
+end
+
+---@return any
+function actors_manager:actors_manager.get_ally_actors()
+end
+
+---@return any
+function actors_manager:actors_manager.get_all_particles()
+end
+
+---@return any
+function actors_manager:actors_manager.get_ally_particles()
+end
+
+---@return any
+function actors_manager:actors_manager.get_enemy_particles()
+end
+
+---@return any
+function actors_manager:actors_manager.get_all_players()
+end
+
+---@return any
+function actors_manager:actors_manager.get_ally_players()
+end
+
+---@return any
+function actors_manager:actors_manager.get_enemy_players()
+end
+
+---@return any
+function actors_manager:actors_manager.get_all_npcs()
+end
+
+---@return any
+function actors_manager:actors_manager.get_ally_npcs()
+end
+
+---@return any
+function actors_manager:actors_manager.get_enemy_npcs()
+end
+
+---@return any
+function actors_manager:actors_manager.get_all_items()
+end

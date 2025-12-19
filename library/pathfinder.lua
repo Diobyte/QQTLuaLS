@@ -132,3 +132,7 @@ function pathfinder.sort_waypoints(waypoint_list, point) end
 ---@example local result = pathfinder.set_last_waypoint_index(value)()
 ---@since 1.0.0
 function pathfinder.set_last_waypoint_index(value) end
+
+---@return any
+function pathfinder:pathfinder.clear_stored_path()
+end

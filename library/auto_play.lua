@@ -106,3 +106,11 @@ function auto_play.set_dungeon_waypoints(waypoints_table) end
 ---@example local result = auto_play.get_objective()()
 ---@since 1.0.0
 function auto_play.get_objective() end
+
+---@return any
+function auto_play:auto_play.is_active()
+end
+
+---@return any
+function auto_play:auto_play.get_objective()
+end

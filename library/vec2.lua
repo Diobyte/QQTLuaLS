@@ -17,6 +17,80 @@ local vec2 = {}
 ---@description Creates a new vec2 instance with the specified x and y coordinates.
 ---@example local pos = vec2.new(100, 200)
 ---@since 1.0.0
+
+---@return Boolean
+function is_zero()
+end
+
+
+---@return [
+function project_3d()
+end
+
+
+---@return Number
+function distance(other)
+end
+
+
+---@return Number
+function distance_squared(other)
+end
+
+
+---@return Boolean
+function intersects()
+end
+
+
+---@return Number
+function length()
+end
+
+
+---@return Number
+function dot_product(other)
+end
+
+
+---@return [
+function get_unit_vector()
+end
+
+
+---@return Number
+function get_angle(point, origin)
+end
+
+
+---@return [
+function get_extended(target, dist)
+end
+
+
+---@return [
+function screen_to_coordinate()
+end
+
+
+---@return [
+function coordinate_to_screen()
+end
+
+
+---@return [
+function rotate_around(origin, degree)
+end
+
+
+---@return Boolean
+function equals(other)
+end
+
+---@return any
+---@description TODO: Add description for vec2.new(x, y)
+---@example local result = vec2.new(x, y)()
+---@since 1.0.0
 function vec2.new(x, y) end
 
 ---@return number
@@ -26,11 +100,14 @@ function vec2.new(x, y) end
 ---@description TODO: Add description for vec2:x()
 ---@example local result = vec2:x()
 ---@since 1.0.0
+---@example local result = vec2:x()
+---@since 1.0.0
 function vec2:x() end
 
 ---@return number
 ---@description Returns the y-coordinate of the vector.
 ---@example local y = vec2.new(100, 200):y() -- Returns 200
+---@since 1.0.0
 ---@since 1.0.0
 function vec2:y() end
 
@@ -41,6 +118,7 @@ function vec2:y() end
 ---@description TODO: Add description for vec2:is_zero()
 ---@example local result = vec2:is_zero()
 ---@since 1.0.0
+---@since 1.0.0
 function vec2:is_zero() end
 
 ---@return vec3
@@ -48,6 +126,7 @@ function vec2:is_zero() end
 ---@example local pos3d = vec2.new(100, 200):project_3d() -- Returns vec3.new(100, 200, 0)
 ---@description TODO: Add description for vec2:project_3d()
 ---@example local result = vec2:project_3d()
+---@since 1.0.0
 ---@since 1.0.0
 function vec2:project_3d() end
 
@@ -58,12 +137,17 @@ function vec2:project_3d() end
 ---@description TODO: Add description for vec2:distance(other)
 ---@example local result = vec2:distance(other)
 ---@since 1.0.0
+---@since 1.0.0
 function vec2:distance(other) end
 
 ---@param other vec2
 ---@return number
 ---@description Calculates the squared Euclidean distance between this vec2 and another vec2 for efficiency.
 ---@example local sq_dist = vec2.new(0, 0):distance_squared(vec2.new(3, 4)) -- Returns 25.0
+---@return any
+---@description TODO: Add description for vec2:distance_squared(other)
+---@example local result = vec2:distance_squared(other)
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for vec2:distance_squared(other)
 ---@example local result = vec2:distance_squared(other)
@@ -76,6 +160,8 @@ function vec2:distance_squared(other) end
 ---@description TODO: Add description for vec2:intersects()
 ---@example local result = vec2:intersects()
 ---@since 1.0.0
+---@example local result = vec2:intersects()
+---@since 1.0.0
 function vec2:intersects() end
 
 ---@return number
@@ -84,6 +170,7 @@ function vec2:intersects() end
 ---@return any
 ---@description TODO: Add description for vec2:length()
 ---@example local result = vec2:length()
+---@since 1.0.0
 ---@since 1.0.0
 function vec2:length() end
 
@@ -95,6 +182,8 @@ function vec2:length() end
 ---@description TODO: Add description for vec2:dot_product(other)
 ---@example local result = vec2:dot_product(other)
 ---@since 1.0.0
+---@example local result = vec2:dot_product(other)
+---@since 1.0.0
 function vec2:dot_product(other) end
 
 ---@return vec2
@@ -104,12 +193,17 @@ function vec2:dot_product(other) end
 ---@description TODO: Add description for vec2:get_unit_vector()
 ---@example local result = vec2:get_unit_vector()
 ---@since 1.0.0
+---@since 1.0.0
 function vec2:get_unit_vector() end
 
 ---@param point vec2
 ---@param origin vec2
 ---@return number
 ---@description Calculates the angle between this vec2, the point vec2, and the origin vec2.
+---@return any
+---@description TODO: Add description for vec2:get_angle(point, origin)
+---@example local result = vec2:get_angle(point, origin)
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for vec2:get_angle(point, origin)
 ---@example local result = vec2:get_angle(point, origin)
@@ -124,6 +218,8 @@ function vec2:get_angle(point, origin) end
 ---@description TODO: Add description for vec2:get_extended(target, dist)
 ---@example local result = vec2:get_extended(target, dist)
 ---@since 1.0.0
+---@example local result = vec2:get_extended(target, dist)
+---@since 1.0.0
 function vec2:get_extended(target, dist) end
 
 ---@return vec2
@@ -132,10 +228,15 @@ function vec2:get_extended(target, dist) end
 ---@description TODO: Add description for vec2:screen_to_coordinate()
 ---@example local result = vec2:screen_to_coordinate()
 ---@since 1.0.0
+---@since 1.0.0
 function vec2:screen_to_coordinate() end
 
 ---@return vec2
 ---@description Converts this world coordinate vec2 to screen coordinates.
+---@return any
+---@description TODO: Add description for vec2:coordinate_to_screen()
+---@example local result = vec2:coordinate_to_screen()
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for vec2:coordinate_to_screen()
 ---@example local result = vec2:coordinate_to_screen()
@@ -150,11 +251,19 @@ function vec2:coordinate_to_screen() end
 ---@description TODO: Add description for vec2:rotate_around(origin, degree)
 ---@example local result = vec2:rotate_around(origin, degree)
 ---@since 1.0.0
+---@return any
+---@description TODO: Add description for vec2:rotate_around(origin, degree)
+---@example local result = vec2:rotate_around(origin, degree)
+---@since 1.0.0
 function vec2:rotate_around(origin, degree) end
 
 ---@param other vec2
 ---@return boolean
 ---@description Checks if this vec2 is equal to another vec2.
+---@return any
+---@description TODO: Add description for vec2:equals(other)
+---@example local result = vec2:equals(other)
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for vec2:equals(other)
 ---@example local result = vec2:equals(other)

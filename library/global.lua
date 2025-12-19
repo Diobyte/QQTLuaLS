@@ -31,48 +31,40 @@ function get_actors_list() end
 
 ---@return game_object[]
 ---@description Fetches a list of all game objects that are currently attached, offering insights into various game entities and their interactions.
----@return any
----@description TODO: Add description for get_attachments_list()
----@example local result = get_attachments_list()()
+---@return game_object[]
+---@description Fetches a list of all game objects that are currently attached, offering insights into various game entities and their interactions.
+---@example local attachments = get_attachments_list()
 ---@since 1.0.0
 function get_attachments_list() end
 
 ---@param str string
 ---@return number
 ---@description Converts a given string into a hash integer, facilitating efficient data storage and retrieval operations.
----@return any
----@description TODO: Add description for get_hash(str)
----@example local result = get_hash(str)()
+---@example local hash = get_hash("example")
 ---@since 1.0.0
 function get_hash(str) end
 
 ---@return vec3
 ---@description Obtains the precise position of the cursor in the game world, useful for UI interactions and in-game targeting.
----@return any
----@description TODO: Add description for get_cursor_position()
----@example local result = get_cursor_position()()
+---@example local cursor_pos = get_cursor_position()
 ---@since 1.0.0
 function get_cursor_position() end
 
 ---@return number
 ---@description Provides the current in-game time, essential for time-based events and game dynamics.
----@return any
----@description TODO: Add description for get_gametime()
----@example local result = get_gametime()()
+---@example local time = get_gametime()
 ---@since 1.0.0
 function get_gametime() end
 
 ---@return number
 ---@description Measures the duration since the last code injection, offering a timing benchmark for scripts and operations.
----@return any
----@description TODO: Add description for get_time_since_inject()
----@example local result = get_time_since_inject()()
+---@example local time_elapsed = get_time_since_inject()
 ---@since 1.0.0
 function get_time_since_inject() end
 
 ---@return number[]
----@description TODO: Add description for get_equipped_spell_ids()
----@example local result = get_equipped_spell_ids()()
+---@description Retrieves the IDs of all currently equipped spells, providing access to the player's active spell configuration.
+---@example local spell_ids = get_equipped_spell_ids()
 ---@since 1.0.0
 function get_equipped_spell_ids() end
 
@@ -112,9 +104,7 @@ function get_key_state(key) end
 
 ---@return table
 ---@description Retrieves a table of all active quests in the game.
----@return any
----@description TODO: Add description for get_quests()
----@example local result = get_quests()()
+---@example local quests = get_quests()
 ---@since 1.0.0
 function get_quests() end
 
@@ -138,9 +128,7 @@ function interact_object(object) end
 ---@param object game_object
 ---@return nil
 ---@description Initiates an interaction with the specified vendor object.
----@return any
----@description TODO: Add description for interact_vendor(object)
----@example local result = interact_vendor(object)()
+---@example interact_vendor(vendor_obj)
 ---@since 1.0.0
 function interact_vendor(object) end
 
@@ -152,9 +140,7 @@ function get_screen_width() end
 
 ---@return number
 ---@description Retrieves the current height of the game screen in pixels.
----@return any
----@description TODO: Add description for get_screen_height()
----@example local result = get_screen_height()()
+---@example local height = get_screen_height()
 ---@since 1.0.0
 function get_screen_height() end
 
@@ -167,9 +153,7 @@ function get_helltide_coin_cinders() end
 
 ---@return number
 ---@description Retrieves the current count of Helltide coin hearts.
----@return any
----@description TODO: Add description for get_helltide_coin_hearts()
----@example local result = get_helltide_coin_hearts()()
+---@example local hearts = get_helltide_coin_hearts()
 ---@since 1.0.0
 function get_helltide_coin_hearts() end
 
@@ -190,16 +174,13 @@ function revive_at_checkpoint() end
 
 ---@return nil
 ---@description Starts the game session.
----@description TODO: Add description for start_game()
----@example local result = start_game()()
+---@example start_game()
 ---@since 1.0.0
 function start_game() end
 
 ---@return nil
 ---@description Leaves the current game session.
----@return any
----@description TODO: Add description for leave_game()
----@example local result = leave_game()()
+---@example leave_game()
 ---@since 1.0.0
 function leave_game() end
 

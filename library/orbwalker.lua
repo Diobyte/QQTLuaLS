@@ -49,3 +49,7 @@ function orbwalker.set_block_movement(value) end
 ---@example local result = orbwalker.set_auto_loot_toggle(value)()
 ---@since 1.0.0
 function orbwalker.set_auto_loot_toggle(value) end
+
+---@return any
+function orbwalker:orbwalker.get_orb_mode()
+end

@@ -1,7 +1,7 @@
 {
   "name": "qqt_diablo.luacompanion",
   "displayName": "QQT Diablo LuaLS Library",
-  "version": "1.9.1",
+  "version": "1.9.6",
   "description": "Lua Language Server annotation library for QQT Diablo API generated from the qqt_diablo wiki.",
   "author": "Copilot",
   "license": "MIT",

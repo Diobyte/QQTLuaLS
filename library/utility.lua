@@ -190,3 +190,31 @@ function utility.summon_boss_previous_recipe() end
 ---@example local result = utility.confirm_sigil_notification()()
 ---@since 1.0.0
 function utility.confirm_sigil_notification() end
+
+---@return any
+function utility:utility.toggle_mount()
+end
+
+---@return any
+function utility:utility.summon_boss()
+end
+
+---@return any
+function utility:utility.summon_boss_next_recipe()
+end
+
+---@return any
+function utility:utility.summon_boss_previous_recipe()
+end
+
+---@return any
+function utility:utility.confirm_sigil_notification()
+end
+
+---@generic T
+---@param list T[]
+---@return T
+---@description Returns a random element from the provided list.
+---@example local random_unit = utility.get_random_element(units)
+---@since 1.9.7
+function utility.get_random_element(list) end

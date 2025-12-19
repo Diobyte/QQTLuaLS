@@ -303,3 +303,43 @@ function loot_manager.get_vendor_currency_type() end
 ---@example local result = loot_manager.get_vendor_items()()
 ---@since 1.0.0
 function loot_manager.get_vendor_items() end
+
+---@return any
+function loot_manager:loot_manager.is_potion_necesary()
+end
+
+---@return any
+function loot_manager:loot_manager.can_loot_potion()
+end
+
+---@return any
+function loot_manager:loot_manager.get_all_items_and_chest_sorted_by_distance()
+end
+
+---@return any
+function loot_manager:loot_manager.sell_all_items()
+end
+
+---@return any
+function loot_manager:loot_manager.salvage_all_items()
+end
+
+---@return any
+function loot_manager:loot_manager.repair_all_items()
+end
+
+---@return any
+function loot_manager:loot_manager.get_current_vendor()
+end
+
+---@return any
+function loot_manager:loot_manager.is_in_vendor_screen()
+end
+
+---@return any
+function loot_manager:loot_manager.get_vendor_currency_type()
+end
+
+---@return any
+function loot_manager:loot_manager.get_vendor_items()
+end

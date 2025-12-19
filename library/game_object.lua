@@ -19,73 +19,442 @@ local game_object = {}
 ---@description Returns the unique identifier of the [game object].
 ---@example local obj_id = game_object:get_id()
 ---@since 1.0.0
+
+function get_id()
+end
+
+
+---@return number
+function get_secondary_data_id()
+end
+
+
+---@return number
+function get_type_id()
+end
+
+
+---@return vec3
+function get_position()
+end
+
+
+---@return boolean
+function is_moving()
+end
+
+
+---@return boolean
+function is_dashing()
+end
+
+
+---@return number
+function get_active_spell_id()
+end
+
+
+---@return vec3
+function get_active_spell_origin()
+end
+
+
+---@return vec3
+function get_active_spell_destination()
+end
+
+
+---@return vec3
+function get_move_destination()
+end
+
+
+---@return vec3
+function get_dash_destination()
+end
+
+
+---@return vec3
+function get_direction()
+end
+
+
+---@return number
+function get_current_speed()
+end
+
+
+---@return number
+function get_total_movement_speed()
+end
+
+
+---@return number
+function get_base_movement_speed()
+end
+
+
+---@return number
+function get_movement_speed_multiplier()
+end
+
+
+---@return string
+function get_skin_name()
+end
+
+
+---@return number
+function get_type()
+end
+
+
+---@return boolean
+function is_basic_particle()
+end
+
+
+---@return boolean
+function is_elite()
+end
+
+
+---@return boolean
+function is_champion()
+end
+
+
+---@return boolean
+function is_minion()
+end
+
+
+---@return boolean
+function is_boss()
+end
+
+
+---@return boolean
+function is_immune()
+end
+
+
+---@return boolean
+function is_vulnerable()
+end
+
+
+---@return boolean
+function is_untargetable()
+end
+
+
+---@return boolean
+function is_item()
+end
+
+
+---@return boolean
+function is_interactable()
+end
+
+
+---@return number
+function get_interact_spell_id()
+end
+
+
+---@return number
+function get_base_health()
+end
+
+
+---@return number
+function get_bonus_health_modifier()
+end
+
+
+---@return number
+function get_current_health()
+end
+
+
+---@return number
+function get_max_health()
+end
+
+
+---@return number
+function get_base_attack_speed()
+end
+
+
+---@return number
+function get_bonus_attack_speed()
+end
+
+
+---@return number
+function get_weapon_damage()
+end
+
+
+---@return number
+function get_level()
+end
+
+
+---@return number
+function get_current_experience()
+end
+
+
+---@return number
+function get_experience_total_next_level()
+end
+
+
+---@return number
+function get_experience_remaining_next_level()
+end
+
+
+---@return number
+function get_character_class_id()
+end
+
+
+---@return number
+function get_health_potion_max_count()
+end
+
+
+---@return number
+function get_health_potion_count()
+end
+
+
+---@return number
+function get_health_potion_tier()
+end
+
+
+---@return number
+function get_primary_resource_current()
+end
+
+
+---@return number
+function get_primary_resource_max()
+end
+
+
+---@return number
+function get_class_specialization_id()
+end
+
+
+---@return number
+function get_rogue_combo_points()
+end
+
+
+---@return boolean
+function is_dead()
+end
+
+
+---@return boolean
+function is_enemy()
+end
+
+
+---@return boolean
+function is_enemy_with(other)
+end
+
+
+---@return number
+function get_debug_int()
+end
+
+
+---@return number
+function get_debug_int_2()
+end
+
+
+---@return number
+function get_debug_float()
+end
+
+
+---@return table
+function get_buffs()
+end
+
+
+---@return table
+function get_inventory_items()
+end
+
+
+---@return number
+function get_item_count()
+end
+
+
+---@return number
+function get_consumable_count()
+end
+
+
+---@return number
+function get_quest_item_count()
+end
+
+
+---@return number
+function get_aspect_count()
+end
+
+
+---@return table
+function get_item_ids_for_bag(bag_id)
+end
+
+
+---@return table
+function get_inventory_item_secondary_ids()
+end
+
+
+---@return table
+function get_consumables_ids()
+end
+
+
+---@return table
+function get_consumables_names()
+end
+
+
+---@return boolean
+function is_spell_ready(spell_id)
+end
+
+
+---@return boolean
+function has_enough_resources_for_spell(spell_id)
+end
+
+
+---@return table
+function get_equipped_items()
+end
+
+
+---@return table
+function get_inventory_items()
+end
+
+
+---@return table
+function get_consumable_items()
+end
+
+
+---@return table
+function get_stash_items()
+end
+
+
+---@return table
+function get_dungeon_key_items()
+end
+
+
+---@return table
+function get_socketable_items()
+end
+
+
+---@return item_data
+function get_item_info(item_id)
+end
+
+---@return any
+---@description TODO: Add description for game_object:get_id()
+---@example local result = game_object:get_id()
+---@since 1.0.0
 function game_object:get_id() end
 
 ---@return number
 ---@description Returns the secondary data identifier of the [game object].
 ---@since 1.0.0
 ---@example local result = game_object:get_secondary_data_id()
+---@example local result = game_object:get_secondary_data_id()
+---@since 1.0.0
 function game_object:get_secondary_data_id() end
 
 ---@return number
 ---@description Provides the type identifier of the [game object].
 ---@since 1.0.0
----@return any
----@description TODO: Add description for game_object:get_type_id()
 ---@example local result = game_object:get_type_id()
----@since 1.0.0
 function game_object:get_type_id() end
 
 ---@return vec3
 ---@description Retrieves the current position of the [game object] as a [`vec3`].
 ---@example local pos = game_object:get_position()
 ---@since 1.0.0
+
+---@return any
+---@description TODO: Add description for game_object:get_position()
+---@example local result = game_object:get_position()
 ---@since 1.0.0
 function game_object:get_position() end
 
 ---@return boolean
 ---@description Indicates whether the [game object] is currently moving.
 ---@example if game_object:is_moving() then print("Moving") end
----@return any
----@description TODO: Add description for game_object:is_moving()
+
+---@since 1.0.0
 ---@example local result = game_object:is_moving()
 ---@since 1.0.0
 function game_object:is_moving() end
 
 ---@return boolean
 ---@description Checks if the [game object] is performing a dash action.
----@return any
----@description TODO: Add description for game_object:is_dashing()
----@example local result = game_object:is_dashing()
+---@example local is_dashing = game_object:is_dashing()
 ---@since 1.0.0
 function game_object:is_dashing() end
 
 ---@return number
 ---@description Returns the identifier of the currently active spell of the [game object].
----@return any
----@description TODO: Add description for game_object:get_active_spell_id()
----@example local result = game_object:get_active_spell_id()
+---@example local spell_id = game_object:get_active_spell_id()
 ---@since 1.0.0
 function game_object:get_active_spell_id() end
 
 ---@return vec3|nil
 ---@description Retrieves the origin of the current active spell as a [`vec3`] for the [game object]. Returns nil if no active spell.
----@return any
----@description TODO: Add description for game_object:get_active_spell_origin()
+---@example local origin = game_object:get_active_spell_origin()
+---@since 1.0.0
 ---@example local result = game_object:get_active_spell_origin()
 ---@since 1.0.0
 function game_object:get_active_spell_origin() end
 
 ---@return vec3|nil
 ---@description Retrieves the destination of the current active spell as a [`vec3`] for the [game object]. Returns nil if no active spell.
----@return any
----@description TODO: Add description for game_object:get_active_spell_destination()
----@example local result = game_object:get_active_spell_destination()
+---@example local dest = game_object:get_active_spell_destination()
 ---@since 1.0.0
 function game_object:get_active_spell_destination() end
 
 ---@return vec3|nil
 ---@description Retrieves the destination of the current move action as a [`vec3`] for the [game object]. Returns nil if not moving.
+---@return any
+---@description TODO: Add description for game_object:get_move_destination()
+---@example local result = game_object:get_move_destination()
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for game_object:get_move_destination()
 ---@example local result = game_object:get_move_destination()
@@ -96,21 +465,19 @@ function game_object:get_move_destination() end
 ---@description Provides the destination of the current dash as a [`vec3`] for the [game object]. Returns nil if not dashing.
 ---@example local result = game_object:get_dash_destination()
 ---@since 1.0.0
+---@example local result = game_object:get_dash_destination()
+---@since 1.0.0
 function game_object:get_dash_destination() end
 
 ---@return vec3
 ---@description Retrieves the current direction of the [game object] as a [`vec3`].
----@return any
----@description TODO: Add description for game_object:get_direction()
----@example local result = game_object:get_direction()
+---@example local dir = game_object:get_direction()
 ---@since 1.0.0
 function game_object:get_direction() end
 
 ---@return number
 ---@description Retrieves the current speed of the [game object].
----@return any
----@description TODO: Add description for game_object:get_current_speed()
----@example local result = game_object:get_current_speed()
+---@example local speed = game_object:get_current_speed()
 ---@since 1.0.0
 function game_object:get_current_speed() end
 
@@ -120,11 +487,16 @@ function game_object:get_current_speed() end
 ---@description TODO: Add description for game_object:get_total_movement_speed()
 ---@example local result = game_object:get_total_movement_speed()
 ---@since 1.0.0
+---@return any
+---@description TODO: Add description for game_object:get_total_movement_speed()
+---@example local result = game_object:get_total_movement_speed()
+---@since 1.0.0
 function game_object:get_total_movement_speed() end
 
 ---@return number
 ---@description Retrieves the base movement speed of the [game object], excluding any multipliers.
----@return any
+---@example local base_speed = game_object:get_base_movement_speed()
+---@since 1.0.0
 ---@description TODO: Add description for game_object:get_base_movement_speed()
 ---@example local result = game_object:get_base_movement_speed()
 ---@since 1.0.0
@@ -132,18 +504,17 @@ function game_object:get_base_movement_speed() end
 
 ---@return number
 ---@description Retrieves the movement speed multiplier of the [game object], indicating the factor by which the base speed is modified.
----@return any
----@description TODO: Add description for game_object:get_movement_speed_multiplier()
+---@example local multiplier = game_object:get_movement_speed_multiplier()
+---@since 1.0.0
 ---@example local result = game_object:get_movement_speed_multiplier()
 ---@since 1.0.0
 function game_object:get_movement_speed_multiplier() end
 
----@overload fun(self, ): string
----@overload fun(self, ): string
+---@overload fun(self): string
 ---@return string
 ---@description Returns the name of the current skin of the [game object].
----@return any
----@description TODO: Add description for game_object:get_skin_name()
+---@example local skin = game_object:get_skin_name()
+---@since 1.0.0
 ---@example local result = game_object:get_skin_name()
 ---@since 1.0.0
 function game_object:get_skin_name() end
@@ -153,6 +524,7 @@ function game_object:get_skin_name() end
 ---@return any
 ---@description TODO: Add description for game_object:get_type()
 ---@example local result = game_object:get_type()
+---@since 1.0.0
 ---@since 1.0.0
 function game_object:get_type() end
 
@@ -202,6 +574,10 @@ function game_object:is_boss() end
 ---@description TODO: Add description for game_object:is_immune()
 ---@example local result = game_object:is_immune()
 ---@since 1.0.0
+---@return any
+---@description TODO: Add description for game_object:is_immune()
+---@example local result = game_object:is_immune()
+---@since 1.0.0
 function game_object:is_immune() end
 
 ---@return boolean
@@ -209,6 +585,7 @@ function game_object:is_immune() end
 ---@return any
 ---@description TODO: Add description for game_object:is_vulnerable()
 ---@example local result = game_object:is_vulnerable()
+---@since 1.0.0
 ---@since 1.0.0
 function game_object:is_vulnerable() end
 
@@ -247,10 +624,15 @@ function game_object:is_interactable() end
 ---@description TODO: Add description for game_object:get_interact_spell_id()
 ---@example local result = game_object:get_interact_spell_id()
 ---@since 1.0.0
+---@since 1.0.0
 function game_object:get_interact_spell_id() end
 
 ---@return number
 ---@description Returns the base health of the [game object].
+---@return any
+---@description TODO: Add description for game_object:get_base_health()
+---@example local result = game_object:get_base_health()
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for game_object:get_base_health()
 ---@example local result = game_object:get_base_health()
@@ -263,10 +645,14 @@ function game_object:get_base_health() end
 ---@description TODO: Add description for game_object:get_bonus_health_modifier()
 ---@example local result = game_object:get_bonus_health_modifier()
 ---@since 1.0.0
+---@example local result = game_object:get_bonus_health_modifier()
+---@since 1.0.0
 function game_object:get_bonus_health_modifier() end
 
 ---@return number
 ---@description Retrieves the current health value of the [game object].
+---@example local result = game_object:get_current_health()
+---@since 1.0.0
 ---@example local result = game_object:get_current_health()
 ---@since 1.0.0
 function game_object:get_current_health() end
@@ -289,6 +675,8 @@ function game_object:get_base_attack_speed() end
 
 ---@return number
 ---@description Provides the bonus attack speed added to the [game object].
+---@example local result = game_object:get_bonus_attack_speed()
+---@since 1.0.0
 ---@example local result = game_object:get_bonus_attack_speed()
 ---@since 1.0.0
 function game_object:get_bonus_attack_speed() end
@@ -371,6 +759,7 @@ function game_object:get_health_potion_tier() end
 ---@description TODO: Add description for game_object:get_primary_resource_current()
 ---@example local result = game_object:get_primary_resource_current()
 ---@since 1.0.0
+---@since 1.0.0
 function game_object:get_primary_resource_current() end
 
 ---@return number
@@ -420,6 +809,10 @@ function game_object:is_enemy() end
 ---@description TODO: Add description for game_object:is_enemy_with(other)
 ---@example local result = game_object:is_enemy_with(other)
 ---@since 1.0.0
+---@return any
+---@description TODO: Add description for game_object:is_enemy_with(other)
+---@example local result = game_object:is_enemy_with(other)
+---@since 1.0.0
 function game_object:is_enemy_with(other) end
 
 ---@return number
@@ -428,12 +821,16 @@ function game_object:is_enemy_with(other) end
 ---@description TODO: Add description for game_object:get_debug_int()
 ---@example local result = game_object:get_debug_int()
 ---@since 1.0.0
+---@example local result = game_object:get_debug_int()
+---@since 1.0.0
 function game_object:get_debug_int() end
 
 ---@return number
 ---@description Retrieves a second debug integer value from the [game object].
 ---@return any
 ---@description TODO: Add description for game_object:get_debug_int_2()
+---@example local result = game_object:get_debug_int_2()
+---@since 1.0.0
 ---@example local result = game_object:get_debug_int_2()
 ---@since 1.0.0
 function game_object:get_debug_int_2() end
@@ -468,6 +865,7 @@ function game_object:get_item_count() end
 ---@description TODO: Add description for game_object:get_consumable_count()
 ---@example local result = game_object:get_consumable_count()
 ---@since 1.0.0
+---@since 1.0.0
 function game_object:get_consumable_count() end
 
 ---@return number
@@ -475,6 +873,7 @@ function game_object:get_consumable_count() end
 ---@return any
 ---@description TODO: Add description for game_object:get_quest_item_count()
 ---@example local result = game_object:get_quest_item_count()
+---@since 1.0.0
 ---@since 1.0.0
 function game_object:get_quest_item_count() end
 
@@ -493,12 +892,18 @@ function game_object:get_aspect_count() end
 ---@description TODO: Add description for game_object:get_item_ids_for_bag(bag_id)
 ---@example local result = game_object:get_item_ids_for_bag(bag_id)
 ---@since 1.0.0
+---@return any
+---@description TODO: Add description for game_object:get_item_ids_for_bag(bag_id)
+---@example local result = game_object:get_item_ids_for_bag(bag_id)
+---@since 1.0.0
 function game_object:get_item_ids_for_bag(bag_id) end
 
 ---@return number[]
 ---@description Retrieves a table of secondary IDs for items in the [game object]'s inventory.
 ---@return any
 ---@description TODO: Add description for game_object:get_inventory_item_secondary_ids()
+---@example local result = game_object:get_inventory_item_secondary_ids()
+---@since 1.0.0
 ---@example local result = game_object:get_inventory_item_secondary_ids()
 ---@since 1.0.0
 function game_object:get_inventory_item_secondary_ids() end
@@ -509,10 +914,18 @@ function game_object:get_inventory_item_secondary_ids() end
 ---@description TODO: Add description for game_object:get_consumables_ids()
 ---@example local result = game_object:get_consumables_ids()
 ---@since 1.0.0
+---@return any
+---@description TODO: Add description for game_object:get_consumables_ids()
+---@example local result = game_object:get_consumables_ids()
+---@since 1.0.0
 function game_object:get_consumables_ids() end
 
 ---@return string[]
 ---@description Retrieves a table of names for consumable items in the [game object]'s inventory.
+---@return any
+---@description TODO: Add description for game_object:get_consumables_names()
+---@example local result = game_object:get_consumables_names()
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for game_object:get_consumables_names()
 ---@example local result = game_object:get_consumables_names()
@@ -526,11 +939,19 @@ function game_object:get_consumables_names() end
 ---@description TODO: Add description for game_object:is_spell_ready(spell_id)
 ---@example local result = game_object:is_spell_ready(spell_id)
 ---@since 1.0.0
+---@return any
+---@description TODO: Add description for game_object:is_spell_ready(spell_id)
+---@example local result = game_object:is_spell_ready(spell_id)
+---@since 1.0.0
 function game_object:is_spell_ready(spell_id) end
 
 ---@param spell_id number
 ---@return boolean
 ---@description Determines if the [game object] has enough resources to cast a specified spell.
+---@return any
+---@description TODO: Add description for game_object:has_enough_resources_for_spell(spell_id)
+---@example local result = game_object:has_enough_resources_for_spell(spell_id)
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for game_object:has_enough_resources_for_spell(spell_id)
 ---@example local result = game_object:has_enough_resources_for_spell(spell_id)
@@ -543,10 +964,18 @@ function game_object:has_enough_resources_for_spell(spell_id) end
 ---@description TODO: Add description for game_object:get_equipped_items()
 ---@example local result = game_object:get_equipped_items()
 ---@since 1.0.0
+---@return any
+---@description TODO: Add description for game_object:get_equipped_items()
+---@example local result = game_object:get_equipped_items()
+---@since 1.0.0
 function game_object:get_equipped_items() end
 
 ---@return item_data[]
 ---@description Retrieves a table of `item_data` for items in the [game object]'s inventory.
+---@return any
+---@description TODO: Add description for game_object:get_inventory_items()
+---@example local result = game_object:get_inventory_items()
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for game_object:get_inventory_items()
 ---@example local result = game_object:get_inventory_items()
@@ -559,9 +988,17 @@ function game_object:get_inventory_items() end
 ---@description TODO: Add description for game_object:get_consumable_items()
 ---@example local result = game_object:get_consumable_items()
 ---@since 1.0.0
+---@return any
+---@description TODO: Add description for game_object:get_consumable_items()
+---@example local result = game_object:get_consumable_items()
+---@since 1.0.0
 function game_object:get_consumable_items() end
 
 ---@return item_data[]
+---@return any
+---@description TODO: Add description for game_object:get_stash_items()
+---@example local result = game_object:get_stash_items()
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for game_object:get_stash_items()
 ---@example local result = game_object:get_stash_items()
@@ -573,9 +1010,17 @@ function game_object:get_stash_items() end
 ---@description TODO: Add description for game_object:get_dungeon_key_items()
 ---@example local result = game_object:get_dungeon_key_items()
 ---@since 1.0.0
+---@return any
+---@description TODO: Add description for game_object:get_dungeon_key_items()
+---@example local result = game_object:get_dungeon_key_items()
+---@since 1.0.0
 function game_object:get_dungeon_key_items() end
 
 ---@return item_data[]
+---@return any
+---@description TODO: Add description for game_object:get_socketable_items()
+---@example local result = game_object:get_socketable_items()
+---@since 1.0.0
 ---@return any
 ---@description TODO: Add description for game_object:get_socketable_items()
 ---@example local result = game_object:get_socketable_items()

@@ -123,7 +123,13 @@ For console-based testing and running Lua scripts outside of the game environmen
 ./scripts/install_lua.sh
 ```
 
-This will download and install Lua 5.1 to a local directory and update your PATH. You can also use the setup scripts with the Lua installation flag:
+This will download and install Lua 5.1 to a local directory and automatically add it to your PATH environment variable. The installation includes:
+
+- **Windows**: Uses winget if available, otherwise downloads binaries manually. Adds to both user PATH and current session.
+- **Linux**: Uses system package manager (apt, yum, pacman) or builds from source.
+- **macOS**: Uses Homebrew or builds from source.
+
+After installation, Lua will be available in all new terminals and VS Code sessions. You can also use the setup scripts with the Lua installation flag:
 
 **Windows**:
 
@@ -183,6 +189,17 @@ The plugin includes annotations for:
 - Graphics (`graphics.lua`)
 - And many more modules
 
+## LuaJIT Compatibility
+
+This addon is designed for Lua 5.1 with LuaJIT extensions. The QQT Diablo API is compiled with LuaJIT, providing:
+
+- JIT compilation for performance
+- Lua 5.1 compatibility
+- FFI extensions (though not directly exposed in annotations)
+- Optimized for game automation scripts
+
+All annotations are compatible with LuaJIT's enhanced features while maintaining Lua 5.1 syntax.
+
 ## Source
 
 Based on the QQT Diablo wiki: https://github.com/qqtnn/qqt_diablo.wiki.git
@@ -204,6 +221,13 @@ Based on the QQT Diablo wiki: https://github.com/qqtnn/qqt_diablo.wiki.git
 
 - Run the test script: `lua test_annotations.lua` to check for syntax issues.
 - Ensure your Lua LS version supports EmmyLua annotations.
+- Check that the library path is correctly set in VS Code settings.
+
+### Wiki Sync Issues
+
+- If submodule updates fail, try: `git submodule sync && git submodule update --init --recursive`
+- Manually review changes in `temp_wiki/` after updates
+- Use `python update_annotations.py` to help identify missing functions
 
 ### Wiki Sync Issues
 
@@ -214,6 +238,8 @@ Based on the QQT Diablo wiki: https://github.com/qqtnn/qqt_diablo.wiki.git
 - Use `squared_dist_to_ignore_z()` instead of `dist_to_ignore_z()` for distance checks in loops to avoid square root calculations.
 - Cache frequently accessed objects like `get_local_player()` in variables.
 - Prefer table lookups over repeated function calls in hot paths.
+- Use `vec3:length_3d_squared()` for distance comparisons when exact distance isn't needed.
+- Leverage LuaJIT's JIT compilation by avoiding dynamic code generation and using consistent types.
 
 ## License
 

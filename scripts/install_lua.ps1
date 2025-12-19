@@ -85,6 +85,13 @@ try {
 
     # Add to PATH for current session
     $env:PATH = "$InstallPath;$env:PATH"
+    
+    # Add to user PATH permanently
+    $userPath = [Environment]::GetEnvironmentVariable("PATH", "User")
+    if ($userPath -notlike "*$InstallPath*") {
+        [Environment]::SetEnvironmentVariable("PATH", "$userPath;$InstallPath", "User")
+        Write-Host "Added Lua to your PATH. Restart your terminal for the changes to take effect." -ForegroundColor Yellow
+    }
 
     # Test installation
     $testResult = & lua -v 2>&1
@@ -93,13 +100,6 @@ try {
     } else {
         Write-Host "Warning: Lua installation may not be working correctly." -ForegroundColor Yellow
     }
-
-    Write-Host ""
-    Write-Host "To make Lua available in all VS Code terminals, add this to your PATH:" -ForegroundColor Cyan
-    Write-Host "$InstallPath" -ForegroundColor White
-    Write-Host ""
-    Write-Host "Or run this command in PowerShell:" -ForegroundColor Cyan
-    Write-Host "`$env:PATH = `"$InstallPath;`$env:PATH`"" -ForegroundColor White
 
 } catch {
     Write-Host "Error installing Lua: $($_.Exception.Message)" -ForegroundColor Red

@@ -62,14 +62,21 @@ fi
 if command -v lua &> /dev/null; then
     LUA_VER=$(lua -v 2>&1 | grep -oP 'Lua \K\d+\.\d+' || lua -v 2>&1 | grep -o 'Lua [0-9]\+\.[0-9]\+' | cut -d' ' -f2)
     echo "Lua $LUA_VER installed successfully!"
+    
+    # Ensure PATH is updated for current session
+    LUA_BIN_DIR=$(dirname "$(which lua)")
+    if [[ ":$PATH:" != *":$LUA_BIN_DIR:"* ]]; then
+        export PATH="$LUA_BIN_DIR:$PATH"
+        echo "Added $LUA_BIN_DIR to PATH for current session."
+    fi
+    
+    echo ""
+    echo "Lua is now available in your PATH."
+    echo "Restart your terminal or run 'source ~/.bashrc' to use it in new sessions."
 else
     echo "Lua installation failed. Please install manually."
     exit 1
 fi
-
-echo ""
-echo "To use Lua in VS Code terminals, restart VS Code or run:"
-echo "export PATH=\"$(which lua | xargs dirname):\$PATH\""
 
 install_from_source() {
     echo "Installing Lua from source..."

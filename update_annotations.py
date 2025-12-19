@@ -22,11 +22,18 @@ def update_submodule():
 
 def parse_markdown_function(line):
     """Parse a function signature from markdown."""
-    # Example: `get_player_position()` -> [`vec3`](...)
-    match = re.search(r'`(\w+)\(([^)]*)\)`\s*->\s*`?([^`\s]+)`?', line)
-    if match:
-        func_name, params, return_type = match.groups()
-        return func_name, params, return_type
+    # Support multiple patterns
+    patterns = [
+        r'`(\w+)\(([^)]*)\)`\s*->\s*`?([^`\s]+)`?',  # `func(params)` -> `type`
+        r'`(\w+)\(([^)]*)\)`\s*->\s*([^`\s]+)',      # `func(params)` -> type
+        r'(\w+)\(([^)]*)\)\s*->\s*([^`\s]+)',        # func(params) -> type
+    ]
+
+    for pattern in patterns:
+        match = re.search(pattern, line)
+        if match:
+            func_name, params, return_type = match.groups()
+            return func_name, params, return_type
     return None, None, None
 
 def generate_lua_annotation(func_name, params, return_type, description=""):
@@ -34,11 +41,19 @@ def generate_lua_annotation(func_name, params, return_type, description=""):
     # Convert types
     type_map = {
         'vec3': 'vec3',
+        'vec2': 'vec2',
         'game_object': 'game_object',
+        'gameobject': 'game_object',
         'number': 'number',
         'boolean': 'boolean',
+        'bool': 'boolean',
         'string': 'string',
-        'table': 'table'
+        'table': 'table',
+        'void': 'nil',
+        'nil': 'nil',
+        'integer': 'number',
+        'int': 'number',
+        'float': 'number',
     }
     lua_return = type_map.get(return_type, return_type)
 
@@ -85,7 +100,43 @@ def update_global_lua():
     print(f"Found {len(functions)} functions to potentially update")
     print("Manual review required for actual updates")
 
+def check_missing_functions():
+    """Check for functions in wiki that might be missing from library."""
+    wiki_file = "temp_wiki/Global-Functions.md"
+    lua_file = "library/global.lua"
+
+    if not os.path.exists(wiki_file) or not os.path.exists(lua_file):
+        print("Files not found")
+        return
+
+    # Extract functions from wiki
+    with open(wiki_file, 'r') as f:
+        content = f.read()
+
+    wiki_functions = set()
+    for line in content.split('\n'):
+        func_name, _, _ = parse_markdown_function(line)
+        if func_name:
+            wiki_functions.add(func_name)
+
+    # Extract functions from lua
+    with open(lua_file, 'r') as f:
+        lua_content = f.read()
+
+    lua_functions = set()
+    for line in lua_content.split('\n'):
+        if line.startswith('function ') and '(' in line:
+            func_name = line.split('(')[0].replace('function ', '').strip()
+            lua_functions.add(func_name)
+
+    missing = wiki_functions - lua_functions
+    if missing:
+        print(f"Potentially missing functions: {missing}")
+    else:
+        print("All wiki functions appear to be covered")
+
 if __name__ == "__main__":
     if update_submodule():
         update_global_lua()
+        check_missing_functions()
         print("Update process completed. Please review and test changes.")

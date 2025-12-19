@@ -1,4 +1,4 @@
-﻿{
+{
     "Lua.workspace.library":  [
                                   "./library",
                                   "C:\\Users\\Diobit27\\Documents\\GitHub\\Helltide\\QQTLuaLS\\library"
@@ -9,6 +9,9 @@
                                     "get_player_position",
                                     "actors_manager",
                                     "vec3",
-                                    "color_white"
+                                    "color_white",
+                                    "graphics",
+                                    "cast_spell",
+                                    "pathfinder"
                                 ]
 }

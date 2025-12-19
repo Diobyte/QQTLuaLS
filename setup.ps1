@@ -16,6 +16,7 @@ Write-Host "=========================" -ForegroundColor Cyan
 if ($InstallLua) {
     Write-Host "Installing Lua..." -ForegroundColor Yellow
     & ".\scripts\install_lua.ps1"
+    Write-Host "Lua installed and added to PATH." -ForegroundColor Green
     Write-Host ""
 }
 

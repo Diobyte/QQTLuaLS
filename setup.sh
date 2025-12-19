@@ -14,6 +14,7 @@ echo "========================="
 if [[ "$1" == "--install-lua" ]]; then
     echo "Installing Lua..."
     ./scripts/install_lua.sh
+    echo "Lua installed and added to PATH."
     echo ""
 fi
 

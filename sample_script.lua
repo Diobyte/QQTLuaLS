@@ -33,9 +33,15 @@ end
 
 -- Vector operations
 local target_pos = vec3.new(100, 0, 100)
-local direction = target_pos - player_pos -- Assuming vec3 supports subtraction
+local direction = target_pos - player_pos -- Vector subtraction now supported
 local normalized = direction:normalize()
 local extended = player_pos:get_extended(target_pos, 5.0)
+
+-- Vec2 operations
+local screen_pos = vec2.new(1920, 1080)
+local x_coord = screen_pos:x() -- Get x coordinate
+local y_coord = screen_pos:y() -- Get y coordinate
+local world_pos = screen_pos:screen_to_coordinate()
 
 -- Color usage
 local white = color_white(255)

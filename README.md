@@ -2,7 +2,7 @@
 
 This is a Lua Language Server (LuaLS) plugin that provides type annotations and IntelliSense support for the QQT Diablo API, used in Lua scripts for Diablo Immortal game automation.
 
-**Version 1.9.0** - Enhanced with improved examples, type safety, and automation tools.
+**Version 1.9.1** - Enhanced with improved examples, type safety, operator support, and automation tools.
 
 ## Features
 

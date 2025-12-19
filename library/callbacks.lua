@@ -2,7 +2,7 @@
 
 ---@see https://github.com/qqtnn/qqt_diablo.wiki.git/wiki/Callbacks
 
----@---@param callback function
+---@param callback function
 ---@return nil
 ---@description All graphics-related elements must be placed inside this callback.
 function on_render(callback) end

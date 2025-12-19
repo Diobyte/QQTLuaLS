@@ -72,37 +72,29 @@ end
 function cross(other)
 end
 
+@---@return vec3
 ---@return any
----@description TODO: Add description for vec3.new(x, y, z)
----@example local result = vec3.new(x, y, z)()
+---@description Creates a new vec3 instance with the specified coordinates.
+---@example local v = vec3.new(1, 2, 3)
 ---@since 1.0.0
 function vec3.new(x, y, z) end
 
 ---@return vec3
 ---@description Calculates and returns the rotation vector corresponding to the direction this vec3 is pointing.
----@description TODO: Add description for vec3:get_rotation()
----@example local result = vec3:get_rotation()
----@since 1.0.0
----@example local result = vec3:get_rotation()
+---@example local rotation = vec3:get_rotation()
 ---@since 1.0.0
 function vec3:get_rotation() end
 
 ---@return vec3
 ---@description Normalizes the rotation component of this vec3, useful in rotational calculations.
----@return any
----@description TODO: Add description for vec3:normalize_rotation()
----@example local result = vec3:normalize_rotation()
----@since 1.0.0
+---@example local normalized_rotation = vec3:normalize_rotation()
 ---@since 1.0.0
 function vec3:normalize_rotation() end
 
 ---@return vec3
 ---@description Normalizes this vec3, scaling it to a unit vector while maintaining direction.
 ---@example local unit = vec3.new(3, 4, 5):normalize() -- Length becomes 1.0
----@return any
----@description TODO: Add description for vec3:normalize()
----@example local result = vec3:normalize()
----@since 1.0.0
+
 ---@since 1.0.0
 function vec3:normalize() end
 

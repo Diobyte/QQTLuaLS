@@ -8,6 +8,34 @@ import json
 import subprocess
 from pathlib import Path
 
+# Type mapping for wiki to Lua types
+TYPE_MAP = {
+    'vec3': 'vec3',
+    'vec2': 'vec2',
+    'game_object': 'game_object',
+    'gameobject': 'game_object',
+    'number': 'number',
+    'boolean': 'boolean',
+    'bool': 'boolean',
+    'string': 'string',
+    'table': 'table',
+    'void': 'nil',
+    'nil': 'nil',
+    'integer': 'number',
+    'int': 'number',
+    'float': 'number',
+    'color': 'color',
+    'spell_data': 'spell_data',
+    'item_data': 'item_data',
+    'buff': 'buff',
+    'characterclass': 'CharacterClass',
+    'button_click': 'button_click',
+    'spell_geometry': 'spell_geometry',
+    'targeting_type': 'targeting_type',
+    'orb_mode': 'orb_mode',
+    'item_rarity': 'item_rarity',
+}
+
 def run_command(cmd):
     """Run a shell command and return output."""
     result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
@@ -55,6 +83,34 @@ def update_version_files(new_version):
     except Exception as e:
         print(f"Error updating plugin.json: {e}")
 
+# Type mapping for wiki to Lua types
+TYPE_MAP = {
+    'vec3': 'vec3',
+    'vec2': 'vec2',
+    'game_object': 'game_object',
+    'gameobject': 'game_object',
+    'number': 'number',
+    'boolean': 'boolean',
+    'bool': 'boolean',
+    'string': 'string',
+    'table': 'table',
+    'void': 'nil',
+    'nil': 'nil',
+    'integer': 'number',
+    'int': 'number',
+    'float': 'number',
+    'color': 'color',
+    'spell_data': 'spell_data',
+    'item_data': 'item_data',
+    'buff': 'buff',
+    'characterclass': 'CharacterClass',
+    'button_click': 'button_click',
+    'spell_geometry': 'spell_geometry',
+    'targeting_type': 'targeting_type',
+    'orb_mode': 'orb_mode',
+    'item_rarity': 'item_rarity',
+}
+
 def parse_markdown_function(line):
     """Parse a function signature from markdown."""
     # Support multiple patterns
@@ -67,35 +123,43 @@ def parse_markdown_function(line):
     for pattern in patterns:
         match = re.search(pattern, line)
         if match:
-            func_name, params, return_type = match.groups()
+            func_name, params_str, return_type = match.groups()
+            # Parse params into list
+            if params_str.strip():
+                params = [p.strip() for p in params_str.split(',')]
+            else:
+                params = []
             return func_name, params, return_type
     return None, None, None
 
 def generate_lua_annotation(func_name, params, return_type, description=""):
     """Generate Lua Emmy annotation."""
-    # Convert types
-    type_map = {
-        'vec3': 'vec3',
-        'vec2': 'vec2',
-        'game_object': 'game_object',
-        'gameobject': 'game_object',
-        'number': 'number',
-        'boolean': 'boolean',
-        'bool': 'boolean',
-        'string': 'string',
-        'table': 'table',
-        'void': 'nil',
-        'nil': 'nil',
-        'integer': 'number',
-        'int': 'number',
-        'float': 'number',
-    }
-    lua_return = type_map.get(return_type, return_type)
+    # params is now a list of param names
+    params_str = ', '.join(params) if params else ''
+    
+    lua_return = TYPE_MAP.get(return_type, return_type)
 
-    annotation = f"---@return {lua_return}\n"
+    annotation = ""
+    # Add @param for each parameter
+    for param in params:
+        # Try to infer type from param name or use any
+        param_type = 'any'  # Default
+        if 'id' in param.lower():
+            param_type = 'number'
+        elif 'name' in param.lower():
+            param_type = 'string'
+        elif 'pos' in param.lower() or 'position' in param.lower():
+            param_type = 'vec3'
+        elif 'count' in param.lower() or 'index' in param.lower():
+            param_type = 'number'
+        annotation += f"---@param {param} {param_type}\n"
+    
+    annotation += f"---@return {lua_return}\n"
     if description:
         annotation += f"---@description {description}\n"
-    annotation += f"function {func_name}({params})\nend\n"
+    annotation += f"---@example local result = {func_name}({params_str})\n"
+    annotation += f"---@since 1.0.0\n"
+    annotation += f"function {func_name}({params_str})\nend\n"
 
     return annotation
 
@@ -177,6 +241,8 @@ def update_library_file(wiki_file, lua_file):
             func_match = re.match(r'`([^\(\s]+)\(([^)]*)\)`', line)
             if func_match:
                 func_name, params = func_match.groups()
+                # Parse params into list
+                params = [p.strip() for p in params.split(',')] if params.strip() else []
                 desc = ""
                 return_type = "any"
                 # Look for description and return type in next lines
@@ -187,11 +253,20 @@ def update_library_file(wiki_file, lua_file):
                     elif lines[j].strip().startswith("- Returns:"):
                         return_part = lines[j].replace("- Returns:", "").strip()
                         # Extract type from "type" or "[`type`](link)" or "Table of type"
-                        type_match = re.search(r'`?([^`\s\[]+)`?', return_part)
-                        if type_match:
-                            return_type = type_match.group(1)
-                        if "Table" in return_part:
-                            return_type = "table"
+                        if "Table of" in return_part:
+                            # Extract the type after "Table of"
+                            table_type_match = re.search(r'Table of ([^\s]+)', return_part)
+                            if table_type_match:
+                                base_type = table_type_match.group(1).lower()
+                                type_map_lower = {k.lower(): v for k, v in TYPE_MAP.items()}
+                                lua_base_type = type_map_lower.get(base_type, base_type)
+                                return_type = f"{lua_base_type}[]"
+                            else:
+                                return_type = "table"
+                        else:
+                            type_match = re.search(r'`?([^`\s\[]+)`?', return_part)
+                            if type_match:
+                                return_type = type_match.group(1)
                     j += 1
                 functions.append((func_name, params, return_type, desc))
         elif line.strip().startswith('- `') and '->' in line:
@@ -225,15 +300,19 @@ def update_library_file(wiki_file, lua_file):
 
 def update_all_annotations():
     """Update all library files from wiki files."""
-    mapping = get_wiki_file_mapping()
-    updated_count = 0
+    try:
+        mapping = get_wiki_file_mapping()
+        updated_count = 0
 
-    for wiki_file, lua_file in mapping.items():
-        if update_library_file(wiki_file, lua_file):
-            updated_count += 1
+        for wiki_file, lua_file in mapping.items():
+            if update_library_file(wiki_file, lua_file):
+                updated_count += 1
 
-    print(f"Updated {updated_count} library files")
-    return updated_count > 0
+        print(f"Updated {updated_count} library files")
+        return updated_count > 0
+    except Exception as e:
+        print(f"Error in update_all_annotations: {e}")
+        return False
 
 def check_missing_functions():
     """Check for functions in wiki that might be missing from library."""

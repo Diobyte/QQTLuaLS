@@ -17,9 +17,7 @@ function utility.is_spell_ready(spell_id) end
 ---@return boolean
 ---@description Checks if a spell can be afforded based on current resources.
 ---@example if utility.is_spell_affordable(123) then print("Can afford") end
----@return any
----@description TODO: Add description for utility.is_spell_affordable(spell_id)
----@example local result = utility.is_spell_affordable(spell_id)()
+
 ---@since 1.0.0
 function utility.is_spell_affordable(spell_id) end
 
@@ -27,8 +25,7 @@ function utility.is_spell_affordable(spell_id) end
 ---@return boolean
 ---@description Evaluates both is_spell_ready and is_spell_affordable
 ---@example if utility.can_cast_spell(123) then cast_spell.self(123) end
----@description TODO: Add description for utility.can_cast_spell(spell_id)
----@example local result = utility.can_cast_spell(spell_id)()
+
 ---@since 1.0.0
 function utility.can_cast_spell(spell_id) end
 
@@ -37,9 +34,7 @@ function utility.can_cast_spell(spell_id) end
 ---@return game_object[]
 ---@description Retrieves a list of units within a specified circular area.
 ---@example local units = utility.get_units_inside_circle_list(my_position, 10.0)
----@return any
----@description TODO: Add description for utility.get_units_inside_circle_list(center, radius)
----@example local result = utility.get_units_inside_circle_list(center, radius)()
+
 ---@since 1.0.0
 function utility.get_units_inside_circle_list(center, radius) end
 
@@ -192,23 +187,23 @@ function utility.summon_boss_previous_recipe() end
 function utility.confirm_sigil_notification() end
 
 ---@return any
-function utility:utility.toggle_mount()
+function utility.toggle_mount()
 end
 
 ---@return any
-function utility:utility.summon_boss()
+function utility.summon_boss()
 end
 
 ---@return any
-function utility:utility.summon_boss_next_recipe()
+function utility.summon_boss_next_recipe()
 end
 
 ---@return any
-function utility:utility.summon_boss_previous_recipe()
+function utility.summon_boss_previous_recipe()
 end
 
 ---@return any
-function utility:utility.confirm_sigil_notification()
+function utility.confirm_sigil_notification()
 end
 
 ---@generic T
@@ -218,3 +213,39 @@ end
 ---@example local random_unit = utility.get_random_element(units)
 ---@since 1.9.7
 function utility.get_random_element(list) end
+-- LuaJIT Specific Extensions
+---@class bit
+---@field band fun(a: number, b: number): number Bitwise AND
+---@field bor fun(a: number, b: number): number Bitwise OR
+---@field bxor fun(a: number, b: number): number Bitwise XOR
+---@field bnot fun(a: number): number Bitwise NOT
+---@field lshift fun(a: number, n: number): number Left shift
+---@field rshift fun(a: number, n: number): number Right shift
+---@field arshift fun(a: number, n: number): number Arithmetic right shift
+---@field rol fun(a: number, n: number): number Rotate left
+---@field ror fun(a: number, n: number): number Rotate right
+---@field bswap fun(a: number): number Byte swap
+local bit = {}
+
+---@param a number
+---@param b number
+---@return number
+---@description Performs bitwise AND operation (LuaJIT extension).
+---@example local result = bit.band(0xFF, 0x0F) -- Returns 0x0F
+---@since 1.9.7
+function bit.band(a, b) end
+
+---@param a number
+---@param b number
+---@return number
+---@description Performs bitwise OR operation (LuaJIT extension).
+---@example local result = bit.bor(0xF0, 0x0F) -- Returns 0xFF
+---@since 1.9.7
+function bit.bor(a, b) end
+
+---@param value number
+---@return number
+---@description Performs bitwise NOT operation (LuaJIT extension).
+---@example local result = bit.bnot(0xFF) -- Returns -256
+---@since 1.9.7
+function bit.bnot(value) end

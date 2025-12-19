@@ -26,9 +26,9 @@ end
 function get_world_id()
 end
 
----@return any
----@description TODO: Add description for world:get_name()
----@example local result = world:get_name()
+---@return string
+---@description Returns the name of the world.
+---@example local name = world:get_name()
 ---@since 1.0.0
 function world:get_name() end
 

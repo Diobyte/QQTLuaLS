@@ -87,20 +87,16 @@ end
 function equals(other)
 end
 
----@return any
----@description TODO: Add description for vec2.new(x, y)
----@example local result = vec2.new(x, y)()
+---@return vec2
+---@description Creates a new vec2 instance with the specified coordinates.
+---@example local v = vec2.new(100, 200)
 ---@since 1.0.0
 function vec2.new(x, y) end
 
 ---@return number
 ---@description Returns the x-coordinate of the vector.
 ---@example local x = vec2.new(100, 200):x() -- Returns 100
----@return any
----@description TODO: Add description for vec2:x()
----@example local result = vec2:x()
----@since 1.0.0
----@example local result = vec2:x()
+
 ---@since 1.0.0
 function vec2:x() end
 

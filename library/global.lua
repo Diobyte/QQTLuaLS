@@ -71,34 +71,26 @@ function get_equipped_spell_ids() end
 ---@param spell_id number
 ---@return string
 ---@description Returns the name of the spell for the given spell ID.
----@return any
----@description TODO: Add description for get_name_for_spell(spell_id)
----@example local result = get_name_for_spell(spell_id)()
+---@example local result = get_name_for_spell(spell_id)
 ---@since 1.0.0
 function get_name_for_spell(spell_id) end
 
 ---@return boolean
 ---@description Return boolean of inventory open state.
----@return any
----@description TODO: Add description for is_inventory_open()
----@example local result = is_inventory_open()()
+---@example local result = is_inventory_open()
 ---@since 1.0.0
 function is_inventory_open() end
 
 ---@return number
 ---@description Returns a number indicating which inventory is open.
----@return any
----@description TODO: Add description for get_open_inventory_bag()
----@example local result = get_open_inventory_bag()()
+---@example local result = get_open_inventory_bag()
 ---@since 1.0.0
 function get_open_inventory_bag() end
 
 ---@param key number
 ---@return boolean
 ---@description Checks if the specified key is currently pressed down.
----@return any
----@description TODO: Add description for get_key_state(key)
----@example local result = get_key_state(key)()
+---@example local result = get_key_state(key)
 ---@since 1.0.0
 function get_key_state(key) end
 

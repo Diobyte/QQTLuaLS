@@ -19,7 +19,44 @@ local function test_file_syntax(filepath)
     return true
 end
 
-local function validate_annotations(filepath)
+local function test_integration()
+    -- Test that a sample script using the API can be loaded
+    print("\nTesting integration with sample API usage...")
+    
+    local test_script = [[
+-- Test script to validate API integration
+---@meta
+
+-- Test basic API calls (simulated)
+local player = get_local_player()
+local pos = player:get_position()
+local enemies = actors_manager.get_enemy_npcs()
+
+-- Test vector operations
+local target = vec3.new(100, 0, 100)
+local distance = pos:dist_to(target)
+
+-- Test bit operations (LuaJIT)
+local flags = bit.band(0xFF, 0x0F)
+
+print("Integration test completed successfully")
+]]
+
+    local chunk, err = load(test_script)
+    if not chunk then
+        print("ERROR in integration test: " .. err)
+        return false
+    end
+    
+    local success, err = pcall(chunk)
+    if not success then
+        print("ERROR executing integration test: " .. err)
+        return false
+    end
+    
+    print("✅ Integration test passed")
+    return true
+end
     -- Validate annotation completeness and format
     local issues = 0
 
@@ -170,6 +207,11 @@ end
 
 print("\n4. Sample Script Validation:")
 if not test_file_syntax("sample_script.lua") then
+    all_passed = false
+end
+
+print("\n5. API Integration Test:")
+if not test_integration() then
     all_passed = false
 end
 

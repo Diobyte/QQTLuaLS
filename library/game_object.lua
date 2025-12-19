@@ -34,7 +34,8 @@ function get_type_id()
 end
 
 
----@return vec3
+---@return vec3|nil
+---@expensive This function may be computationally intensive for distant objects
 function get_position()
 end
 

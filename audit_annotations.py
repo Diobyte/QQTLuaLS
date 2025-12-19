@@ -85,32 +85,28 @@ def fix_missing_annotations(file_path):
 
     while i < len(lines):
         line = lines[i]
-        new_lines.append(line)
 
         # If this is a function definition
         if line.startswith('function ') and line.endswith(' end'):
             func_name = line.replace('function ', '').replace(' end', '').strip()
 
-            # Look for existing annotations
-            j = len(new_lines) - 2  # Check the line before
-            has_return = False
-            has_description = False
-            has_example = False
-            has_since = False
-
-            while j >= 0 and (lines[j].startswith('---@') if j < len(lines) else False):
-                ann_line = lines[j]
-                if '@return' in ann_line:
-                    has_return = True
-                elif '@description' in ann_line:
-                    has_description = True
-                elif '@example' in ann_line:
-                    has_example = True
-                elif '@since' in ann_line:
-                    has_since = True
+            # Look backwards for existing annotations
+            annotations_start = i
+            j = i - 1
+            existing_annotations = []
+            while j >= 0 and (lines[j].startswith('---@') or lines[j].strip() == ''):
+                if lines[j].startswith('---@'):
+                    existing_annotations.insert(0, lines[j])
                 j -= 1
+            annotations_start = j + 1
 
-            # Add missing annotations
+            # Check what annotations exist
+            has_return = any('@return' in ann for ann in existing_annotations)
+            has_description = any('@description' in ann for ann in existing_annotations)
+            has_example = any('@example' in ann for ann in existing_annotations)
+            has_since = any('@since' in ann for ann in existing_annotations)
+
+            # Add missing annotations before the function
             insert_lines = []
             if not has_since:
                 insert_lines.append(f"---@since 1.0.0")
@@ -118,19 +114,31 @@ def fix_missing_annotations(file_path):
                 # Generate a basic example
                 if ':' in func_name:
                     # Method call
-                    obj_name = func_name.split(':')[0]
-                    insert_lines.append(f"---@example local result = {obj_name}:{func_name.split(':')[1]}")
+                    class_name = func_name.split(':')[0]
+                    method_name = func_name.split(':')[1]
+                    if '(' in method_name:
+                        method_name = method_name.split('(')[0]
+                    insert_lines.append(f"---@example local result = {class_name}:{method_name}()")
                 else:
                     # Global function
-                    insert_lines.append(f"---@example local result = {func_name}()")
+                    if '(' in func_name:
+                        func_base = func_name.split('(')[0]
+                    else:
+                        func_base = func_name
+                    insert_lines.append(f"---@example local result = {func_base}()")
             if not has_description:
                 insert_lines.append(f"---@description TODO: Add description for {func_name}")
             if not has_return:
                 insert_lines.append(f"---@return any")
 
-            # Insert in reverse order (since we're inserting before the function)
+            # Insert the annotations before the function
             for insert_line in reversed(insert_lines):
-                new_lines.insert(-1, insert_line)  # Insert before the function line
+                new_lines.insert(annotations_start, insert_line)
+
+            # Add the function line
+            new_lines.append(line)
+        else:
+            new_lines.append(line)
 
         i += 1
 
